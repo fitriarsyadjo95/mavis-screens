@@ -1,0 +1,520 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>MAVIS 2.0 — Audit Log</title>
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="icon" type="image/svg+xml" href="favicon.svg">
+  <script>(function(){var qp=new URLSearchParams(location.search).get("theme");var t=qp||localStorage.getItem("mavis-theme")||(window.matchMedia&&window.matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light");document.documentElement.setAttribute("data-theme",t);})();</script>
+</head>
+<body>
+
+<!-- NAVBAR -->
+<nav class="navbar">
+  <div class="navbar-brand">
+    <div class="logo-icon">
+      <svg viewBox="0 0 32 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M17 5 C 21 11, 24 17, 24 24 C 24 30, 21 35, 16 35 C 11 35, 7 31, 7 25 C 7 19, 11 14, 14 9 C 16 7, 17 5, 17 5 Z" fill="#1D1D1F"/>
+        <path d="M21 14 C 23.5 18, 25 22, 24.5 26.5 C 24 31, 21 34, 17 33 C 14 32, 12.5 29, 13 26 C 14 22, 17.5 17.5, 21 14 Z" fill="#3B5BDB"/>
+      </svg>
+    </div>
+    <h1>MAVIS <span>2.0</span></h1>
+  </div>
+  <div class="navbar-search">
+    <svg class="search-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+    <input type="text" placeholder="Search reports, equipment, inspectors...">
+  </div>
+  <div class="navbar-right">
+    <button class="icon-btn" data-toast="No new notifications">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
+      <span class="notification-badge"></span>
+    </button>
+    <div class="user-avatar" data-toast="Profile menu coming soon">HA</div>
+  </div>
+</nav>
+
+<!-- SIDEBAR -->
+<aside class="sidebar">
+  <div class="sidebar-section">
+    <div class="sidebar-section-title">Main Menu</div>
+    <ul class="sidebar-nav">
+      <li><a href="01-dashboard.html"><span class="nav-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg></span>Dashboard</a></li>
+      <li><a href="02-report-list.html"><span class="nav-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14,2 14,8 20,8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg></span>Reports</a></li>
+      <li><a href="10-ai-insights.html"><span class="nav-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z"/></svg></span>Insights<span class="ai-tag">AI</span></a></li>
+      <li><a href="08-equipment.html"><span class="nav-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 20h20"/><path d="M5 20V8l7-5 7 5v12"/><path d="M9 20v-6h6v6"/></svg></span>Equipment</a></li>
+      <li><a href="13-ut-tablet.html"><span class="nav-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="14" rx="2"/><line x1="2" y1="20" x2="22" y2="20"/><line x1="9" y1="20" x2="15" y2="20"/></svg></span>UT Tablet<span class="ai-tag" style="font-size:8px;background:rgba(0,0,0,0.04);color:var(--text-tertiary);border-color:transparent;">OPT</span></a></li>
+      <li><a href="09-users.html"><span class="nav-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></span>Users</a></li>
+    </ul>
+  </div>
+  <div class="sidebar-section">
+    <div class="sidebar-section-title">System</div>
+    <ul class="sidebar-nav">
+      <li><a href="11-audit-log.html" class="active"><span class="nav-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg></span>Audit Log</a></li>
+      <li><a href="14-integrations.html"><span class="nav-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/><line x1="13" y1="4" x2="11" y2="20"/></svg></span>Integrations</a></li>
+      <li><a href="12-support.html"><span class="nav-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg></span>Support</a></li>
+      <li><a href="#" class="disabled"><span class="nav-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg></span>Settings<span class="nav-badge">soon</span></a></li>
+    </ul>
+  </div>
+</aside>
+
+<!-- MAIN -->
+<main class="main-content">
+  <div class="page-header">
+    <div>
+      <h2>Audit Log</h2>
+      <p>Comprehensive activity trail across reports, approvals, and system events.</p>
+    </div>
+    <div class="action-row-right">
+      <button class="btn btn-ghost btn-sm" data-toast="Audit log exported (CSV)">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+        Export CSV
+      </button>
+    </div>
+  </div>
+
+  <!-- STAT ROW -->
+  <div class="stat-grid">
+    <div class="stat-card">
+      <div class="stat-icon primary">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+      </div>
+      <div>
+        <div class="stat-value">2,847</div>
+        <div class="stat-label">Total Actions</div>
+        <div class="stat-change up">+128 this week</div>
+      </div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-icon success">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+      </div>
+      <div>
+        <div class="stat-value">47</div>
+        <div class="stat-label">Active Today</div>
+        <div class="stat-change up">12 users active</div>
+      </div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-icon primary">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
+      </div>
+      <div>
+        <div class="stat-value">23</div>
+        <div class="stat-label">Approvals · Week</div>
+        <div class="stat-change up">3 pending review</div>
+      </div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-icon warning">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+      </div>
+      <div>
+        <div class="stat-value">98.4%</div>
+        <div class="stat-label">Audit Coverage</div>
+        <div class="stat-change up">SOX compliant</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <!-- FILTERS -->
+    <div class="filter-bar">
+      <select class="form-control">
+        <option>All Actions</option>
+        <option>Created</option>
+        <option>Submitted</option>
+        <option>Approved</option>
+        <option>Rejected</option>
+        <option>Edited</option>
+        <option>Exported</option>
+        <option>Login</option>
+      </select>
+      <select class="form-control">
+        <option>All Roles</option>
+        <option>Inspector</option>
+        <option>Reviewer</option>
+        <option>Approver</option>
+        <option>Admin</option>
+        <option>System</option>
+      </select>
+      <select class="form-control">
+        <option>All Users</option>
+        <option>Harri Ahmad</option>
+        <option>Afnan Hasbullah</option>
+        <option>Jasmine Loh</option>
+        <option>Mohd. Hairi</option>
+        <option>Wong Mei Ling</option>
+        <option>Siti Nurhaliza</option>
+        <option>Ravi Kumar</option>
+      </select>
+      <select class="form-control">
+        <option>Last 7 days</option>
+        <option>Today</option>
+        <option>Last 24 hours</option>
+        <option>Last 30 days</option>
+        <option>This quarter</option>
+      </select>
+      <div style="flex:1;min-width:220px;position:relative;">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="position:absolute;left:12px;top:50%;transform:translateY(-50%);color:var(--text-tertiary);"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+        <input type="text" class="form-control" placeholder="Search by action, target, or user..." style="padding-left:36px;">
+      </div>
+    </div>
+
+    <!-- TAG PILLS -->
+    <div class="tag-pills">
+      <span class="tag-pill active" data-tag="all">All</span>
+      <span class="tag-pill" data-tag="approval">Approvals</span>
+      <span class="tag-pill" data-tag="report">Reports</span>
+      <span class="tag-pill" data-tag="finding">Findings</span>
+      <span class="tag-pill" data-tag="export">Exports</span>
+      <span class="tag-pill" data-tag="system">System</span>
+    </div>
+
+    <!-- LOG -->
+    <div class="audit-log">
+
+      <div class="audit-day-label"><span>Today</span><time>14 Apr 2026</time></div>
+
+      <article class="audit-row">
+        <time class="audit-time">14:32</time>
+        <span class="audit-actor">
+          <span class="avatar-circle">HA</span>
+          <span>
+            <span class="audit-actor-name">Harri Ahmad</span>
+            <span class="badge badge-primary">Inspector</span>
+          </span>
+        </span>
+        <span class="audit-action"><strong>submitted</strong> for approval</span>
+        <a href="07-report-detail.html" class="audit-target"><span class="report-id">RF9030</span> · 7V-95543</a>
+        <span class="audit-detail">Routed to Mohd. Hairi</span>
+      </article>
+
+      <article class="audit-row">
+        <time class="audit-time">14:21</time>
+        <span class="audit-actor">
+          <span class="avatar-circle">HA</span>
+          <span>
+            <span class="audit-actor-name">Harri Ahmad</span>
+            <span class="badge badge-primary">Inspector</span>
+          </span>
+        </span>
+        <span class="audit-action"><strong>added</strong> finding #2</span>
+        <a href="07-report-detail.html" class="audit-target"><span class="report-id">RF9030</span></a>
+        <span class="audit-detail">Stencil faded · Cat 3 · Low</span>
+      </article>
+
+      <article class="audit-row">
+        <time class="audit-time">13:48</time>
+        <span class="audit-actor">
+          <span class="avatar-circle">HA</span>
+          <span>
+            <span class="audit-actor-name">Harri Ahmad</span>
+            <span class="badge badge-primary">Inspector</span>
+          </span>
+        </span>
+        <span class="audit-action"><strong>created</strong> report</span>
+        <a href="07-report-detail.html" class="audit-target"><span class="report-id">RF9030</span> · 7V-95543</a>
+        <span class="audit-detail">Visual Inspection · MLNG TIGA</span>
+      </article>
+
+      <article class="audit-row">
+        <time class="audit-time">11:05</time>
+        <span class="audit-actor">
+          <span class="avatar-circle solid">MH</span>
+          <span>
+            <span class="audit-actor-name">Mohd. Hairi</span>
+            <span class="badge badge-success">Approver</span>
+          </span>
+        </span>
+        <span class="audit-action"><strong>approved</strong></span>
+        <a href="07-report-detail.html" class="audit-target"><span class="report-id">RF9028</span></a>
+        <span class="audit-detail">"Findings reviewed and verified"</span>
+      </article>
+
+      <article class="audit-row">
+        <time class="audit-time">09:42</time>
+        <span class="audit-actor">
+          <span class="avatar-circle solid">SY</span>
+          <span>
+            <span class="audit-actor-name">System</span>
+            <span class="badge badge-gray">AI</span>
+          </span>
+        </span>
+        <span class="audit-action"><strong>generated</strong> insight</span>
+        <a href="10-ai-insights.html" class="audit-target">Module 7 corrosion hotspot</a>
+        <span class="audit-detail">12 reports · pattern detected</span>
+      </article>
+
+      <article class="audit-row">
+        <time class="audit-time">09:17</time>
+        <span class="audit-actor">
+          <span class="avatar-circle solid">SY</span>
+          <span>
+            <span class="audit-actor-name">System</span>
+            <span class="badge badge-gray">AI</span>
+          </span>
+        </span>
+        <span class="audit-action"><strong>completed</strong> daily AI scan</span>
+        <span class="audit-target">All reports</span>
+        <span class="audit-detail">3 patterns · 12 alerts · 5 trends</span>
+      </article>
+
+      <div class="audit-day-label"><span>Yesterday</span><time>13 Apr 2026</time></div>
+
+      <article class="audit-row">
+        <time class="audit-time">16:45</time>
+        <span class="audit-actor">
+          <span class="avatar-circle solid">MH</span>
+          <span>
+            <span class="audit-actor-name">Mohd. Hairi</span>
+            <span class="badge badge-success">Approver</span>
+          </span>
+        </span>
+        <span class="audit-action"><strong>approved</strong></span>
+        <a href="07-report-detail.html" class="audit-target"><span class="report-id">RF9029</span></a>
+        <span class="audit-detail">Routine approval</span>
+      </article>
+
+      <article class="audit-row">
+        <time class="audit-time">14:22</time>
+        <span class="audit-actor">
+          <span class="avatar-circle">JL</span>
+          <span>
+            <span class="audit-actor-name">Jasmine Loh</span>
+            <span class="badge badge-info">Reviewer</span>
+          </span>
+        </span>
+        <span class="audit-action"><strong>reviewed</strong></span>
+        <a href="07-report-detail.html" class="audit-target"><span class="report-id">RF9029</span></a>
+        <span class="audit-detail">Forwarded to Mohd. Hairi for approval</span>
+      </article>
+
+      <article class="audit-row">
+        <time class="audit-time">13:10</time>
+        <span class="audit-actor">
+          <span class="avatar-circle">HA</span>
+          <span>
+            <span class="audit-actor-name">Harri Ahmad</span>
+            <span class="badge badge-primary">Inspector</span>
+          </span>
+        </span>
+        <span class="audit-action"><strong>submitted</strong></span>
+        <a href="07-report-detail.html" class="audit-target"><span class="report-id">RF9029</span></a>
+        <span class="audit-detail">Routed to Jasmine Loh</span>
+      </article>
+
+      <article class="audit-row">
+        <time class="audit-time">10:08</time>
+        <span class="audit-actor">
+          <span class="avatar-circle">AH</span>
+          <span>
+            <span class="audit-actor-name">Afnan Hasbullah</span>
+            <span class="badge badge-primary">Inspector</span>
+          </span>
+        </span>
+        <span class="audit-action"><strong>exported</strong> as PDF</span>
+        <a href="07-report-detail.html" class="audit-target"><span class="report-id">RF9028</span></a>
+        <span class="audit-detail">3 pages · 2.4 MB</span>
+      </article>
+
+      <div class="audit-day-label"><span>2 days ago</span><time>12 Apr 2026</time></div>
+
+      <article class="audit-row">
+        <time class="audit-time">16:18</time>
+        <span class="audit-actor">
+          <span class="avatar-circle">AH</span>
+          <span>
+            <span class="audit-actor-name">Afnan Hasbullah</span>
+            <span class="badge badge-primary">Inspector</span>
+          </span>
+        </span>
+        <span class="audit-action"><strong>submitted</strong></span>
+        <a href="07-report-detail.html" class="audit-target"><span class="report-id">RF9028</span> · E-4642-ACI1</a>
+        <span class="audit-detail">Routed to Mohd. Hairi</span>
+      </article>
+
+      <article class="audit-row">
+        <time class="audit-time">15:47</time>
+        <span class="audit-actor">
+          <span class="avatar-circle">AH</span>
+          <span>
+            <span class="audit-actor-name">Afnan Hasbullah</span>
+            <span class="badge badge-primary">Inspector</span>
+          </span>
+        </span>
+        <span class="audit-action"><strong>added</strong> finding #2 · Channel Box</span>
+        <a href="07-report-detail.html" class="audit-target"><span class="report-id">RF9028</span></a>
+        <span class="audit-detail">Cat 3 · Low priority</span>
+      </article>
+
+      <article class="audit-row">
+        <time class="audit-time">15:12</time>
+        <span class="audit-actor">
+          <span class="avatar-circle">AH</span>
+          <span>
+            <span class="audit-actor-name">Afnan Hasbullah</span>
+            <span class="badge badge-primary">Inspector</span>
+          </span>
+        </span>
+        <span class="audit-action"><strong>added</strong> finding #1 · Shell</span>
+        <a href="07-report-detail.html" class="audit-target"><span class="report-id">RF9028</span></a>
+        <span class="audit-detail">Cat 2 · Atmospheric corrosion</span>
+      </article>
+
+      <article class="audit-row">
+        <time class="audit-time">14:05</time>
+        <span class="audit-actor">
+          <span class="avatar-circle">AH</span>
+          <span>
+            <span class="audit-actor-name">Afnan Hasbullah</span>
+            <span class="badge badge-primary">Inspector</span>
+          </span>
+        </span>
+        <span class="audit-action"><strong>created</strong> report</span>
+        <a href="07-report-detail.html" class="audit-target"><span class="report-id">RF9028</span> · E-4642-ACI1</a>
+        <span class="audit-detail">Heat Exchanger — Annual Inspection</span>
+      </article>
+
+      <article class="audit-row">
+        <time class="audit-time">11:33</time>
+        <span class="audit-actor">
+          <span class="avatar-circle solid">FM</span>
+          <span>
+            <span class="audit-actor-name">Faridah M.</span>
+            <span class="badge badge-gray">Admin</span>
+          </span>
+        </span>
+        <span class="audit-action"><strong>activated</strong> user</span>
+        <a href="09-users.html" class="audit-target">Tan Chee Wei</a>
+        <span class="audit-detail">Inspector role · MLNG TIGA</span>
+      </article>
+
+      <div class="audit-day-label"><span>Earlier this week</span><time>11 Apr 2026</time></div>
+
+      <article class="audit-row">
+        <time class="audit-time">17:22</time>
+        <span class="audit-actor">
+          <span class="avatar-circle">JL</span>
+          <span>
+            <span class="audit-actor-name">Jasmine Loh</span>
+            <span class="badge badge-info">Reviewer</span>
+          </span>
+        </span>
+        <span class="audit-action"><strong>created</strong> draft</span>
+        <a href="07-report-detail.html" class="audit-target"><span class="report-id">RF9027</span> · E-4652-ACI1</a>
+        <span class="audit-detail">UT Report — Corrosion Follow-Up</span>
+      </article>
+
+      <article class="audit-row">
+        <time class="audit-time">14:50</time>
+        <span class="audit-actor">
+          <span class="avatar-circle">RK</span>
+          <span>
+            <span class="audit-actor-name">Ravi Kumar</span>
+            <span class="badge badge-info">Reviewer</span>
+          </span>
+        </span>
+        <span class="audit-action"><strong>requested changes</strong> on</span>
+        <a href="07-report-detail.html" class="audit-target"><span class="report-id">RF9023</span></a>
+        <span class="audit-detail">Photos require re-annotation</span>
+      </article>
+
+      <article class="audit-row">
+        <time class="audit-time">10:41</time>
+        <span class="audit-actor">
+          <span class="avatar-circle">SN</span>
+          <span>
+            <span class="audit-actor-name">Siti Nurhaliza</span>
+            <span class="badge badge-primary">Inspector</span>
+          </span>
+        </span>
+        <span class="audit-action"><strong>edited</strong></span>
+        <a href="07-report-detail.html" class="audit-target"><span class="report-id">RF9023</span></a>
+        <span class="audit-detail">Updated UT thickness readings</span>
+      </article>
+
+      <article class="audit-row">
+        <time class="audit-time">09:15</time>
+        <span class="audit-actor">
+          <span class="avatar-circle solid">WL</span>
+          <span>
+            <span class="audit-actor-name">Wong Mei Ling</span>
+            <span class="badge badge-success">Approver</span>
+          </span>
+        </span>
+        <span class="audit-action"><strong>approved</strong></span>
+        <a href="07-report-detail.html" class="audit-target"><span class="report-id">RF9026</span></a>
+        <span class="audit-detail">Major inspection complete</span>
+      </article>
+
+      <div class="audit-day-label"><span>10 Apr 2026</span><time>4 days ago</time></div>
+
+      <article class="audit-row">
+        <time class="audit-time">15:33</time>
+        <span class="audit-actor">
+          <span class="avatar-circle">HA</span>
+          <span>
+            <span class="audit-actor-name">Harri Ahmad</span>
+            <span class="badge badge-primary">Inspector</span>
+          </span>
+        </span>
+        <span class="audit-action"><strong>submitted</strong></span>
+        <a href="07-report-detail.html" class="audit-target"><span class="report-id">RF9026</span> · E-4642-ACI1</a>
+        <span class="audit-detail">Major Inspection — Heat Exchanger</span>
+      </article>
+
+      <article class="audit-row">
+        <time class="audit-time">13:08</time>
+        <span class="audit-actor">
+          <span class="avatar-circle solid">SY</span>
+          <span>
+            <span class="audit-actor-name">System</span>
+            <span class="badge badge-gray">AI</span>
+          </span>
+        </span>
+        <span class="audit-action"><strong>flagged</strong></span>
+        <a href="10-ai-insights.html" class="audit-target">duplicate findings detected</a>
+        <span class="audit-detail">RF9028, RF9026, RF9019, RF9015</span>
+      </article>
+
+      <article class="audit-row">
+        <time class="audit-time">11:12</time>
+        <span class="audit-actor">
+          <span class="avatar-circle">AB</span>
+          <span>
+            <span class="audit-actor-name">Aiman Bakar</span>
+            <span class="badge badge-primary">Inspector</span>
+          </span>
+        </span>
+        <span class="audit-action"><strong>uploaded</strong> 8 photos</span>
+        <a href="07-report-detail.html" class="audit-target"><span class="report-id">RF9024</span></a>
+        <span class="audit-detail">Total: 24 MB</span>
+      </article>
+
+      <article class="audit-row">
+        <time class="audit-time">08:50</time>
+        <span class="audit-actor">
+          <span class="avatar-circle solid">FM</span>
+          <span>
+            <span class="audit-actor-name">Faridah M.</span>
+            <span class="badge badge-gray">Admin</span>
+          </span>
+        </span>
+        <span class="audit-action"><strong>registered</strong> equipment</span>
+        <a href="08-equipment.html" class="audit-target"><span class="tag-id">7E-95210</span></a>
+        <span class="audit-detail">BOG Compressor Aftercooler · MLNG TIGA</span>
+      </article>
+
+    </div>
+
+    <!-- LOAD MORE -->
+    <div style="text-align:center;padding-top:18px;">
+      <button class="btn btn-ghost" data-toast="Loaded 25 more entries">Load earlier entries</button>
+    </div>
+  </div>
+</main>
+
+<script defer src="js/app.js"></script>
+</body>
+</html>

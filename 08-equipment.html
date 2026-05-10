@@ -1,0 +1,438 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>MAVIS 2.0 — Equipment Registry</title>
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="icon" type="image/svg+xml" href="favicon.svg">
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" crossorigin="">
+  <script>(function(){var qp=new URLSearchParams(location.search).get("theme");var t=qp||localStorage.getItem("mavis-theme")||(window.matchMedia&&window.matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light");document.documentElement.setAttribute("data-theme",t);})();</script>
+</head>
+<body>
+
+<!-- NAVBAR -->
+<nav class="navbar">
+  <div class="navbar-brand">
+    <div class="logo-icon">
+      <svg viewBox="0 0 32 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M17 5 C 21 11, 24 17, 24 24 C 24 30, 21 35, 16 35 C 11 35, 7 31, 7 25 C 7 19, 11 14, 14 9 C 16 7, 17 5, 17 5 Z" fill="#1D1D1F"/>
+        <path d="M21 14 C 23.5 18, 25 22, 24.5 26.5 C 24 31, 21 34, 17 33 C 14 32, 12.5 29, 13 26 C 14 22, 17.5 17.5, 21 14 Z" fill="#3B5BDB"/>
+      </svg>
+    </div>
+    <h1>MAVIS <span>2.0</span></h1>
+  </div>
+  <div class="navbar-search">
+    <svg class="search-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+    <input type="text" placeholder="Search reports, equipment, inspectors...">
+  </div>
+  <div class="navbar-right">
+    <button class="icon-btn" data-toast="No new notifications">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
+      <span class="notification-badge"></span>
+    </button>
+    <div class="user-avatar" data-toast="Profile menu coming soon">HA</div>
+  </div>
+</nav>
+
+<!-- SIDEBAR -->
+<aside class="sidebar">
+  <div class="sidebar-section">
+    <div class="sidebar-section-title">Main Menu</div>
+    <ul class="sidebar-nav">
+      <li><a href="01-dashboard.html"><span class="nav-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg></span>Dashboard</a></li>
+      <li><a href="02-report-list.html"><span class="nav-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14,2 14,8 20,8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg></span>Reports</a></li>
+      <li><a href="10-ai-insights.html"><span class="nav-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z"/></svg></span>Insights<span class="ai-tag">AI</span></a></li>
+      <li><a href="08-equipment.html" class="active"><span class="nav-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 20h20"/><path d="M5 20V8l7-5 7 5v12"/><path d="M9 20v-6h6v6"/></svg></span>Equipment</a></li>
+      <li><a href="13-ut-tablet.html"><span class="nav-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="14" rx="2"/><line x1="2" y1="20" x2="22" y2="20"/><line x1="9" y1="20" x2="15" y2="20"/></svg></span>UT Tablet<span class="ai-tag" style="font-size:8px;background:rgba(0,0,0,0.04);color:var(--text-tertiary);border-color:transparent;">OPT</span></a></li>
+      <li><a href="09-users.html"><span class="nav-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></span>Users</a></li>
+    </ul>
+  </div>
+  <div class="sidebar-section">
+    <div class="sidebar-section-title">System</div>
+    <ul class="sidebar-nav">
+      <li><a href="11-audit-log.html"><span class="nav-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg></span>Audit Log</a></li>
+      <li><a href="14-integrations.html"><span class="nav-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/><line x1="13" y1="4" x2="11" y2="20"/></svg></span>Integrations</a></li>
+      <li><a href="12-support.html"><span class="nav-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg></span>Support</a></li>
+      <li><a href="#" class="disabled"><span class="nav-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg></span>Settings<span class="nav-badge">soon</span></a></li>
+    </ul>
+  </div>
+</aside>
+
+<!-- MAIN CONTENT -->
+<main class="main-content">
+  <div class="page-header">
+    <div>
+      <h2>Equipment Registry</h2>
+      <p>Master record of inspectable assets across all MLNG plants.</p>
+    </div>
+    <button class="btn btn-primary" data-toast="Equipment registration coming soon">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+      Register Equipment
+    </button>
+  </div>
+
+  <!-- STAT CARDS -->
+  <div class="stat-grid">
+    <div class="stat-card">
+      <div class="stat-icon primary">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 20h20"/><path d="M5 20V8l7-5 7 5v12"/><path d="M9 20v-6h6v6"/></svg>
+      </div>
+      <div>
+        <div class="stat-value">1,847</div>
+        <div class="stat-label">Total Equipment</div>
+        <div class="stat-change up">+24 added this quarter</div>
+      </div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-icon warning">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+      </div>
+      <div>
+        <div class="stat-value">23</div>
+        <div class="stat-label">Due for Inspection</div>
+        <div class="stat-change down">Next 30 days</div>
+      </div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-icon danger">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+      </div>
+      <div>
+        <div class="stat-value">5</div>
+        <div class="stat-label">Overdue</div>
+        <div class="stat-change down">Action required</div>
+      </div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-icon success">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+      </div>
+      <div>
+        <div class="stat-value">89</div>
+        <div class="stat-label">Recently Inspected</div>
+        <div class="stat-change up">Last 30 days</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <!-- VIEW TABS -->
+    <div class="view-tabs">
+      <button class="view-tab active" data-view-tab="map">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="1 6 1 22 8 18 16 22 23 18 23 2 16 6 8 2 1 6"/><line x1="8" y1="2" x2="8" y2="18"/><line x1="16" y1="6" x2="16" y2="22"/></svg>
+        Map
+      </button>
+      <button class="view-tab" data-view-tab="table">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/></svg>
+        Table
+      </button>
+    </div>
+
+    <!-- FILTERS -->
+    <div class="filter-bar">
+      <select class="form-control">
+        <option>All Types</option>
+        <option>Unfired Pressure Vessel</option>
+        <option>Heat Exchanger</option>
+        <option>Air Cooled Exchanger</option>
+        <option>Piping</option>
+        <option>Storage Tank</option>
+      </select>
+      <select class="form-control">
+        <option>All Plants</option>
+        <option>MLNG</option>
+        <option>MLNG TIGA</option>
+        <option>MLNG DUA</option>
+        <option>RI5</option>
+      </select>
+      <select class="form-control">
+        <option>All Systems</option>
+        <option>95500</option>
+        <option>4600</option>
+        <option>1000</option>
+        <option>4800</option>
+      </select>
+      <select class="form-control">
+        <option>All Status</option>
+        <option>Current</option>
+        <option>Due Soon</option>
+        <option>Overdue</option>
+      </select>
+      <div style="flex:1;min-width:220px;position:relative;">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="position:absolute;left:12px;top:50%;transform:translateY(-50%);color:var(--text-tertiary);"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+        <input type="text" class="form-control" placeholder="Search equipment, tag, area..." style="padding-left:36px;">
+      </div>
+    </div>
+
+    <!-- TAG PILLS -->
+    <div class="tag-pills">
+      <span class="tag-pill active" data-tag="all">All</span>
+      <span class="tag-pill" data-tag="pressure vessel">Pressure Vessels</span>
+      <span class="tag-pill" data-tag="heat exchanger">Heat Exchangers</span>
+      <span class="tag-pill" data-tag="air cooled">Air Cooled</span>
+      <span class="tag-pill" data-tag="piping">Piping</span>
+      <span class="tag-pill" data-tag="storage tank">Storage Tanks</span>
+    </div>
+
+    <!-- MAP PANE -->
+    <div class="view-pane" data-view-pane="map">
+      <div id="equipment-map" class="equipment-map">
+        <div class="map-info-panel">MLNG · Tanjung Kidurong · <strong>12 equipment</strong> · Bintulu, Sarawak</div>
+        <div class="map-legend">
+          <div class="map-legend-item" style="color:#34C759"><span class="map-legend-dot"></span>Current</div>
+          <div class="map-legend-item" style="color:#FF9500"><span class="map-legend-dot"></span>Due Soon</div>
+          <div class="map-legend-item" style="color:#FF3B30"><span class="map-legend-dot"></span>Overdue</div>
+          <div class="map-legend-item" style="color:#007AFF"><span class="map-legend-dot"></span>Just Inspected</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- TABLE PANE -->
+    <div class="view-pane hidden" data-view-pane="table">
+    <!-- TABLE -->
+    <div class="table-wrapper">
+      <table>
+        <thead>
+          <tr>
+            <th>Equipment ID</th>
+            <th>Description</th>
+            <th>Type</th>
+            <th>Plant</th>
+            <th>System</th>
+            <th>Components</th>
+            <th>Last Inspection</th>
+            <th>Status</th>
+            <th style="text-align:center">Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr class="row-clickable" onclick="window.location='02-report-list.html?status=approved'">
+            <td><span class="tag-id">7V-95543</span></td>
+            <td>Secured Air Supply Vessel</td>
+            <td>Unfired Pressure Vessel</td>
+            <td>MLNG TIGA</td>
+            <td>95500</td>
+            <td class="num-cell">3</td>
+            <td>14 Apr 2026</td>
+            <td><span class="badge badge-success"><span class="badge-dot"></span>Just Inspected</span></td>
+            <td style="text-align:center">
+              <div style="display:flex;gap:4px;justify-content:center;">
+                <a class="btn-icon" href="02-report-list.html" title="View reports" onclick="event.stopPropagation()"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg></a>
+                <button class="btn-icon" title="Edit" data-toast="Edit equipment coming soon" onclick="event.stopPropagation()"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg></button>
+                <button class="btn-icon" title="Schedule inspection" data-toast="Inspection scheduled" onclick="event.stopPropagation()"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg></button>
+              </div>
+            </td>
+          </tr>
+          <tr class="row-clickable" onclick="window.location='02-report-list.html'">
+            <td><span class="tag-id">E-4642-ACI1</span></td>
+            <td>Heat Exchanger — Lube Oil Cooler</td>
+            <td>Heat Exchanger</td>
+            <td>MLNG</td>
+            <td>4600</td>
+            <td class="num-cell">3</td>
+            <td>12 Apr 2026</td>
+            <td><span class="badge badge-success"><span class="badge-dot"></span>Current</span></td>
+            <td style="text-align:center">
+              <div style="display:flex;gap:4px;justify-content:center;">
+                <a class="btn-icon" href="02-report-list.html" title="View reports" onclick="event.stopPropagation()"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg></a>
+                <button class="btn-icon" title="Edit" data-toast="Edit equipment coming soon" onclick="event.stopPropagation()"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg></button>
+                <button class="btn-icon" title="Schedule inspection" data-toast="Inspection scheduled" onclick="event.stopPropagation()"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg></button>
+              </div>
+            </td>
+          </tr>
+          <tr class="row-clickable" onclick="window.location='02-report-list.html'">
+            <td><span class="tag-id">E-4652-ACI1</span></td>
+            <td>Heat Exchanger — Coolant Loop</td>
+            <td>Heat Exchanger</td>
+            <td>MLNG</td>
+            <td>4600</td>
+            <td class="num-cell">3</td>
+            <td>09 Apr 2026</td>
+            <td><span class="badge badge-warning"><span class="badge-dot"></span>Due Soon</span></td>
+            <td style="text-align:center">
+              <div style="display:flex;gap:4px;justify-content:center;">
+                <a class="btn-icon" href="02-report-list.html" title="View reports" onclick="event.stopPropagation()"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg></a>
+                <button class="btn-icon" title="Edit" data-toast="Edit equipment coming soon" onclick="event.stopPropagation()"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg></button>
+                <button class="btn-icon" title="Schedule inspection" data-toast="Inspection scheduled" onclick="event.stopPropagation()"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg></button>
+              </div>
+            </td>
+          </tr>
+          <tr class="row-clickable" onclick="window.location='02-report-list.html'">
+            <td><span class="tag-id">E-1051B-AR1</span></td>
+            <td>Unfired Pressure Vessel — Receiver</td>
+            <td>Pressure Vessel</td>
+            <td>MLNG TIGA</td>
+            <td>1000</td>
+            <td class="num-cell">2</td>
+            <td>08 Apr 2026</td>
+            <td><span class="badge badge-success"><span class="badge-dot"></span>Current</span></td>
+            <td style="text-align:center">
+              <div style="display:flex;gap:4px;justify-content:center;">
+                <a class="btn-icon" href="02-report-list.html" title="View reports" onclick="event.stopPropagation()"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg></a>
+                <button class="btn-icon" title="Edit" data-toast="Edit equipment coming soon" onclick="event.stopPropagation()"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg></button>
+                <button class="btn-icon" title="Schedule inspection" data-toast="Inspection scheduled" onclick="event.stopPropagation()"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg></button>
+              </div>
+            </td>
+          </tr>
+          <tr class="row-clickable" onclick="window.location='02-report-list.html'">
+            <td><span class="tag-id">E-1053B-II-ACI1</span></td>
+            <td>Air Cooled Exchanger — Fin Bank</td>
+            <td>Air Cooled Exchanger</td>
+            <td>MLNG TIGA</td>
+            <td>1000</td>
+            <td class="num-cell">4</td>
+            <td>07 Apr 2026</td>
+            <td><span class="badge badge-warning"><span class="badge-dot"></span>Due Soon</span></td>
+            <td style="text-align:center">
+              <div style="display:flex;gap:4px;justify-content:center;">
+                <a class="btn-icon" href="02-report-list.html" title="View reports" onclick="event.stopPropagation()"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg></a>
+                <button class="btn-icon" title="Edit" data-toast="Edit equipment coming soon" onclick="event.stopPropagation()"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg></button>
+                <button class="btn-icon" title="Schedule inspection" data-toast="Inspection scheduled" onclick="event.stopPropagation()"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg></button>
+              </div>
+            </td>
+          </tr>
+          <tr class="row-clickable" onclick="window.location='02-report-list.html'">
+            <td><span class="tag-id">6"-G48005-NGB1</span></td>
+            <td>Piping — Natural Gas Boil-off</td>
+            <td>Piping</td>
+            <td>MLNG</td>
+            <td>4800</td>
+            <td class="num-cell">1</td>
+            <td>05 Apr 2026</td>
+            <td><span class="badge badge-success"><span class="badge-dot"></span>Current</span></td>
+            <td style="text-align:center">
+              <div style="display:flex;gap:4px;justify-content:center;">
+                <a class="btn-icon" href="02-report-list.html" title="View reports" onclick="event.stopPropagation()"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg></a>
+                <button class="btn-icon" title="Edit" data-toast="Edit equipment coming soon" onclick="event.stopPropagation()"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg></button>
+                <button class="btn-icon" title="Schedule inspection" data-toast="Inspection scheduled" onclick="event.stopPropagation()"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg></button>
+              </div>
+            </td>
+          </tr>
+          <tr class="row-clickable" onclick="window.location='02-report-list.html'">
+            <td><span class="tag-id">LNG-TANK-3105</span></td>
+            <td>LNG Storage Tank — Common Rundown 3</td>
+            <td>Storage Tank</td>
+            <td>MLNG TIGA</td>
+            <td>3100</td>
+            <td class="num-cell">6</td>
+            <td>02 Apr 2026</td>
+            <td><span class="badge badge-success"><span class="badge-dot"></span>Current</span></td>
+            <td style="text-align:center">
+              <div style="display:flex;gap:4px;justify-content:center;">
+                <a class="btn-icon" href="02-report-list.html" title="View reports" onclick="event.stopPropagation()"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg></a>
+                <button class="btn-icon" title="Edit" data-toast="Edit equipment coming soon" onclick="event.stopPropagation()"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg></button>
+                <button class="btn-icon" title="Schedule inspection" data-toast="Inspection scheduled" onclick="event.stopPropagation()"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg></button>
+              </div>
+            </td>
+          </tr>
+          <tr class="row-clickable" onclick="window.location='02-report-list.html'">
+            <td><span class="tag-id">7E-95210</span></td>
+            <td>BOG Compressor Aftercooler</td>
+            <td>Heat Exchanger</td>
+            <td>MLNG TIGA</td>
+            <td>95200</td>
+            <td class="num-cell">3</td>
+            <td>28 Mar 2026</td>
+            <td><span class="badge badge-success"><span class="badge-dot"></span>Current</span></td>
+            <td style="text-align:center">
+              <div style="display:flex;gap:4px;justify-content:center;">
+                <a class="btn-icon" href="02-report-list.html" title="View reports" onclick="event.stopPropagation()"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg></a>
+                <button class="btn-icon" title="Edit" data-toast="Edit equipment coming soon" onclick="event.stopPropagation()"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg></button>
+                <button class="btn-icon" title="Schedule inspection" data-toast="Inspection scheduled" onclick="event.stopPropagation()"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg></button>
+              </div>
+            </td>
+          </tr>
+          <tr class="row-clickable" onclick="window.location='02-report-list.html'">
+            <td><span class="tag-id">8V-32109</span></td>
+            <td>Knock-Out Drum — Inlet Separator</td>
+            <td>Unfired Pressure Vessel</td>
+            <td>MLNG DUA</td>
+            <td>3200</td>
+            <td class="num-cell">3</td>
+            <td>22 Mar 2026</td>
+            <td><span class="badge badge-warning"><span class="badge-dot"></span>Due Soon</span></td>
+            <td style="text-align:center">
+              <div style="display:flex;gap:4px;justify-content:center;">
+                <a class="btn-icon" href="02-report-list.html" title="View reports" onclick="event.stopPropagation()"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg></a>
+                <button class="btn-icon" title="Edit" data-toast="Edit equipment coming soon" onclick="event.stopPropagation()"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg></button>
+                <button class="btn-icon" title="Schedule inspection" data-toast="Inspection scheduled" onclick="event.stopPropagation()"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg></button>
+              </div>
+            </td>
+          </tr>
+          <tr class="row-clickable" onclick="window.location='02-report-list.html'">
+            <td><span class="tag-id">10"-B12420-CAB2</span></td>
+            <td>Piping — Cold Acid Gas Bypass</td>
+            <td>Piping</td>
+            <td>MLNG TIGA</td>
+            <td>1200</td>
+            <td class="num-cell">1</td>
+            <td>15 Mar 2026</td>
+            <td><span class="badge badge-danger"><span class="badge-dot"></span>Overdue</span></td>
+            <td style="text-align:center">
+              <div style="display:flex;gap:4px;justify-content:center;">
+                <a class="btn-icon" href="02-report-list.html" title="View reports" onclick="event.stopPropagation()"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg></a>
+                <button class="btn-icon" title="Edit" data-toast="Edit equipment coming soon" onclick="event.stopPropagation()"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg></button>
+                <button class="btn-icon" title="Schedule inspection" data-toast="Inspection scheduled" onclick="event.stopPropagation()"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg></button>
+              </div>
+            </td>
+          </tr>
+          <tr class="row-clickable" onclick="window.location='02-report-list.html'">
+            <td><span class="tag-id">9P-77833</span></td>
+            <td>Centrifugal Pump — Sea Water Cooling</td>
+            <td>Pump Casing</td>
+            <td>RI5</td>
+            <td>7800</td>
+            <td class="num-cell">2</td>
+            <td>10 Mar 2026</td>
+            <td><span class="badge badge-success"><span class="badge-dot"></span>Current</span></td>
+            <td style="text-align:center">
+              <div style="display:flex;gap:4px;justify-content:center;">
+                <a class="btn-icon" href="02-report-list.html" title="View reports" onclick="event.stopPropagation()"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg></a>
+                <button class="btn-icon" title="Edit" data-toast="Edit equipment coming soon" onclick="event.stopPropagation()"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg></button>
+                <button class="btn-icon" title="Schedule inspection" data-toast="Inspection scheduled" onclick="event.stopPropagation()"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg></button>
+              </div>
+            </td>
+          </tr>
+          <tr class="row-clickable" onclick="window.location='02-report-list.html'">
+            <td><span class="tag-id">7T-95128</span></td>
+            <td>Surge Vessel — Compressor Discharge</td>
+            <td>Surge Vessel</td>
+            <td>MLNG TIGA</td>
+            <td>95100</td>
+            <td class="num-cell">3</td>
+            <td>04 Mar 2026</td>
+            <td><span class="badge badge-danger"><span class="badge-dot"></span>Overdue</span></td>
+            <td style="text-align:center">
+              <div style="display:flex;gap:4px;justify-content:center;">
+                <a class="btn-icon" href="02-report-list.html" title="View reports" onclick="event.stopPropagation()"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg></a>
+                <button class="btn-icon" title="Edit" data-toast="Edit equipment coming soon" onclick="event.stopPropagation()"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg></button>
+                <button class="btn-icon" title="Schedule inspection" data-toast="Inspection scheduled" onclick="event.stopPropagation()"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg></button>
+              </div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- PAGINATION -->
+    <div class="pagination">
+      <div class="pagination-info">Showing 1–12 of 1,847 equipment</div>
+      <div class="pagination-buttons">
+        <button class="pagination-btn">&lsaquo;</button>
+        <button class="pagination-btn active">1</button>
+        <button class="pagination-btn">2</button>
+        <button class="pagination-btn">3</button>
+        <button class="pagination-btn">&hellip;</button>
+        <button class="pagination-btn">154</button>
+        <button class="pagination-btn">&rsaquo;</button>
+      </div>
+    </div>
+    </div><!-- /table pane -->
+  </div>
+</main>
+
+<script defer src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" crossorigin=""></script>
+<script defer src="js/app.js"></script>
+</body>
+</html>

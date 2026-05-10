@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>MAVIS 2.0 — Create Report: Details</title>
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="icon" type="image/svg+xml" href="favicon.svg">
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" crossorigin="">
+  <script>(function(){var qp=new URLSearchParams(location.search).get("theme");var t=qp||localStorage.getItem("mavis-theme")||(window.matchMedia&&window.matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light");document.documentElement.setAttribute("data-theme",t);})();</script>
+</head>
+<body>
+
+<!-- NAVBAR -->
+<nav class="navbar">
+  <div class="navbar-brand">
+    <div class="logo-icon">
+      <svg viewBox="0 0 32 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M17 5 C 21 11, 24 17, 24 24 C 24 30, 21 35, 16 35 C 11 35, 7 31, 7 25 C 7 19, 11 14, 14 9 C 16 7, 17 5, 17 5 Z" fill="#1D1D1F"/>
+        <path d="M21 14 C 23.5 18, 25 22, 24.5 26.5 C 24 31, 21 34, 17 33 C 14 32, 12.5 29, 13 26 C 14 22, 17.5 17.5, 21 14 Z" fill="#3B5BDB"/>
+      </svg>
+    </div>
+    <h1>MAVIS <span>2.0</span></h1>
+  </div>
+  <div class="navbar-search">
+    <svg class="search-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+    <input type="text" placeholder="Search reports, equipment, inspectors...">
+  </div>
+  <div class="navbar-right">
+    <button class="icon-btn" data-toast="No new notifications">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
+      <span class="notification-badge"></span>
+    </button>
+    <div class="user-avatar" data-toast="Profile menu coming soon">HA</div>
+  </div>
+</nav>
+
+<!-- SIDEBAR -->
+<aside class="sidebar">
+  <div class="sidebar-section">
+    <div class="sidebar-section-title">Main Menu</div>
+    <ul class="sidebar-nav">
+      <li><a href="01-dashboard.html"><span class="nav-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg></span>Dashboard</a></li>
+      <li><a href="02-report-list.html" class="active"><span class="nav-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14,2 14,8 20,8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg></span>Reports</a></li>
+      <li><a href="10-ai-insights.html"><span class="nav-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z"/></svg></span>Insights<span class="ai-tag">AI</span></a></li>
+      <li><a href="08-equipment.html"><span class="nav-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 20h20"/><path d="M5 20V8l7-5 7 5v12"/><path d="M9 20v-6h6v6"/></svg></span>Equipment</a></li>
+      <li><a href="13-ut-tablet.html"><span class="nav-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="14" rx="2"/><line x1="2" y1="20" x2="22" y2="20"/><line x1="9" y1="20" x2="15" y2="20"/></svg></span>UT Tablet<span class="ai-tag" style="font-size:8px;background:rgba(0,0,0,0.04);color:var(--text-tertiary);border-color:transparent;">OPT</span></a></li>
+      <li><a href="09-users.html"><span class="nav-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></span>Users</a></li>
+    </ul>
+  </div>
+  <div class="sidebar-section">
+    <div class="sidebar-section-title">System</div>
+    <ul class="sidebar-nav">
+      <li><a href="11-audit-log.html"><span class="nav-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg></span>Audit Log</a></li>
+      <li><a href="14-integrations.html"><span class="nav-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/><line x1="13" y1="4" x2="11" y2="20"/></svg></span>Integrations</a></li>
+      <li><a href="12-support.html"><span class="nav-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg></span>Support</a></li>
+      <li><a href="#" class="disabled"><span class="nav-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg></span>Settings<span class="nav-badge">soon</span></a></li>
+    </ul>
+  </div>
+</aside>
+
+<!-- MAIN CONTENT -->
+<main class="main-content">
+  <div class="page-header">
+    <div>
+      <h2>Create New Report</h2>
+      <p>Fill in the report details, add findings, and submit for approval.</p>
+    </div>
+  </div>
+
+  <!-- STEPS -->
+  <div class="steps">
+    <div class="step active">
+      <div class="step-number">1</div>
+      <div class="step-label">Report Details</div>
+    </div>
+    <div class="step-divider"></div>
+    <div class="step">
+      <div class="step-number">2</div>
+      <div class="step-label">Findings & Recommendations</div>
+    </div>
+    <div class="step-divider"></div>
+    <div class="step">
+      <div class="step-number">3</div>
+      <div class="step-label">Review & Submit</div>
+    </div>
+  </div>
+
+  <!-- REPORT TYPE -->
+  <div class="card mb-24">
+    <h3 class="section-divider" style="margin-top:0;">Report Type</h3>
+    <div class="report-type-grid">
+      <div class="report-type-card selected">
+        <div class="rt-icon" style="background:var(--accent-light);color:var(--accent);">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+        </div>
+        <div class="rt-name">Visual Inspection</div>
+      </div>
+      <div class="report-type-card">
+        <div class="rt-icon" style="background:var(--blue-bg);color:var(--blue);">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>
+        </div>
+        <div class="rt-name">UT Report</div>
+      </div>
+      <div class="report-type-card">
+        <div class="rt-icon" style="background:var(--green-bg);color:var(--green);">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
+        </div>
+        <div class="rt-name">SSI Inspection</div>
+      </div>
+      <div class="report-type-card">
+        <div class="rt-icon" style="background:var(--orange-bg);color:var(--orange);">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg>
+        </div>
+        <div class="rt-name">Temp Repair</div>
+      </div>
+      <div class="report-type-card">
+        <div class="rt-icon" style="background:var(--red-bg);color:var(--red);">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="3" width="20" height="18" rx="2"/><line x1="8" y1="12" x2="16" y2="12"/><line x1="12" y1="8" x2="12" y2="16"/></svg>
+        </div>
+        <div class="rt-name">Surge Vessel</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- EQUIPMENT SELECTION -->
+  <div class="card mb-24">
+    <h3 class="section-divider" style="margin-top:0;">Equipment Selection</h3>
+
+    <!-- Search bar -->
+    <div style="display:flex;gap:12px;margin-bottom:20px;">
+      <div style="flex:1;position:relative;">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="position:absolute;left:12px;top:50%;transform:translateY(-50%);color:var(--text-tertiary);"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+        <input type="text" class="form-control" value="7V-95543" style="padding-left:36px;">
+      </div>
+      <button class="btn btn-primary" data-modal="asset-search">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+        Search
+      </button>
+    </div>
+
+    <!-- Auto-populated Asset Data -->
+    <div style="background:var(--accent-subtle);border:1px solid var(--accent-light);border-radius:var(--radius);padding:12px 16px;margin-bottom:20px;display:flex;align-items:center;gap:8px;">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+      <span style="font-size:13px;color:var(--accent-hover);font-weight:500;">Equipment found. Asset data auto-populated from template.</span>
+    </div>
+
+    <div class="form-row form-row-3 mb-16">
+      <div class="form-group">
+        <label class="form-label">Equipment ID</label>
+        <input type="text" class="form-control form-control-readonly" value="7V-95543" readonly>
+      </div>
+      <div class="form-group">
+        <label class="form-label">System Name</label>
+        <input type="text" class="form-control form-control-readonly" value="95500" readonly>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Component Name</label>
+        <div style="display:flex;gap:6px;flex-wrap:wrap;padding:8px 0;">
+          <span class="component-tag">Bottom Head <span class="tag-remove">&times;</span></span>
+          <span class="component-tag">Shell <span class="tag-remove">&times;</span></span>
+          <span class="component-tag">Top Head <span class="tag-remove">&times;</span></span>
+        </div>
+      </div>
+    </div>
+    <div class="form-row form-row-2 mb-16">
+      <div class="form-group">
+        <label class="form-label">Equipment Description</label>
+        <input type="text" class="form-control form-control-readonly" value="Secured Air Supply Vessel" readonly>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Equipment Type</label>
+        <input type="text" class="form-control form-control-readonly" value="Unfired Pressure Vessel" readonly>
+      </div>
+    </div>
+
+    <!-- Component List Table -->
+    <h4 style="font-size:14px;font-weight:600;margin-bottom:12px;color:var(--text-secondary);">Component List</h4>
+    <div class="table-wrapper">
+      <table>
+        <thead>
+          <tr>
+            <th>Component Name</th>
+            <th>Component Type</th>
+            <th>Material Spec</th>
+            <th>Material Grade</th>
+            <th>Process Service</th>
+            <th>Design Temp (&deg;C)</th>
+            <th>Op. Temp (&deg;C)</th>
+            <th>Design Pressure (BarG)</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td style="font-weight:600">Bottom Head</td>
+            <td>Head</td>
+            <td>SA-234</td>
+            <td>WPB</td>
+            <td>Instrument Air</td>
+            <td>65</td>
+            <td>40</td>
+            <td>10.7</td>
+          </tr>
+          <tr>
+            <td style="font-weight:600">Shell</td>
+            <td>Shell</td>
+            <td>SA-333</td>
+            <td>6</td>
+            <td>Instrument Air</td>
+            <td>65</td>
+            <td>40</td>
+            <td>10.7</td>
+          </tr>
+          <tr>
+            <td style="font-weight:600">Top Head</td>
+            <td>Head</td>
+            <td>SA-234</td>
+            <td>WPB</td>
+            <td>Instrument Air</td>
+            <td>65</td>
+            <td>40</td>
+            <td>10.7</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- LOCATION & PHOTO -->
+  <div class="card mb-24">
+    <h3 class="section-divider" style="margin-top:0;">Location &amp; Photo Reference</h3>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:16px;">
+      <div>
+        <label class="form-label">Pin location on plant map</label>
+        <div id="report-pin-map" class="pin-map"></div>
+        <p style="font-size:12px;color:var(--text-tertiary);margin-top:8px;">Click anywhere on the map to drop a pin · drag the pin to fine-tune</p>
+      </div>
+      <div>
+        <label class="form-label">Equipment photo reference</label>
+        <div class="equipment-photo-preview" style="background-image:url('photos/inspection-thumb1.jpg')">
+          <div class="photo-overlay">
+            <div><span class="tag-id">7V-95543</span></div>
+            <div class="photo-desc">Secured Air Supply Vessel · Module 7</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="form-row form-row-3 mb-16">
+      <div class="form-group">
+        <label class="form-label">Latitude</label>
+        <input type="text" class="form-control form-control-readonly" id="pin-lat" value="3.17645" readonly>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Longitude</label>
+        <input type="text" class="form-control form-control-readonly" id="pin-lng" value="113.04985" readonly>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Plant Area</label>
+        <input type="text" class="form-control form-control-readonly" value="Module 7 — MLNG TIGA" readonly>
+      </div>
+    </div>
+  </div>
+
+  <!-- INSPECTION DETAILS -->
+  <div class="card mb-24">
+    <h3 class="section-divider" style="margin-top:0;">Inspection Details</h3>
+    <div class="form-row form-row-3 mb-16">
+      <div class="form-group">
+        <label class="form-label">System Report Number</label>
+        <input type="text" class="form-control form-control-readonly" value="RF9030" readonly>
+      </div>
+      <div class="form-group">
+        <label class="form-label">User Report Number</label>
+        <input type="text" class="form-control" placeholder="e.g. 7V-95543-EXT-SSI">
+      </div>
+      <div class="form-group">
+        <label class="form-label">Inspection Date <span class="required">*</span></label>
+        <input type="text" class="form-control" value="14 April 2026">
+      </div>
+    </div>
+    <div class="form-row form-row-3 mb-16">
+      <div class="form-group">
+        <label class="form-label">Inspection Method <span class="required">*</span></label>
+        <select class="form-control">
+          <option>Visual Inspection</option>
+          <option>Ultrasonic Testing</option>
+          <option>Magnetic Particle Testing</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Inspection Company</label>
+        <input type="text" class="form-control" value="MLNG Inspection Team">
+      </div>
+      <div class="form-group">
+        <label class="form-label">Report Description <span class="required">*</span></label>
+        <input type="text" class="form-control" placeholder="Brief description of inspection scope">
+      </div>
+    </div>
+  </div>
+
+  <!-- ACTION BUTTONS -->
+  <div class="action-row">
+    <a href="02-report-list.html" class="btn btn-ghost">Cancel</a>
+    <div class="action-row-right">
+      <button class="btn btn-ghost" data-action="save-draft" data-href="02-report-list.html">Save as Draft</button>
+      <a href="04-create-report-findings.html" class="btn btn-primary btn-lg">
+        Next: Findings
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"/></svg>
+      </a>
+    </div>
+  </div>
+</main>
+
+<script defer src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" crossorigin=""></script>
+<script defer src="js/app.js"></script>
+</body>
+</html>

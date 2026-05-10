@@ -1,0 +1,424 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>MAVIS 2.0 — Team & Users</title>
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="icon" type="image/svg+xml" href="favicon.svg">
+  <script>(function(){var qp=new URLSearchParams(location.search).get("theme");var t=qp||localStorage.getItem("mavis-theme")||(window.matchMedia&&window.matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light");document.documentElement.setAttribute("data-theme",t);})();</script>
+</head>
+<body>
+
+<!-- NAVBAR -->
+<nav class="navbar">
+  <div class="navbar-brand">
+    <div class="logo-icon">
+      <svg viewBox="0 0 32 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M17 5 C 21 11, 24 17, 24 24 C 24 30, 21 35, 16 35 C 11 35, 7 31, 7 25 C 7 19, 11 14, 14 9 C 16 7, 17 5, 17 5 Z" fill="#1D1D1F"/>
+        <path d="M21 14 C 23.5 18, 25 22, 24.5 26.5 C 24 31, 21 34, 17 33 C 14 32, 12.5 29, 13 26 C 14 22, 17.5 17.5, 21 14 Z" fill="#3B5BDB"/>
+      </svg>
+    </div>
+    <h1>MAVIS <span>2.0</span></h1>
+  </div>
+  <div class="navbar-search">
+    <svg class="search-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+    <input type="text" placeholder="Search reports, equipment, inspectors...">
+  </div>
+  <div class="navbar-right">
+    <button class="icon-btn" data-toast="No new notifications">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
+      <span class="notification-badge"></span>
+    </button>
+    <div class="user-avatar" data-toast="Profile menu coming soon">HA</div>
+  </div>
+</nav>
+
+<!-- SIDEBAR -->
+<aside class="sidebar">
+  <div class="sidebar-section">
+    <div class="sidebar-section-title">Main Menu</div>
+    <ul class="sidebar-nav">
+      <li><a href="01-dashboard.html"><span class="nav-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg></span>Dashboard</a></li>
+      <li><a href="02-report-list.html"><span class="nav-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14,2 14,8 20,8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg></span>Reports</a></li>
+      <li><a href="10-ai-insights.html"><span class="nav-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z"/></svg></span>Insights<span class="ai-tag">AI</span></a></li>
+      <li><a href="08-equipment.html"><span class="nav-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 20h20"/><path d="M5 20V8l7-5 7 5v12"/><path d="M9 20v-6h6v6"/></svg></span>Equipment</a></li>
+      <li><a href="13-ut-tablet.html"><span class="nav-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="14" rx="2"/><line x1="2" y1="20" x2="22" y2="20"/><line x1="9" y1="20" x2="15" y2="20"/></svg></span>UT Tablet<span class="ai-tag" style="font-size:8px;background:rgba(0,0,0,0.04);color:var(--text-tertiary);border-color:transparent;">OPT</span></a></li>
+      <li><a href="09-users.html" class="active"><span class="nav-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></span>Users</a></li>
+    </ul>
+  </div>
+  <div class="sidebar-section">
+    <div class="sidebar-section-title">System</div>
+    <ul class="sidebar-nav">
+      <li><a href="11-audit-log.html"><span class="nav-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg></span>Audit Log</a></li>
+      <li><a href="14-integrations.html"><span class="nav-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/><line x1="13" y1="4" x2="11" y2="20"/></svg></span>Integrations</a></li>
+      <li><a href="12-support.html"><span class="nav-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg></span>Support</a></li>
+      <li><a href="#" class="disabled"><span class="nav-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg></span>Settings<span class="nav-badge">soon</span></a></li>
+    </ul>
+  </div>
+</aside>
+
+<!-- MAIN CONTENT -->
+<main class="main-content">
+  <div class="page-header">
+    <div>
+      <h2>Team &amp; Users</h2>
+      <p>Inspectors, reviewers, and approvers across MLNG operations.</p>
+    </div>
+    <button class="btn btn-primary" data-toast="Invite sent">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="8.5" cy="7" r="4"/><line x1="20" y1="8" x2="20" y2="14"/><line x1="23" y1="11" x2="17" y2="11"/></svg>
+      Invite User
+    </button>
+  </div>
+
+  <!-- STAT CARDS -->
+  <div class="stat-grid">
+    <div class="stat-card">
+      <div class="stat-icon primary">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+      </div>
+      <div>
+        <div class="stat-value">47</div>
+        <div class="stat-label">Total Users</div>
+        <div class="stat-change up">+3 this month</div>
+      </div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-icon primary">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+      </div>
+      <div>
+        <div class="stat-value">18</div>
+        <div class="stat-label">Active Inspectors</div>
+        <div class="stat-change up">All certified</div>
+      </div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-icon success">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+      </div>
+      <div>
+        <div class="stat-value">6</div>
+        <div class="stat-label">Approvers</div>
+        <div class="stat-change">Across 4 plants</div>
+      </div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-icon warning">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+      </div>
+      <div>
+        <div class="stat-value">32</div>
+        <div class="stat-label">Active This Week</div>
+        <div class="stat-change up">68% activity rate</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <!-- FILTERS -->
+    <div class="filter-bar">
+      <select class="form-control">
+        <option>All Roles</option>
+        <option>Inspector</option>
+        <option>Reviewer</option>
+        <option>Approver</option>
+        <option>Admin</option>
+      </select>
+      <select class="form-control">
+        <option>All Plants</option>
+        <option>MLNG</option>
+        <option>MLNG TIGA</option>
+        <option>MLNG DUA</option>
+        <option>RI5</option>
+      </select>
+      <select class="form-control">
+        <option>All Status</option>
+        <option>Active</option>
+        <option>Invited</option>
+        <option>Inactive</option>
+      </select>
+      <div style="flex:1;min-width:220px;position:relative;">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="position:absolute;left:12px;top:50%;transform:translateY(-50%);color:var(--text-tertiary);"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+        <input type="text" class="form-control" placeholder="Search by name, email, role..." style="padding-left:36px;">
+      </div>
+    </div>
+
+    <!-- TAG PILLS -->
+    <div class="tag-pills">
+      <span class="tag-pill active" data-tag="all">All</span>
+      <span class="tag-pill" data-tag="inspector">Inspectors</span>
+      <span class="tag-pill" data-tag="reviewer">Reviewers</span>
+      <span class="tag-pill" data-tag="approver">Approvers</span>
+      <span class="tag-pill" data-tag="admin">Admins</span>
+    </div>
+
+    <!-- TABLE -->
+    <div class="table-wrapper">
+      <table>
+        <thead>
+          <tr>
+            <th>User</th>
+            <th>Role</th>
+            <th>Plant</th>
+            <th style="text-align:right">Reports / month</th>
+            <th style="text-align:right">Pending Approvals</th>
+            <th>Last Active</th>
+            <th>Status</th>
+            <th style="text-align:center">Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr class="row-clickable" onclick="window.location='11-audit-log.html'">
+            <td>
+              <div class="user-cell">
+                <span class="avatar-circle">HA</span>
+                <div class="user-meta">
+                  <span class="user-name">Harri Ahmad</span>
+                  <span class="user-email">harri.ahmad@mlng.com.my</span>
+                </div>
+              </div>
+            </td>
+            <td><span class="badge badge-primary">Inspector</span></td>
+            <td>MLNG TIGA</td>
+            <td class="num-cell">14</td>
+            <td class="num-cell warn">2</td>
+            <td>2 min ago</td>
+            <td><span class="badge badge-success"><span class="badge-dot"></span>Active</span></td>
+            <td style="text-align:center">
+              <div style="display:flex;gap:4px;justify-content:center;">
+                <a class="btn-icon" href="11-audit-log.html" title="View activity" onclick="event.stopPropagation()"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg></a>
+                <button class="btn-icon" title="Edit" data-toast="Edit user coming soon" onclick="event.stopPropagation()"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg></button>
+              </div>
+            </td>
+          </tr>
+          <tr class="row-clickable" onclick="window.location='11-audit-log.html'">
+            <td>
+              <div class="user-cell">
+                <span class="avatar-circle">AH</span>
+                <div class="user-meta">
+                  <span class="user-name">Afnan Hasbullah</span>
+                  <span class="user-email">afnan.h@mlng.com.my</span>
+                </div>
+              </div>
+            </td>
+            <td><span class="badge badge-primary">Inspector</span></td>
+            <td>MLNG</td>
+            <td class="num-cell">11</td>
+            <td class="num-cell warn">1</td>
+            <td>1 hr ago</td>
+            <td><span class="badge badge-success"><span class="badge-dot"></span>Active</span></td>
+            <td style="text-align:center">
+              <div style="display:flex;gap:4px;justify-content:center;">
+                <a class="btn-icon" href="11-audit-log.html" title="View activity" onclick="event.stopPropagation()"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg></a>
+                <button class="btn-icon" title="Edit" data-toast="Edit user coming soon" onclick="event.stopPropagation()"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg></button>
+              </div>
+            </td>
+          </tr>
+          <tr class="row-clickable" onclick="window.location='11-audit-log.html'">
+            <td>
+              <div class="user-cell">
+                <span class="avatar-circle">JL</span>
+                <div class="user-meta">
+                  <span class="user-name">Jasmine Loh</span>
+                  <span class="user-email">jasmine.loh@mlng.com.my</span>
+                </div>
+              </div>
+            </td>
+            <td><span class="badge badge-info">Reviewer</span></td>
+            <td>MLNG</td>
+            <td class="num-cell">8</td>
+            <td class="num-cell">0</td>
+            <td>3 hr ago</td>
+            <td><span class="badge badge-success"><span class="badge-dot"></span>Active</span></td>
+            <td style="text-align:center">
+              <div style="display:flex;gap:4px;justify-content:center;">
+                <a class="btn-icon" href="11-audit-log.html" title="View activity" onclick="event.stopPropagation()"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg></a>
+                <button class="btn-icon" title="Edit" data-toast="Edit user coming soon" onclick="event.stopPropagation()"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg></button>
+              </div>
+            </td>
+          </tr>
+          <tr class="row-clickable" onclick="window.location='11-audit-log.html'">
+            <td>
+              <div class="user-cell">
+                <span class="avatar-circle solid">MH</span>
+                <div class="user-meta">
+                  <span class="user-name">Mohd. Hairi</span>
+                  <span class="user-email">m.hairi@mlng.com.my</span>
+                </div>
+              </div>
+            </td>
+            <td><span class="badge badge-success">Approver</span></td>
+            <td>MLNG TIGA</td>
+            <td class="num-cell">—</td>
+            <td class="num-cell warn">7</td>
+            <td>15 min ago</td>
+            <td><span class="badge badge-success"><span class="badge-dot"></span>Active</span></td>
+            <td style="text-align:center">
+              <div style="display:flex;gap:4px;justify-content:center;">
+                <a class="btn-icon" href="11-audit-log.html" title="View activity" onclick="event.stopPropagation()"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg></a>
+                <button class="btn-icon" title="Edit" data-toast="Edit user coming soon" onclick="event.stopPropagation()"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg></button>
+              </div>
+            </td>
+          </tr>
+          <tr class="row-clickable" onclick="window.location='11-audit-log.html'">
+            <td>
+              <div class="user-cell">
+                <span class="avatar-circle">SN</span>
+                <div class="user-meta">
+                  <span class="user-name">Siti Nurhaliza</span>
+                  <span class="user-email">siti.nh@mlng.com.my</span>
+                </div>
+              </div>
+            </td>
+            <td><span class="badge badge-primary">Inspector</span></td>
+            <td>MLNG DUA</td>
+            <td class="num-cell">9</td>
+            <td class="num-cell">0</td>
+            <td>1 day ago</td>
+            <td><span class="badge badge-success"><span class="badge-dot"></span>Active</span></td>
+            <td style="text-align:center">
+              <div style="display:flex;gap:4px;justify-content:center;">
+                <a class="btn-icon" href="11-audit-log.html" title="View activity" onclick="event.stopPropagation()"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg></a>
+                <button class="btn-icon" title="Edit" data-toast="Edit user coming soon" onclick="event.stopPropagation()"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg></button>
+              </div>
+            </td>
+          </tr>
+          <tr class="row-clickable" onclick="window.location='11-audit-log.html'">
+            <td>
+              <div class="user-cell">
+                <span class="avatar-circle">RK</span>
+                <div class="user-meta">
+                  <span class="user-name">Ravi Kumar</span>
+                  <span class="user-email">ravi.k@mlng.com.my</span>
+                </div>
+              </div>
+            </td>
+            <td><span class="badge badge-info">Reviewer</span></td>
+            <td>MLNG TIGA</td>
+            <td class="num-cell">12</td>
+            <td class="num-cell warn">3</td>
+            <td>5 hr ago</td>
+            <td><span class="badge badge-success"><span class="badge-dot"></span>Active</span></td>
+            <td style="text-align:center">
+              <div style="display:flex;gap:4px;justify-content:center;">
+                <a class="btn-icon" href="11-audit-log.html" title="View activity" onclick="event.stopPropagation()"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg></a>
+                <button class="btn-icon" title="Edit" data-toast="Edit user coming soon" onclick="event.stopPropagation()"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg></button>
+              </div>
+            </td>
+          </tr>
+          <tr class="row-clickable" onclick="window.location='11-audit-log.html'">
+            <td>
+              <div class="user-cell">
+                <span class="avatar-circle">WL</span>
+                <div class="user-meta">
+                  <span class="user-name">Wong Mei Ling</span>
+                  <span class="user-email">wong.ml@mlng.com.my</span>
+                </div>
+              </div>
+            </td>
+            <td><span class="badge badge-success">Approver</span></td>
+            <td>MLNG</td>
+            <td class="num-cell">—</td>
+            <td class="num-cell warn">4</td>
+            <td>30 min ago</td>
+            <td><span class="badge badge-success"><span class="badge-dot"></span>Active</span></td>
+            <td style="text-align:center">
+              <div style="display:flex;gap:4px;justify-content:center;">
+                <a class="btn-icon" href="11-audit-log.html" title="View activity" onclick="event.stopPropagation()"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg></a>
+                <button class="btn-icon" title="Edit" data-toast="Edit user coming soon" onclick="event.stopPropagation()"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg></button>
+              </div>
+            </td>
+          </tr>
+          <tr class="row-clickable" onclick="window.location='11-audit-log.html'">
+            <td>
+              <div class="user-cell">
+                <span class="avatar-circle">AB</span>
+                <div class="user-meta">
+                  <span class="user-name">Aiman Bakar</span>
+                  <span class="user-email">aiman.b@mlng.com.my</span>
+                </div>
+              </div>
+            </td>
+            <td><span class="badge badge-primary">Inspector</span></td>
+            <td>RI5</td>
+            <td class="num-cell">7</td>
+            <td class="num-cell">0</td>
+            <td>2 days ago</td>
+            <td><span class="badge badge-success"><span class="badge-dot"></span>Active</span></td>
+            <td style="text-align:center">
+              <div style="display:flex;gap:4px;justify-content:center;">
+                <a class="btn-icon" href="11-audit-log.html" title="View activity" onclick="event.stopPropagation()"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg></a>
+                <button class="btn-icon" title="Edit" data-toast="Edit user coming soon" onclick="event.stopPropagation()"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg></button>
+              </div>
+            </td>
+          </tr>
+          <tr class="row-clickable" onclick="window.location='11-audit-log.html'">
+            <td>
+              <div class="user-cell">
+                <span class="avatar-circle solid">FM</span>
+                <div class="user-meta">
+                  <span class="user-name">Faridah M.</span>
+                  <span class="user-email">faridah.m@mlng.com.my</span>
+                </div>
+              </div>
+            </td>
+            <td><span class="badge badge-gray">Admin</span></td>
+            <td>All Plants</td>
+            <td class="num-cell">—</td>
+            <td class="num-cell">—</td>
+            <td>20 min ago</td>
+            <td><span class="badge badge-success"><span class="badge-dot"></span>Active</span></td>
+            <td style="text-align:center">
+              <div style="display:flex;gap:4px;justify-content:center;">
+                <a class="btn-icon" href="11-audit-log.html" title="View activity" onclick="event.stopPropagation()"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg></a>
+                <button class="btn-icon" title="Edit" data-toast="Edit user coming soon" onclick="event.stopPropagation()"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg></button>
+              </div>
+            </td>
+          </tr>
+          <tr class="row-clickable" onclick="window.location='11-audit-log.html'">
+            <td>
+              <div class="user-cell">
+                <span class="avatar-circle">TC</span>
+                <div class="user-meta">
+                  <span class="user-name">Tan Chee Wei</span>
+                  <span class="user-email">tan.cw@mlng.com.my</span>
+                </div>
+              </div>
+            </td>
+            <td><span class="badge badge-primary">Inspector</span></td>
+            <td>MLNG TIGA</td>
+            <td class="num-cell">5</td>
+            <td class="num-cell">0</td>
+            <td>1 week ago</td>
+            <td><span class="badge badge-warning"><span class="badge-dot"></span>Invited</span></td>
+            <td style="text-align:center">
+              <div style="display:flex;gap:4px;justify-content:center;">
+                <a class="btn-icon" href="11-audit-log.html" title="View activity" onclick="event.stopPropagation()"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg></a>
+                <button class="btn-icon" title="Edit" data-toast="Edit user coming soon" onclick="event.stopPropagation()"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg></button>
+              </div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- PAGINATION -->
+    <div class="pagination">
+      <div class="pagination-info">Showing 1–10 of 47 users</div>
+      <div class="pagination-buttons">
+        <button class="pagination-btn">&lsaquo;</button>
+        <button class="pagination-btn active">1</button>
+        <button class="pagination-btn">2</button>
+        <button class="pagination-btn">3</button>
+        <button class="pagination-btn">4</button>
+        <button class="pagination-btn">5</button>
+        <button class="pagination-btn">&rsaquo;</button>
+      </div>
+    </div>
+  </div>
+</main>
+
+<script defer src="js/app.js"></script>
+</body>
+</html>

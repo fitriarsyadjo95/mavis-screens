@@ -1,0 +1,946 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>MAVIS 2.0 — UT Tablet Module</title>
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="icon" type="image/svg+xml" href="favicon.svg">
+  <script>(function(){var qp=new URLSearchParams(location.search).get("theme");var t=qp||localStorage.getItem("mavis-theme")||(window.matchMedia&&window.matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light");document.documentElement.setAttribute("data-theme",t);})();</script>
+  <style>
+    body {
+      background: var(--bg);
+      padding: 28px 24px 60px;
+      min-height: 100vh;
+      display: flex;
+      align-items: flex-start;
+      justify-content: center;
+    }
+
+    .ut-page-meta {
+      width: 100%;
+      max-width: 1180px;
+      margin: 0 auto 18px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+    }
+    .ut-page-meta .back-link {
+      font-family: var(--font-mono);
+      font-size: 12px;
+      color: var(--text-secondary);
+      text-decoration: none;
+      letter-spacing: -0.01em;
+    }
+    .ut-page-meta .back-link:hover { color: var(--accent); }
+    .ut-page-meta .module-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-family: var(--font-mono);
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--accent);
+      background: var(--accent-subtle);
+      border: 1px solid var(--accent-light);
+      border-radius: 4px;
+      padding: 3px 8px;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+    }
+
+    /* ===== iPad Pro 11" landscape device frame ===== */
+    .tablet-frame {
+      width: 1180px;
+      height: 820px;
+      background: #1a1a1c;
+      border-radius: 38px;
+      padding: 14px;
+      box-shadow: 0 32px 64px rgba(0,0,0,0.22), 0 0 0 1px rgba(255,255,255,0.04) inset, 0 0 0 1px rgba(0,0,0,0.06);
+      position: relative;
+      flex-shrink: 0;
+    }
+    .tablet-frame::before {
+      content: '';
+      position: absolute;
+      top: 50%; left: 6px;
+      transform: translateY(-50%);
+      width: 5px; height: 5px;
+      background: #2c2c2e;
+      border-radius: 50%;
+      box-shadow: 0 0 0 1.5px rgba(255,255,255,0.04);
+    }
+    .tablet-screen {
+      width: 100%;
+      height: 100%;
+      background: var(--bg);
+      border-radius: 26px;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      font-family: var(--font-body);
+    }
+
+    /* ===== Top bar ===== */
+    .ut-topbar {
+      height: 52px;
+      flex-shrink: 0;
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      padding: 0 18px;
+      background: var(--surface);
+      border-bottom: 1px solid var(--border);
+    }
+    .ut-back {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--accent);
+      text-decoration: none;
+      padding: 7px 10px 7px 6px;
+      border-radius: var(--radius-sm);
+    }
+    .ut-back:hover { background: var(--accent-subtle); }
+    .ut-survey-title {
+      display: flex;
+      flex-direction: column;
+      flex: 1;
+      min-width: 0;
+    }
+    .ut-survey-eyebrow {
+      font-family: var(--font-mono);
+      font-size: 10px;
+      font-weight: 600;
+      color: var(--text-tertiary);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
+    .ut-survey-name {
+      font-size: 15px;
+      font-weight: 700;
+      color: var(--text-primary);
+      letter-spacing: -0.01em;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .ut-progress-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 5px 10px 5px 8px;
+      background: var(--accent-subtle);
+      border: 1px solid var(--accent-light);
+      border-radius: var(--radius-full);
+      font-family: var(--font-mono);
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--accent);
+      letter-spacing: -0.01em;
+    }
+    .ut-progress-pill .progress-bar {
+      width: 60px;
+      height: 4px;
+      background: var(--accent-light);
+      border-radius: 2px;
+      overflow: hidden;
+      flex-shrink: 0;
+    }
+    .ut-progress-pill .progress-bar i {
+      display: block;
+      width: 42%;
+      height: 100%;
+      background: var(--accent);
+    }
+
+    .ut-status-cluster {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+    .ut-status-chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-family: var(--font-mono);
+      font-size: 11px;
+      font-weight: 500;
+      color: var(--text-secondary);
+      letter-spacing: -0.01em;
+    }
+    .ut-status-chip .dot {
+      width: 6px; height: 6px;
+      border-radius: 50%;
+      background: var(--green);
+      flex-shrink: 0;
+    }
+    .ut-bluetooth-chip {
+      color: var(--blue);
+    }
+    .ut-bluetooth-chip .dot { background: var(--blue); }
+
+    .ut-icon-btn {
+      width: 32px; height: 32px;
+      border-radius: 8px;
+      border: 1px solid var(--border);
+      background: var(--surface);
+      color: var(--text-secondary);
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .ut-icon-btn:hover { color: var(--text-primary); border-color: var(--border-strong); }
+
+    /* ===== Equipment context bar ===== */
+    .ut-eqbar {
+      flex-shrink: 0;
+      padding: 12px 18px;
+      display: flex;
+      align-items: center;
+      gap: 18px;
+      background: var(--surface-secondary);
+      border-bottom: 1px solid var(--border);
+    }
+    .ut-eqbar-icon {
+      width: 36px; height: 36px;
+      border-radius: 8px;
+      background: var(--ink);
+      color: var(--accent);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+    .ut-eqbar-info { display: flex; flex-direction: column; gap: 2px; min-width: 0; flex: 1; }
+    .ut-eqbar-id {
+      font-family: var(--font-mono);
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--text-primary);
+      letter-spacing: -0.01em;
+    }
+    .ut-eqbar-desc {
+      font-size: 12px;
+      color: var(--text-secondary);
+    }
+    .ut-eqbar-stats {
+      display: flex;
+      gap: 22px;
+    }
+    .ut-eqstat {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+    }
+    .ut-eqstat .v {
+      font-family: var(--font-mono);
+      font-size: 16px;
+      font-weight: 700;
+      color: var(--text-primary);
+      letter-spacing: -0.01em;
+      font-variant-numeric: tabular-nums;
+    }
+    .ut-eqstat .v.warn { color: var(--orange); }
+    .ut-eqstat .v.alert { color: var(--red); }
+    .ut-eqstat .l {
+      font-family: var(--font-mono);
+      font-size: 9.5px;
+      font-weight: 600;
+      color: var(--text-tertiary);
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+    }
+
+    /* ===== Main split ===== */
+    .ut-main {
+      flex: 1;
+      display: grid;
+      grid-template-columns: 1fr 320px;
+      min-height: 0;
+    }
+
+    /* ===== CML grid (left) ===== */
+    .ut-grid-pane {
+      overflow-y: auto;
+      padding: 0;
+      background: var(--bg);
+    }
+    .ut-grid-table {
+      width: 100%;
+      border-collapse: separate;
+      border-spacing: 0;
+      font-size: 13px;
+    }
+    .ut-grid-table thead {
+      position: sticky;
+      top: 0;
+      background: var(--surface-secondary);
+      z-index: 2;
+    }
+    .ut-grid-table thead th {
+      padding: 10px 12px;
+      text-align: left;
+      font-family: var(--font-mono);
+      font-size: 10px;
+      font-weight: 600;
+      color: var(--text-tertiary);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      border-bottom: 1px solid var(--border-strong);
+      white-space: nowrap;
+    }
+    .ut-grid-table thead th.num { text-align: right; }
+    .ut-grid-table tbody td {
+      padding: 13px 12px;
+      border-bottom: 1px solid var(--divider);
+      vertical-align: middle;
+      background: var(--surface);
+    }
+    .ut-grid-table tbody td.num {
+      text-align: right;
+      font-family: var(--font-mono);
+      font-variant-numeric: tabular-nums;
+      font-feature-settings: 'tnum';
+      letter-spacing: -0.01em;
+    }
+    .ut-grid-table tbody tr.selected td { background: var(--accent-subtle); }
+    .ut-grid-table tbody tr:hover td { background: var(--surface-secondary); }
+    .ut-grid-table tbody tr.selected:hover td { background: var(--accent-subtle); }
+
+    .ut-cml-id {
+      font-family: var(--font-mono);
+      font-weight: 600;
+      color: var(--accent);
+      font-size: 12px;
+    }
+    .ut-component {
+      font-size: 12.5px;
+      color: var(--text-primary);
+    }
+
+    .ut-current {
+      font-family: var(--font-mono);
+      font-size: 18px;
+      font-weight: 700;
+      color: var(--text-primary);
+      letter-spacing: -0.02em;
+    }
+    .ut-current.warn { color: var(--orange); }
+    .ut-current.alert { color: var(--red); }
+    .ut-current.pending {
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--text-tertiary);
+      font-style: italic;
+    }
+
+    .ut-rate {
+      font-family: var(--font-mono);
+      font-size: 12px;
+      color: var(--text-secondary);
+      font-variant-numeric: tabular-nums;
+    }
+    .ut-rate.warn { color: var(--orange); font-weight: 600; }
+    .ut-rate.alert { color: var(--red); font-weight: 600; }
+    .ut-rate.pending { color: var(--text-tertiary); }
+
+    .ut-status {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      font-family: var(--font-mono);
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      padding: 3px 8px;
+      border-radius: 4px;
+    }
+    .ut-status::before {
+      content: '';
+      width: 6px; height: 6px;
+      border-radius: 50%;
+      background: currentColor;
+    }
+    .ut-status.ok { color: #1B9E3E; background: var(--green-bg); }
+    .ut-status.warn { color: #CC7A00; background: var(--orange-bg); }
+    .ut-status.alert { color: #D62E25; background: var(--red-bg); }
+    .ut-status.pending { color: var(--text-tertiary); background: rgba(0,0,0,0.04); }
+    [data-theme="dark"] .ut-status.pending { background: rgba(255,255,255,0.05); }
+
+    .ut-row-action {
+      width: 32px; height: 32px;
+      border-radius: 7px;
+      border: 1px solid var(--border-strong);
+      background: var(--surface);
+      color: var(--text-secondary);
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .ut-row-action:hover { color: var(--accent); border-color: var(--accent); }
+    .ut-row-action.primary {
+      background: var(--accent);
+      border-color: var(--accent);
+      color: white;
+    }
+
+    /* ===== Right rail ===== */
+    .ut-right-rail {
+      border-left: 1px solid var(--border);
+      background: var(--surface);
+      display: flex;
+      flex-direction: column;
+      overflow-y: auto;
+    }
+
+    .ut-rail-section {
+      padding: 14px 16px;
+      border-bottom: 1px solid var(--border);
+    }
+    .ut-rail-section:last-child { border-bottom: none; }
+
+    .ut-rail-eyebrow {
+      font-family: var(--font-mono);
+      font-size: 10px;
+      font-weight: 600;
+      color: var(--text-tertiary);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      margin-bottom: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .ut-rail-eyebrow .focus-cml {
+      color: var(--accent);
+      font-weight: 700;
+    }
+
+    /* Isometric drawing */
+    .ut-isometric {
+      width: 100%;
+      aspect-ratio: 5/4;
+      background: var(--surface-secondary);
+      border-radius: var(--radius);
+      position: relative;
+      overflow: hidden;
+      border: 1px solid var(--border);
+    }
+    .ut-isometric svg { width: 100%; height: 100%; display: block; }
+    .ut-iso-pin {
+      position: absolute;
+      width: 22px; height: 22px;
+      border-radius: 50%;
+      background: white;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transform: translate(-50%, -50%);
+      cursor: pointer;
+      border: 2px solid currentColor;
+      box-shadow: 0 1px 4px rgba(0,0,0,0.2);
+      font-family: var(--font-mono);
+      font-size: 9px;
+      font-weight: 700;
+      color: var(--text-primary);
+      transition: transform 0.15s;
+    }
+    .ut-iso-pin.ok { color: var(--green); }
+    .ut-iso-pin.warn { color: var(--orange); }
+    .ut-iso-pin.alert { color: var(--red); border-width: 2.5px; box-shadow: 0 0 0 3px rgba(255,59,48,0.18), 0 1px 4px rgba(0,0,0,0.3); }
+    .ut-iso-pin.pending { color: var(--text-tertiary); border-style: dashed; }
+    .ut-iso-pin.selected {
+      transform: translate(-50%, -50%) scale(1.18);
+      z-index: 2;
+    }
+    [data-theme="dark"] .ut-iso-pin { background: var(--surface); }
+
+    /* Trend chart */
+    .ut-trend {
+      width: 100%;
+      aspect-ratio: 5/3;
+      background: var(--surface-secondary);
+      border-radius: var(--radius);
+      padding: 10px 12px;
+      position: relative;
+      border: 1px solid var(--border);
+    }
+    .ut-trend-info {
+      display: flex;
+      align-items: baseline;
+      gap: 10px;
+      margin-bottom: 6px;
+    }
+    .ut-trend-current {
+      font-family: var(--font-mono);
+      font-size: 18px;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      color: var(--red);
+    }
+    .ut-trend-current .unit { font-size: 11px; color: var(--text-tertiary); margin-left: 3px; font-weight: 500; }
+    .ut-trend-min {
+      font-family: var(--font-mono);
+      font-size: 10px;
+      font-weight: 500;
+      color: var(--text-tertiary);
+      letter-spacing: -0.01em;
+    }
+    .ut-trend-svg {
+      width: 100%;
+      height: calc(100% - 30px);
+    }
+
+    /* Remaining life */
+    .ut-life {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+    .ut-life-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      font-family: var(--font-mono);
+      font-size: 11px;
+      letter-spacing: -0.01em;
+    }
+    .ut-life-row .l { color: var(--text-tertiary); }
+    .ut-life-row .v { color: var(--text-primary); font-weight: 600; font-variant-numeric: tabular-nums; }
+    .ut-life-row .v.alert { color: var(--red); }
+
+    /* ===== Bottom bar ===== */
+    .ut-bottom {
+      height: 56px;
+      flex-shrink: 0;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      padding: 0 18px;
+      background: var(--surface);
+      border-top: 1px solid var(--border);
+    }
+    .ut-bottom-info {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      flex: 1;
+    }
+    .ut-bottom-stat {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-family: var(--font-mono);
+      font-size: 12px;
+      color: var(--text-secondary);
+      letter-spacing: -0.01em;
+    }
+    .ut-bottom-stat .ico {
+      width: 26px; height: 26px;
+      border-radius: 7px;
+      background: var(--surface-secondary);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--text-secondary);
+    }
+    .ut-bottom-stat strong { color: var(--text-primary); font-weight: 700; }
+    .ut-bottom-stat.alert .ico { background: var(--red-bg); color: var(--red); }
+    .ut-bottom-stat.alert strong { color: var(--red); }
+
+    .ut-sync-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 9px 18px;
+      background: var(--accent);
+      color: white;
+      border: none;
+      border-radius: var(--radius-full);
+      font-family: var(--font-body);
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: -0.01em;
+      cursor: pointer;
+      box-shadow: 0 1px 4px rgba(13,148,136,0.3);
+    }
+    .ut-sync-btn:hover { background: var(--accent-hover); transform: translateY(-0.5px); }
+
+    /* ===== Responsive — keep tablet frame visible at smaller widths ===== */
+    @media (max-width: 1280px) {
+      .tablet-frame {
+        transform: scale(0.85);
+        transform-origin: top center;
+        margin-bottom: -120px;
+      }
+    }
+    @media (max-width: 1024px) {
+      .tablet-frame { transform: scale(0.7); margin-bottom: -240px; }
+    }
+    @media (max-width: 768px) {
+      body { padding: 16px 0; }
+      .ut-page-meta { padding: 0 16px; }
+      .tablet-frame { transform: scale(0.32); margin-bottom: -540px; transform-origin: top center; }
+    }
+  </style>
+</head>
+<body>
+
+<div style="display:flex;flex-direction:column;align-items:center;width:100%;">
+
+  <!-- Page meta strip above the tablet -->
+  <div class="ut-page-meta">
+    <a href="08-equipment.html" class="back-link">← Back to MAVIS Desktop</a>
+    <span class="module-tag">Optional Module · UT CML/TML Tablet</span>
+  </div>
+
+  <!-- iPad device frame -->
+  <div class="tablet-frame">
+    <div class="tablet-screen">
+
+      <!-- Top bar -->
+      <div class="ut-topbar">
+        <a class="ut-back" href="08-equipment.html">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
+          Equipment
+        </a>
+        <div class="ut-survey-title">
+          <span class="ut-survey-eyebrow">UT Survey · Module 7 · 14 Apr 2026</span>
+          <span class="ut-survey-name">
+            <span>Annual CML Thickness Survey</span>
+            <span class="ut-progress-pill">
+              <span class="progress-bar"><i></i></span>
+              5 / 12 captured
+            </span>
+          </span>
+        </div>
+        <div class="ut-status-cluster">
+          <span class="ut-status-chip ut-bluetooth-chip">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="6.5 6.5 17.5 17.5 12 23 12 1 17.5 6.5 6.5 17.5"/></svg>
+            Olympus 45MG · paired
+          </span>
+          <span class="ut-status-chip">
+            <span class="dot"></span>
+            Offline · 5 queued
+          </span>
+          <button class="ut-icon-btn" title="Notes">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14,2 14,8 20,8"/></svg>
+          </button>
+          <button class="ut-icon-btn" title="Settings">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+          </button>
+        </div>
+      </div>
+
+      <!-- Equipment context bar -->
+      <div class="ut-eqbar">
+        <div class="ut-eqbar-icon">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="7" y="3" width="10" height="18" rx="5"/><line x1="3" y1="12" x2="21" y2="12" stroke-dasharray="1.5 2"/><circle cx="12" cy="12" r="1.5" fill="currentColor"/></svg>
+        </div>
+        <div class="ut-eqbar-info">
+          <span class="ut-eqbar-id">7V-95543 · Secured Air Supply Vessel</span>
+          <span class="ut-eqbar-desc">MLNG TIGA · Module 7 · System 95500 · SA-333 Grade 6 · Inspection Circuit C-A1</span>
+        </div>
+        <div class="ut-eqbar-stats">
+          <div class="ut-eqstat"><span class="v">12</span><span class="l">Total CMLs</span></div>
+          <div class="ut-eqstat"><span class="v">5</span><span class="l">Captured</span></div>
+          <div class="ut-eqstat"><span class="v warn">1</span><span class="l">Near Threshold</span></div>
+          <div class="ut-eqstat"><span class="v alert">1</span><span class="l">Below Min</span></div>
+        </div>
+      </div>
+
+      <!-- Main split -->
+      <div class="ut-main">
+
+        <!-- Left: CML grid -->
+        <div class="ut-grid-pane">
+          <table class="ut-grid-table">
+            <thead>
+              <tr>
+                <th>CML</th>
+                <th>Component</th>
+                <th class="num">Previous</th>
+                <th class="num">Nominal</th>
+                <th class="num">Min Allow.</th>
+                <th class="num">Current (mm)</th>
+                <th class="num">Rate (mpy)</th>
+                <th>Status</th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><span class="ut-cml-id">CML-01</span></td>
+                <td class="ut-component">Shell · T1</td>
+                <td class="num">9.85</td>
+                <td class="num">11.50</td>
+                <td class="num">6.50</td>
+                <td class="num"><span class="ut-current">9.78</span></td>
+                <td class="num"><span class="ut-rate">1.2</span></td>
+                <td><span class="ut-status ok">OK</span></td>
+                <td><button class="ut-row-action" title="Photo evidence"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></svg></button></td>
+              </tr>
+              <tr>
+                <td><span class="ut-cml-id">CML-02</span></td>
+                <td class="ut-component">Shell · T2</td>
+                <td class="num">9.52</td>
+                <td class="num">11.50</td>
+                <td class="num">6.50</td>
+                <td class="num"><span class="ut-current">9.41</span></td>
+                <td class="num"><span class="ut-rate">1.5</span></td>
+                <td><span class="ut-status ok">OK</span></td>
+                <td><button class="ut-row-action" title="Photo evidence"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></svg></button></td>
+              </tr>
+              <tr>
+                <td><span class="ut-cml-id">CML-03</span></td>
+                <td class="ut-component">Bottom Head</td>
+                <td class="num">7.20</td>
+                <td class="num">11.50</td>
+                <td class="num">6.50</td>
+                <td class="num"><span class="ut-current warn">6.92</span></td>
+                <td class="num"><span class="ut-rate warn">4.8</span></td>
+                <td><span class="ut-status warn">Near Min</span></td>
+                <td><button class="ut-row-action" title="Photo evidence"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></svg></button></td>
+              </tr>
+              <tr class="selected">
+                <td><span class="ut-cml-id">CML-04</span></td>
+                <td class="ut-component">Bottom Head</td>
+                <td class="num">6.78</td>
+                <td class="num">11.50</td>
+                <td class="num">6.50</td>
+                <td class="num"><span class="ut-current alert">6.45</span></td>
+                <td class="num"><span class="ut-rate alert">5.6</span></td>
+                <td><span class="ut-status alert">Below Min</span></td>
+                <td><button class="ut-row-action primary" title="Flagged"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/></svg></button></td>
+              </tr>
+              <tr>
+                <td><span class="ut-cml-id">CML-05</span></td>
+                <td class="ut-component">Top Head</td>
+                <td class="num">10.12</td>
+                <td class="num">11.50</td>
+                <td class="num">6.50</td>
+                <td class="num"><span class="ut-current pending">tap to enter</span></td>
+                <td class="num"><span class="ut-rate pending">—</span></td>
+                <td><span class="ut-status pending">Pending</span></td>
+                <td><button class="ut-row-action" title="Capture"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 11 12 14 22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg></button></td>
+              </tr>
+              <tr>
+                <td><span class="ut-cml-id">CML-06</span></td>
+                <td class="ut-component">Nozzle N1 · Inlet</td>
+                <td class="num">8.95</td>
+                <td class="num">11.50</td>
+                <td class="num">6.50</td>
+                <td class="num"><span class="ut-current">8.82</span></td>
+                <td class="num"><span class="ut-rate">2.2</span></td>
+                <td><span class="ut-status ok">OK</span></td>
+                <td><button class="ut-row-action" title="Photo evidence"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></svg></button></td>
+              </tr>
+              <tr>
+                <td><span class="ut-cml-id">CML-07</span></td>
+                <td class="ut-component">Nozzle N2 · Outlet</td>
+                <td class="num">—</td>
+                <td class="num">11.50</td>
+                <td class="num">6.50</td>
+                <td class="num"><span class="ut-current pending">tap to enter</span></td>
+                <td class="num"><span class="ut-rate pending">—</span></td>
+                <td><span class="ut-status pending">Pending</span></td>
+                <td><button class="ut-row-action" title="Capture"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 11 12 14 22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg></button></td>
+              </tr>
+              <tr>
+                <td><span class="ut-cml-id">CML-08</span></td>
+                <td class="ut-component">Shell · Mid · T3</td>
+                <td class="num">9.40</td>
+                <td class="num">11.50</td>
+                <td class="num">6.50</td>
+                <td class="num"><span class="ut-current pending">tap to enter</span></td>
+                <td class="num"><span class="ut-rate pending">—</span></td>
+                <td><span class="ut-status pending">Pending</span></td>
+                <td><button class="ut-row-action" title="Capture"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 11 12 14 22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg></button></td>
+              </tr>
+              <tr>
+                <td><span class="ut-cml-id">CML-09</span></td>
+                <td class="ut-component">Saddle Support</td>
+                <td class="num">8.30</td>
+                <td class="num">11.50</td>
+                <td class="num">6.50</td>
+                <td class="num"><span class="ut-current pending">tap to enter</span></td>
+                <td class="num"><span class="ut-rate pending">—</span></td>
+                <td><span class="ut-status pending">Pending</span></td>
+                <td><button class="ut-row-action" title="Capture"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 11 12 14 22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg></button></td>
+              </tr>
+              <tr>
+                <td><span class="ut-cml-id">CML-10</span></td>
+                <td class="ut-component">Manway</td>
+                <td class="num">7.50</td>
+                <td class="num">11.50</td>
+                <td class="num">6.50</td>
+                <td class="num"><span class="ut-current pending">tap to enter</span></td>
+                <td class="num"><span class="ut-rate pending">—</span></td>
+                <td><span class="ut-status pending">Pending</span></td>
+                <td><button class="ut-row-action" title="Capture"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 11 12 14 22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg></button></td>
+              </tr>
+              <tr>
+                <td><span class="ut-cml-id">CML-11</span></td>
+                <td class="ut-component">Drain</td>
+                <td class="num">9.10</td>
+                <td class="num">11.50</td>
+                <td class="num">6.50</td>
+                <td class="num"><span class="ut-current pending">tap to enter</span></td>
+                <td class="num"><span class="ut-rate pending">—</span></td>
+                <td><span class="ut-status pending">Pending</span></td>
+                <td><button class="ut-row-action" title="Capture"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 11 12 14 22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg></button></td>
+              </tr>
+              <tr>
+                <td><span class="ut-cml-id">CML-12</span></td>
+                <td class="ut-component">Vent</td>
+                <td class="num">9.80</td>
+                <td class="num">11.50</td>
+                <td class="num">6.50</td>
+                <td class="num"><span class="ut-current pending">tap to enter</span></td>
+                <td class="num"><span class="ut-rate pending">—</span></td>
+                <td><span class="ut-status pending">Pending</span></td>
+                <td><button class="ut-row-action" title="Capture"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 11 12 14 22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg></button></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <!-- Right rail -->
+        <div class="ut-right-rail">
+
+          <!-- Isometric -->
+          <div class="ut-rail-section">
+            <div class="ut-rail-eyebrow"><span>Isometric · Vessel Cross-section</span><span>12 CMLs</span></div>
+            <div class="ut-isometric">
+              <svg viewBox="0 0 200 160" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid meet">
+                <!-- Vessel body - vertical capsule -->
+                <rect x="80" y="30" width="40" height="100" stroke="currentColor" stroke-width="1.5" fill="none" stroke-opacity="0.5"/>
+                <!-- Top head (dome) -->
+                <path d="M 80 30 Q 100 12, 120 30" stroke="currentColor" stroke-width="1.5" fill="none" stroke-opacity="0.5"/>
+                <!-- Bottom head (dome) -->
+                <path d="M 80 130 Q 100 148, 120 130" stroke="currentColor" stroke-width="1.5" fill="none" stroke-opacity="0.5"/>
+                <!-- Saddle supports -->
+                <path d="M 75 120 L 65 145 M 125 120 L 135 145" stroke="currentColor" stroke-width="1.2" fill="none" stroke-opacity="0.4"/>
+                <!-- Inlet nozzle (top right) -->
+                <path d="M 120 50 L 145 35 L 145 25 L 155 25" stroke="currentColor" stroke-width="1.2" fill="none" stroke-opacity="0.5"/>
+                <!-- Outlet nozzle (bottom right) -->
+                <path d="M 120 110 L 145 125 L 145 135 L 155 135" stroke="currentColor" stroke-width="1.2" fill="none" stroke-opacity="0.5"/>
+                <!-- Manway -->
+                <ellipse cx="100" cy="80" rx="6" ry="4" stroke="currentColor" stroke-width="1.2" fill="none" stroke-opacity="0.4"/>
+                <!-- Centerline -->
+                <line x1="100" y1="22" x2="100" y2="138" stroke="currentColor" stroke-width="0.8" stroke-dasharray="2 2" stroke-opacity="0.25"/>
+                <!-- Inspection circuit label -->
+                <text x="155" y="80" font-family="JetBrains Mono, monospace" font-size="6" fill="currentColor" opacity="0.5">C-A1</text>
+                <!-- Drain -->
+                <line x1="100" y1="138" x2="100" y2="148" stroke="currentColor" stroke-width="1" stroke-opacity="0.4"/>
+                <!-- Vent -->
+                <line x1="100" y1="22" x2="100" y2="14" stroke="currentColor" stroke-width="1" stroke-opacity="0.4"/>
+              </svg>
+              <!-- Status pins overlaid (positions roughly correspond to component locations) -->
+              <div class="ut-iso-pin ok" style="top: 32%; left: 42%;">1</div>
+              <div class="ut-iso-pin ok" style="top: 50%; left: 42%;">2</div>
+              <div class="ut-iso-pin warn" style="top: 80%; left: 45%;">3</div>
+              <div class="ut-iso-pin alert selected" style="top: 88%; left: 50%;">4</div>
+              <div class="ut-iso-pin pending" style="top: 18%; left: 50%;">5</div>
+              <div class="ut-iso-pin ok" style="top: 28%; left: 73%;">6</div>
+              <div class="ut-iso-pin pending" style="top: 70%; left: 73%;">7</div>
+              <div class="ut-iso-pin pending" style="top: 50%; left: 50%;">8</div>
+              <div class="ut-iso-pin pending" style="top: 76%; left: 36%;">9</div>
+              <div class="ut-iso-pin pending" style="top: 50%; left: 60%;">10</div>
+              <div class="ut-iso-pin pending" style="top: 92%; left: 50%;">11</div>
+              <div class="ut-iso-pin pending" style="top: 8%; left: 50%;">12</div>
+            </div>
+          </div>
+
+          <!-- Trend chart for selected CML -->
+          <div class="ut-rail-section">
+            <div class="ut-rail-eyebrow">
+              <span>Thickness Trend</span>
+              <span class="focus-cml">CML-04</span>
+            </div>
+            <div class="ut-trend">
+              <div class="ut-trend-info">
+                <span class="ut-trend-current">6.45<span class="unit">mm</span></span>
+                <span class="ut-trend-min">min allowable: 6.50 mm</span>
+              </div>
+              <svg class="ut-trend-svg" viewBox="0 0 200 80" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+                <!-- Background grid -->
+                <line x1="0" y1="20" x2="200" y2="20" stroke="currentColor" stroke-width="0.4" stroke-opacity="0.1"/>
+                <line x1="0" y1="40" x2="200" y2="40" stroke="currentColor" stroke-width="0.4" stroke-opacity="0.1"/>
+                <line x1="0" y1="60" x2="200" y2="60" stroke="currentColor" stroke-width="0.4" stroke-opacity="0.1"/>
+                <!-- Min allowable line (red dashed) -->
+                <line x1="0" y1="62" x2="200" y2="62" stroke="#FF3B30" stroke-width="1" stroke-dasharray="3 3" stroke-opacity="0.85"/>
+                <!-- Trend line: 6 historical points + 1 current + 1 projected -->
+                <polyline points="10,12 40,18 70,28 100,40 130,50 160,58 190,64" fill="none" stroke="#0D9488" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                <!-- Projection line (dashed, going below min) -->
+                <polyline points="190,64 200,72" fill="none" stroke="#FF3B30" stroke-width="1.5" stroke-dasharray="2 2" stroke-opacity="0.7"/>
+                <!-- Data points -->
+                <circle cx="10" cy="12" r="2" fill="#0D9488"/>
+                <circle cx="40" cy="18" r="2" fill="#0D9488"/>
+                <circle cx="70" cy="28" r="2" fill="#0D9488"/>
+                <circle cx="100" cy="40" r="2" fill="#0D9488"/>
+                <circle cx="130" cy="50" r="2" fill="#0D9488"/>
+                <circle cx="160" cy="58" r="2" fill="#0D9488"/>
+                <!-- Current reading point — alert -->
+                <circle cx="190" cy="64" r="3.5" fill="#FF3B30" stroke="white" stroke-width="1.5"/>
+              </svg>
+            </div>
+          </div>
+
+          <!-- Remaining life calc -->
+          <div class="ut-rail-section">
+            <div class="ut-rail-eyebrow">Calculated Engine</div>
+            <div class="ut-life">
+              <div class="ut-life-row"><span class="l">ST corrosion rate</span><span class="v">5.6 mpy</span></div>
+              <div class="ut-life-row"><span class="l">LT corrosion rate</span><span class="v">4.2 mpy</span></div>
+              <div class="ut-life-row"><span class="l">Remaining life</span><span class="v alert">−0.9 yr · expired</span></div>
+              <div class="ut-life-row"><span class="l">Next inspection</span><span class="v alert">Immediate</span></div>
+              <div class="ut-life-row"><span class="l">API conformance</span><span class="v">API 570 §7</span></div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- Bottom action bar -->
+      <div class="ut-bottom">
+        <div class="ut-bottom-info">
+          <span class="ut-bottom-stat">
+            <span class="ico">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+            </span>
+            <span><strong>5</strong> readings queued</span>
+          </span>
+          <span class="ut-bottom-stat alert">
+            <span class="ico">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/></svg>
+            </span>
+            <span><strong>1</strong> below min · flag for engineer review</span>
+          </span>
+          <span class="ut-bottom-stat">
+            <span class="ico">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></svg>
+            </span>
+            <span><strong>3</strong> photos attached</span>
+          </span>
+        </div>
+        <button class="ut-sync-btn">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="23 4 23 10 17 10"/><polyline points="1 20 1 14 7 14"/><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"/></svg>
+          Sync Survey
+        </button>
+      </div>
+
+    </div>
+  </div>
+
+</div>
+
+</body>
+</html>

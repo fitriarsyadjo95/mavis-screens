@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>MAVIS 2.0 — Support &amp; Help Center</title>
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="icon" type="image/svg+xml" href="favicon.svg">
+  <script>(function(){var qp=new URLSearchParams(location.search).get("theme");var t=qp||localStorage.getItem("mavis-theme")||(window.matchMedia&&window.matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light");document.documentElement.setAttribute("data-theme",t);})();</script>
+</head>
+<body>
+
+<!-- NAVBAR -->
+<nav class="navbar">
+  <div class="navbar-brand">
+    <div class="logo-icon">
+      <svg viewBox="0 0 32 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M17 5 C 21 11, 24 17, 24 24 C 24 30, 21 35, 16 35 C 11 35, 7 31, 7 25 C 7 19, 11 14, 14 9 C 16 7, 17 5, 17 5 Z" fill="#1D1D1F"/>
+        <path d="M21 14 C 23.5 18, 25 22, 24.5 26.5 C 24 31, 21 34, 17 33 C 14 32, 12.5 29, 13 26 C 14 22, 17.5 17.5, 21 14 Z" fill="#3B5BDB"/>
+      </svg>
+    </div>
+    <h1>MAVIS <span>2.0</span></h1>
+  </div>
+  <div class="navbar-search">
+    <svg class="search-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+    <input type="text" placeholder="Search reports, equipment, inspectors...">
+  </div>
+  <div class="navbar-right">
+    <button class="icon-btn" data-toast="No new notifications">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
+      <span class="notification-badge"></span>
+    </button>
+    <div class="user-avatar" data-toast="Profile menu coming soon">HA</div>
+  </div>
+</nav>
+
+<!-- SIDEBAR -->
+<aside class="sidebar">
+  <div class="sidebar-section">
+    <div class="sidebar-section-title">Main Menu</div>
+    <ul class="sidebar-nav">
+      <li><a href="01-dashboard.html"><span class="nav-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg></span>Dashboard</a></li>
+      <li><a href="02-report-list.html"><span class="nav-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14,2 14,8 20,8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg></span>Reports</a></li>
+      <li><a href="10-ai-insights.html"><span class="nav-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z"/></svg></span>Insights<span class="ai-tag">AI</span></a></li>
+      <li><a href="08-equipment.html"><span class="nav-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 20h20"/><path d="M5 20V8l7-5 7 5v12"/><path d="M9 20v-6h6v6"/></svg></span>Equipment</a></li>
+      <li><a href="13-ut-tablet.html"><span class="nav-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="14" rx="2"/><line x1="2" y1="20" x2="22" y2="20"/><line x1="9" y1="20" x2="15" y2="20"/></svg></span>UT Tablet<span class="ai-tag" style="font-size:8px;background:rgba(0,0,0,0.04);color:var(--text-tertiary);border-color:transparent;">OPT</span></a></li>
+      <li><a href="09-users.html"><span class="nav-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></span>Users</a></li>
+    </ul>
+  </div>
+  <div class="sidebar-section">
+    <div class="sidebar-section-title">System</div>
+    <ul class="sidebar-nav">
+      <li><a href="11-audit-log.html"><span class="nav-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg></span>Audit Log</a></li>
+      <li><a href="14-integrations.html"><span class="nav-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/><line x1="13" y1="4" x2="11" y2="20"/></svg></span>Integrations</a></li>
+      <li><a href="12-support.html" class="active"><span class="nav-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg></span>Support</a></li>
+      <li><a href="#" class="disabled"><span class="nav-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg></span>Settings<span class="nav-badge">soon</span></a></li>
+    </ul>
+  </div>
+</aside>
+
+<!-- MAIN -->
+<main class="main-content">
+  <div class="page-header">
+    <div>
+      <h2>Support &amp; Help Center</h2>
+      <p>Get help fast — chat with our AI helpdesk, talk to a live engineer, or file a ticket.</p>
+    </div>
+    <div class="action-row-right">
+      <button class="btn btn-primary" data-modal-trigger="new-ticket">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+        New Ticket
+      </button>
+    </div>
+  </div>
+
+  <!-- HERO -->
+  <div class="support-hero">
+    <div class="support-hero-content">
+      <div class="support-hero-eyebrow"><span class="status-dot"></span>Live agent online · avg response 2 min</div>
+      <h2>How can we help, Harri?</h2>
+      <p>Search docs, browse common issues, or open a ticket. Our team responds within 2 hours during business hours (9 AM – 6 PM MYT, Mon–Fri).</p>
+      <div class="support-hero-search">
+        <input type="text" placeholder="Search articles, error codes, or describe your issue...">
+        <button data-toast="Searching knowledge base...">Search</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- HELP TILES -->
+  <div class="help-grid">
+    <a class="help-tile" data-toast="Opening guide: Getting Started">
+      <div class="help-tile-icon">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+      </div>
+      <div class="help-tile-title">Getting Started</div>
+      <div class="help-tile-meta">12 articles · 5 min read</div>
+    </a>
+    <a class="help-tile" data-toast="Opening guide: Inspection Workflow">
+      <div class="help-tile-icon">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 11 12 14 22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
+      </div>
+      <div class="help-tile-title">Inspection Workflow</div>
+      <div class="help-tile-meta">18 articles · 12 min read</div>
+    </a>
+    <a class="help-tile" data-toast="Opening guide: AI Insights & Reports">
+      <div class="help-tile-icon">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z"/></svg>
+      </div>
+      <div class="help-tile-title">AI Insights &amp; Reports</div>
+      <div class="help-tile-meta">9 articles · 8 min read</div>
+    </a>
+    <a class="help-tile" data-toast="Opening guide: Troubleshooting">
+      <div class="help-tile-icon">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg>
+      </div>
+      <div class="help-tile-title">Troubleshooting</div>
+      <div class="help-tile-meta">23 articles · most viewed</div>
+    </a>
+  </div>
+
+  <!-- STAT ROW -->
+  <div class="stat-grid">
+    <div class="stat-card">
+      <div class="stat-icon warning">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+      </div>
+      <div>
+        <div class="stat-value">7</div>
+        <div class="stat-label">Open Tickets</div>
+        <div class="stat-change down">2 awaiting your reply</div>
+      </div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-icon primary">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+      </div>
+      <div>
+        <div class="stat-value">12</div>
+        <div class="stat-label">In Progress</div>
+        <div class="stat-change">Updated within 24 hr</div>
+      </div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-icon success">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+      </div>
+      <div>
+        <div class="stat-value">148</div>
+        <div class="stat-label">Resolved · QTD</div>
+        <div class="stat-change up">Avg 4.2 hr response</div>
+      </div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-icon primary">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+      </div>
+      <div>
+        <div class="stat-value">4.8</div>
+        <div class="stat-label">CSAT · QTD</div>
+        <div class="stat-change up">+0.2 vs last quarter</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <!-- FILTERS -->
+    <div class="filter-bar">
+      <select class="form-control">
+        <option>All Tickets</option>
+        <option>My Tickets</option>
+        <option>Mentioning Me</option>
+        <option>Watching</option>
+      </select>
+      <select class="form-control">
+        <option>All Types</option>
+        <option>Bug Report</option>
+        <option>Feature Request</option>
+        <option>Question</option>
+        <option>Account Issue</option>
+      </select>
+      <select class="form-control">
+        <option>All Priorities</option>
+        <option>Critical</option>
+        <option>High</option>
+        <option>Normal</option>
+        <option>Low</option>
+      </select>
+      <select class="form-control">
+        <option>All Status</option>
+        <option>Open</option>
+        <option>In Progress</option>
+        <option>Awaiting Reply</option>
+        <option>Resolved</option>
+        <option>Closed</option>
+      </select>
+      <div style="flex:1;min-width:220px;position:relative;">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="position:absolute;left:12px;top:50%;transform:translateY(-50%);color:var(--text-tertiary);"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+        <input type="text" class="form-control" placeholder="Search tickets by title, ID, or keyword..." style="padding-left:36px;">
+      </div>
+    </div>
+
+    <!-- TAG PILLS -->
+    <div class="tag-pills">
+      <span class="tag-pill active" data-tag="all">All</span>
+      <span class="tag-pill" data-tag="open">Open</span>
+      <span class="tag-pill" data-tag="in progress">In Progress</span>
+      <span class="tag-pill" data-tag="awaiting">Awaiting Reply</span>
+      <span class="tag-pill" data-tag="resolved">Resolved</span>
+      <span class="tag-pill" data-tag="closed">Closed</span>
+    </div>
+
+    <!-- TICKETS TABLE -->
+    <div class="table-wrapper">
+      <table>
+        <thead>
+          <tr>
+            <th>Ticket</th>
+            <th>Title</th>
+            <th>Type</th>
+            <th>Priority</th>
+            <th>Status</th>
+            <th>Assignee</th>
+            <th>Updated</th>
+            <th style="text-align:center">Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr class="row-clickable" onclick="window.toast && window.toast('Opening ticket detail (coming soon)')">
+            <td><span class="report-id">SP-1284</span></td>
+            <td>Photo annotation tool not saving overlays consistently</td>
+            <td>Bug</td>
+            <td><span class="priority-dot priority-high">High</span></td>
+            <td><span class="badge badge-warning"><span class="badge-dot"></span>Open</span></td>
+            <td>—</td>
+            <td>2 days ago</td>
+            <td style="text-align:center">
+              <button class="btn-icon" title="Reply" data-toast="Reply composer opening" onclick="event.stopPropagation()"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 17 4 12 9 7"/><path d="M20 18v-2a4 4 0 0 0-4-4H4"/></svg></button>
+              <button class="btn-icon" title="Close ticket" data-toast="Ticket closed" onclick="event.stopPropagation()"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>
+            </td>
+          </tr>
+          <tr class="row-clickable" onclick="window.toast && window.toast('Opening ticket detail (coming soon)')">
+            <td><span class="report-id">SP-1276</span></td>
+            <td>Add bulk-export to Reports list</td>
+            <td>Feature</td>
+            <td><span class="priority-dot priority-normal">Normal</span></td>
+            <td><span class="badge badge-info"><span class="badge-dot"></span>In Progress</span></td>
+            <td>Jasmine Loh</td>
+            <td>5 hr ago</td>
+            <td style="text-align:center">
+              <button class="btn-icon" title="Reply" data-toast="Reply composer opening" onclick="event.stopPropagation()"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 17 4 12 9 7"/><path d="M20 18v-2a4 4 0 0 0-4-4H4"/></svg></button>
+              <button class="btn-icon" title="Close ticket" data-toast="Ticket closed" onclick="event.stopPropagation()"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>
+            </td>
+          </tr>
+          <tr class="row-clickable" onclick="window.toast && window.toast('Opening ticket detail (coming soon)')">
+            <td><span class="report-id">SP-1281</span></td>
+            <td>Cmd+K palette doesn't dismiss when clicking outside on Safari</td>
+            <td>Bug</td>
+            <td><span class="priority-dot priority-low">Low</span></td>
+            <td><span class="badge badge-warning"><span class="badge-dot"></span>Awaiting Reply</span></td>
+            <td>Mohd. Hairi</td>
+            <td>1 day ago</td>
+            <td style="text-align:center">
+              <button class="btn-icon" title="Reply" data-toast="Reply composer opening" onclick="event.stopPropagation()"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 17 4 12 9 7"/><path d="M20 18v-2a4 4 0 0 0-4-4H4"/></svg></button>
+              <button class="btn-icon" title="Close ticket" data-toast="Ticket closed" onclick="event.stopPropagation()"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>
+            </td>
+          </tr>
+          <tr class="row-clickable" onclick="window.toast && window.toast('Opening ticket detail (coming soon)')">
+            <td><span class="report-id">SP-1273</span></td>
+            <td>Add ability to copy findings from one report to another</td>
+            <td>Feature</td>
+            <td><span class="priority-dot priority-normal">Normal</span></td>
+            <td><span class="badge badge-info"><span class="badge-dot"></span>In Progress</span></td>
+            <td>Mohd. Hairi</td>
+            <td>3 days ago</td>
+            <td style="text-align:center">
+              <button class="btn-icon" title="Reply" data-toast="Reply composer opening" onclick="event.stopPropagation()"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 17 4 12 9 7"/><path d="M20 18v-2a4 4 0 0 0-4-4H4"/></svg></button>
+              <button class="btn-icon" title="Close ticket" data-toast="Ticket closed" onclick="event.stopPropagation()"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>
+            </td>
+          </tr>
+          <tr class="row-clickable" onclick="window.toast && window.toast('Opening ticket detail (coming soon)')">
+            <td><span class="report-id">SP-1268</span></td>
+            <td>Equipment search returns empty for piping IDs with quote characters</td>
+            <td>Bug</td>
+            <td><span class="priority-dot priority-high">High</span></td>
+            <td><span class="badge badge-success"><span class="badge-dot"></span>Resolved</span></td>
+            <td>Mohd. Hairi</td>
+            <td>3 days ago</td>
+            <td style="text-align:center">
+              <button class="btn-icon" title="Reopen" data-toast="Ticket reopened" onclick="event.stopPropagation()"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="23 4 23 10 17 10"/><polyline points="1 20 1 14 7 14"/><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"/></svg></button>
+            </td>
+          </tr>
+          <tr class="row-clickable" onclick="window.toast && window.toast('Opening ticket detail (coming soon)')">
+            <td><span class="report-id">SP-1262</span></td>
+            <td>Slow load on dashboard when 1000+ reports exist</td>
+            <td>Bug</td>
+            <td><span class="priority-dot priority-critical">Critical</span></td>
+            <td><span class="badge badge-warning"><span class="badge-dot"></span>Open</span></td>
+            <td>Engineering</td>
+            <td>4 hr ago</td>
+            <td style="text-align:center">
+              <button class="btn-icon" title="Reply" data-toast="Reply composer opening" onclick="event.stopPropagation()"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 17 4 12 9 7"/><path d="M20 18v-2a4 4 0 0 0-4-4H4"/></svg></button>
+              <button class="btn-icon" title="Close ticket" data-toast="Ticket closed" onclick="event.stopPropagation()"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>
+            </td>
+          </tr>
+          <tr class="row-clickable" onclick="window.toast && window.toast('Opening ticket detail (coming soon)')">
+            <td><span class="report-id">SP-1255</span></td>
+            <td>Allow custom inspection priorities beyond P1–P3</td>
+            <td>Feature</td>
+            <td><span class="priority-dot priority-low">Low</span></td>
+            <td><span class="badge badge-gray"><span class="badge-dot"></span>Closed</span></td>
+            <td>Product</td>
+            <td>1 week ago</td>
+            <td style="text-align:center">
+              <button class="btn-icon" title="Reopen" data-toast="Ticket reopened" onclick="event.stopPropagation()"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="23 4 23 10 17 10"/><polyline points="1 20 1 14 7 14"/><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"/></svg></button>
+            </td>
+          </tr>
+          <tr class="row-clickable" onclick="window.toast && window.toast('Opening ticket detail (coming soon)')">
+            <td><span class="report-id">SP-1248</span></td>
+            <td>How to export multiple reports to a single PDF?</td>
+            <td>Question</td>
+            <td><span class="priority-dot priority-low">Low</span></td>
+            <td><span class="badge badge-success"><span class="badge-dot"></span>Resolved</span></td>
+            <td>Mohd. Hairi</td>
+            <td>1 week ago</td>
+            <td style="text-align:center">
+              <button class="btn-icon" title="Reopen" data-toast="Ticket reopened" onclick="event.stopPropagation()"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="23 4 23 10 17 10"/><polyline points="1 20 1 14 7 14"/><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"/></svg></button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- PAGINATION -->
+    <div class="pagination">
+      <div class="pagination-info">Showing 1–8 of 24 tickets</div>
+      <div class="pagination-buttons">
+        <button class="pagination-btn">&lsaquo;</button>
+        <button class="pagination-btn active">1</button>
+        <button class="pagination-btn">2</button>
+        <button class="pagination-btn">3</button>
+        <button class="pagination-btn">&rsaquo;</button>
+      </div>
+    </div>
+  </div>
+</main>
+
+<script defer src="js/app.js"></script>
+</body>
+</html>

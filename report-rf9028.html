@@ -1,0 +1,1065 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>MAVIS 2.0 — Inspection Report RF9028</title>
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="icon" type="image/svg+xml" href="favicon.svg">
+  <style>
+    /* ===== A4 page setup ===== */
+    @page {
+      size: A4;
+      margin: 0;
+    }
+    html { background: #E8E8EA; }
+    body {
+      margin: 0;
+      padding: 32px 0;
+      font-family: var(--font-body);
+      color: var(--text-primary);
+      background: transparent;
+    }
+    @media print {
+      html, body { background: white; }
+      body { padding: 0; }
+    }
+
+    .pdf-page {
+      width: 210mm;
+      min-height: 297mm;
+      background: white;
+      color: #1D1D1F;
+      margin: 0 auto 16px;
+      padding: 16mm 14mm 22mm;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.12);
+      position: relative;
+      page-break-after: always;
+      box-sizing: border-box;
+      font-size: 11px;
+      line-height: 1.5;
+    }
+    .pdf-page:last-child { page-break-after: auto; }
+    @media print {
+      .pdf-page { box-shadow: none; margin: 0; page-break-after: always; }
+    }
+
+    /* ===== Page header (every page) ===== */
+    .pdf-header {
+      display: grid;
+      grid-template-columns: auto 1fr auto;
+      align-items: center;
+      gap: 14px;
+      padding-bottom: 10px;
+      margin-bottom: 14px;
+      border-bottom: 2px solid #1D1D1F;
+    }
+    .pdf-logo {
+      width: 28px; height: 34px;
+      background: white;
+      border: 1.6px solid #1D1D1F;
+      border-radius: 4px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .pdf-logo svg { width: 17px; height: 22px; }
+    .pdf-brand {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      font-weight: 700;
+      color: #1D1D1F;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+    }
+    .pdf-brand .dot { color: #0D9488; margin: 0 4px; }
+    .pdf-doc-meta {
+      text-align: right;
+      font-family: var(--font-mono);
+      font-size: 10px;
+      color: #6E6E73;
+      letter-spacing: -0.01em;
+      line-height: 1.4;
+    }
+    .pdf-doc-meta strong {
+      display: block;
+      font-size: 13px;
+      color: #0D9488;
+      font-weight: 700;
+      letter-spacing: 0;
+    }
+
+    /* ===== Footer (page number) ===== */
+    .pdf-footer {
+      position: absolute;
+      bottom: 10mm;
+      left: 14mm;
+      right: 14mm;
+      display: grid;
+      grid-template-columns: 1fr auto 1fr;
+      align-items: center;
+      gap: 12px;
+      padding-top: 8px;
+      border-top: 1px solid rgba(0,0,0,0.08);
+      font-family: var(--font-mono);
+      font-size: 9px;
+      color: #AEAEB2;
+      letter-spacing: -0.01em;
+    }
+    .pdf-footer .center { text-align: center; }
+    .pdf-footer .right { text-align: right; }
+    .pdf-footer strong { color: #1D1D1F; font-weight: 700; }
+
+    /* ===== Cover page styles ===== */
+    .pdf-cover-eyebrow {
+      font-family: var(--font-mono);
+      font-size: 10px;
+      font-weight: 700;
+      color: #0D9488;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      margin-bottom: 6px;
+    }
+    .pdf-cover-title {
+      font-size: 28px;
+      font-weight: 700;
+      color: #1D1D1F;
+      letter-spacing: -0.02em;
+      line-height: 1.15;
+      margin-bottom: 4px;
+    }
+    .pdf-cover-sub {
+      font-size: 13px;
+      color: #6E6E73;
+      letter-spacing: -0.01em;
+      margin-bottom: 18px;
+    }
+
+    .pdf-status-row {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 12px 14px;
+      background: rgba(52,199,89,0.08);
+      border: 1px solid rgba(52,199,89,0.2);
+      border-left: 3px solid #34C759;
+      border-radius: 6px;
+      margin-bottom: 22px;
+    }
+    .pdf-status-icon {
+      width: 28px; height: 28px;
+      border-radius: 50%;
+      background: #34C759;
+      color: white;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+    .pdf-status-text {
+      font-size: 12px;
+      color: #1D1D1F;
+      flex: 1;
+    }
+    .pdf-status-text strong { color: #1B9E3E; font-weight: 700; }
+    .pdf-status-meta {
+      font-family: var(--font-mono);
+      font-size: 10px;
+      color: #6E6E73;
+      letter-spacing: -0.01em;
+    }
+
+    /* ===== Section headings ===== */
+    .pdf-section-label {
+      font-family: var(--font-mono);
+      font-size: 9px;
+      font-weight: 700;
+      color: #6E6E73;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      margin-bottom: 6px;
+    }
+    .pdf-section-title {
+      font-size: 13px;
+      font-weight: 700;
+      color: #1D1D1F;
+      letter-spacing: -0.01em;
+      margin-bottom: 10px;
+      padding-bottom: 6px;
+      border-bottom: 1px solid #E8E8EA;
+    }
+
+    /* ===== Data grid (replacing wide tables) ===== */
+    .pdf-data-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0 20px;
+      margin-bottom: 18px;
+    }
+    .pdf-data-row {
+      display: grid;
+      grid-template-columns: 130px 1fr;
+      padding: 6px 0;
+      border-bottom: 1px solid #F0F0F2;
+      font-size: 11px;
+      align-items: baseline;
+    }
+    .pdf-data-row:last-of-type { border-bottom: none; }
+    .pdf-data-label {
+      font-family: var(--font-mono);
+      font-size: 9px;
+      font-weight: 600;
+      color: #6E6E73;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+    }
+    .pdf-data-value {
+      color: #1D1D1F;
+      font-weight: 500;
+    }
+    .pdf-data-value .tag-id, .pdf-data-value .report-id {
+      font-family: var(--font-mono);
+      font-weight: 600;
+      letter-spacing: -0.01em;
+    }
+    .pdf-data-value .report-id { color: #0D9488; }
+
+    /* ===== Compact table for components ===== */
+    .pdf-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-bottom: 18px;
+      font-size: 10.5px;
+    }
+    .pdf-table th {
+      text-align: left;
+      padding: 8px 10px;
+      background: #F5F5F7;
+      font-family: var(--font-mono);
+      font-size: 9px;
+      font-weight: 700;
+      color: #6E6E73;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      border-bottom: 1.5px solid #1D1D1F;
+    }
+    .pdf-table th.num { text-align: right; }
+    .pdf-table td {
+      padding: 8px 10px;
+      border-bottom: 1px solid #F0F0F2;
+      vertical-align: top;
+      color: #1D1D1F;
+    }
+    .pdf-table td.num {
+      text-align: right;
+      font-family: var(--font-mono);
+      font-variant-numeric: tabular-nums;
+    }
+    .pdf-table td.bold { font-weight: 700; }
+    .pdf-table tbody tr:last-child td { border-bottom: 1.5px solid #1D1D1F; }
+
+    /* ===== Summary stats bar ===== */
+    .pdf-summary-bar {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1px;
+      background: #E8E8EA;
+      border: 1px solid #E8E8EA;
+      border-radius: 6px;
+      overflow: hidden;
+      margin-bottom: 18px;
+    }
+    .pdf-summary-cell {
+      background: white;
+      padding: 12px 14px;
+    }
+    .pdf-summary-value {
+      font-family: var(--font-mono);
+      font-size: 22px;
+      font-weight: 700;
+      color: #1D1D1F;
+      letter-spacing: -0.025em;
+      line-height: 1;
+      font-variant-numeric: tabular-nums;
+    }
+    .pdf-summary-value.warn { color: #CC7A00; }
+    .pdf-summary-value.alert { color: #D62E25; }
+    .pdf-summary-label {
+      font-family: var(--font-mono);
+      font-size: 9px;
+      font-weight: 600;
+      color: #6E6E73;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      margin-top: 4px;
+    }
+
+    /* ===== Approval signature row ===== */
+    .pdf-approvals {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 14px;
+      margin-bottom: 18px;
+    }
+    .pdf-approval {
+      padding: 12px 14px;
+      border: 1px solid #E8E8EA;
+      border-radius: 6px;
+      background: #F9FAFB;
+    }
+    .pdf-approval-role {
+      font-family: var(--font-mono);
+      font-size: 9px;
+      font-weight: 700;
+      color: #6E6E73;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      margin-bottom: 8px;
+    }
+    .pdf-approval-row {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 4px;
+    }
+    .pdf-avatar {
+      width: 30px; height: 30px;
+      border-radius: 50%;
+      background: rgba(13,148,136,0.1);
+      color: #0D9488;
+      border: 1px solid rgba(13,148,136,0.2);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-family: var(--font-mono);
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+      flex-shrink: 0;
+    }
+    .pdf-avatar.solid { background: #0D9488; color: white; border-color: transparent; }
+    .pdf-approval-name {
+      font-size: 12px;
+      font-weight: 600;
+      color: #1D1D1F;
+    }
+    .pdf-approval-meta {
+      font-family: var(--font-mono);
+      font-size: 9px;
+      color: #6E6E73;
+      letter-spacing: -0.01em;
+    }
+    .pdf-approval-quote {
+      font-size: 10px;
+      color: #6E6E73;
+      font-style: italic;
+      padding-top: 8px;
+      margin-top: 8px;
+      border-top: 1px dashed #E8E8EA;
+    }
+
+    /* ===== Finding card ===== */
+    .pdf-finding {
+      border: 1px solid #E8E8EA;
+      border-radius: 6px;
+      overflow: hidden;
+      margin-bottom: 14px;
+    }
+    .pdf-finding-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      padding: 10px 14px;
+      background: #1D1D1F;
+      color: white;
+    }
+    .pdf-finding-head-left {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .pdf-finding-num {
+      width: 22px; height: 22px;
+      border-radius: 50%;
+      background: #0D9488;
+      color: white;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-family: var(--font-mono);
+      font-size: 10px;
+      font-weight: 700;
+    }
+    .pdf-finding-title {
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: -0.01em;
+    }
+    .pdf-finding-sub {
+      font-family: var(--font-mono);
+      font-size: 10px;
+      color: rgba(255,255,255,0.65);
+      letter-spacing: -0.01em;
+    }
+    .pdf-cat-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      padding: 3px 9px;
+      border-radius: 9999px;
+      font-family: var(--font-mono);
+      font-size: 9px;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+    }
+    .pdf-cat-badge.cat1 { background: rgba(255,59,48,0.18); color: #FF6B61; }
+    .pdf-cat-badge.cat2 { background: rgba(255,149,0,0.18); color: #FFB13D; }
+    .pdf-cat-badge.cat3 { background: rgba(0,122,255,0.18); color: #5DA8FF; }
+    .pdf-cat-badge .dot {
+      width: 5px; height: 5px;
+      border-radius: 50%;
+      background: currentColor;
+    }
+    .pdf-finding-body {
+      padding: 14px;
+    }
+
+    /* ===== Photo grid (annotated) ===== */
+    .pdf-photo-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 8px;
+      margin-bottom: 12px;
+    }
+    .pdf-photo {
+      aspect-ratio: 4/3;
+      border-radius: 4px;
+      overflow: hidden;
+      background: #2C3E50 center/cover no-repeat;
+      position: relative;
+      border: 1px solid #E8E8EA;
+    }
+    .pdf-photo-badge {
+      position: absolute;
+      top: 4px; left: 4px;
+      background: rgba(29,29,31,0.85);
+      color: white;
+      font-family: var(--font-mono);
+      font-size: 8px;
+      font-weight: 700;
+      padding: 2px 6px;
+      border-radius: 3px;
+      letter-spacing: 0.04em;
+    }
+
+    /* Photo annotation overlays */
+    .pdf-photo .ann-rect {
+      position: absolute;
+      border: 2px solid #FF3B30;
+      border-radius: 2px;
+    }
+    .pdf-photo .ann-circle {
+      position: absolute;
+      border: 2px solid #FF9500;
+      border-radius: 50%;
+    }
+    .pdf-photo .ann-label {
+      position: absolute;
+      background: #FF3B30;
+      color: white;
+      font-family: var(--font-mono);
+      font-size: 7.5px;
+      font-weight: 700;
+      padding: 1px 5px;
+      border-radius: 2px;
+      letter-spacing: 0.04em;
+      white-space: nowrap;
+    }
+    .pdf-photo .ann-label.warn { background: #FF9500; }
+
+    /* ===== Finding two-column ===== */
+    .pdf-finding-2col {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 18px;
+    }
+    .pdf-finding-2col .pdf-section-label { margin-top: 0; }
+    .pdf-finding-text {
+      font-size: 10.5px;
+      line-height: 1.55;
+      color: #1D1D1F;
+      margin-bottom: 8px;
+    }
+    .pdf-finding-text strong { font-weight: 700; }
+    .pdf-finding-text p + p { margin-top: 6px; }
+
+    .pdf-rec-label {
+      font-family: var(--font-mono);
+      font-size: 9px;
+      font-weight: 700;
+      color: #0D9488;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      margin-bottom: 4px;
+      margin-top: 8px;
+    }
+
+    /* Finding meta grid */
+    .pdf-finding-meta {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 0;
+      margin-top: 10px;
+      padding-top: 10px;
+      border-top: 1px solid #E8E8EA;
+    }
+    .pdf-finding-meta .cell {
+      padding: 0 10px;
+      border-right: 1px solid #E8E8EA;
+    }
+    .pdf-finding-meta .cell:last-child { border-right: none; }
+    .pdf-finding-meta .cell:first-child { padding-left: 0; }
+    .pdf-finding-meta .l {
+      font-family: var(--font-mono);
+      font-size: 8px;
+      font-weight: 600;
+      color: #6E6E73;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      margin-bottom: 2px;
+    }
+    .pdf-finding-meta .v {
+      font-size: 11px;
+      font-weight: 600;
+      color: #1D1D1F;
+    }
+    .pdf-finding-meta .v.alert { color: #D62E25; }
+    .pdf-finding-meta .v.warn { color: #CC7A00; }
+
+    /* ===== Activity timeline ===== */
+    .pdf-timeline {
+      list-style: none;
+      padding: 0;
+      margin: 0 0 18px;
+    }
+    .pdf-timeline-item {
+      display: grid;
+      grid-template-columns: 90px 1fr;
+      gap: 14px;
+      padding: 6px 0;
+      border-bottom: 1px solid #F0F0F2;
+      font-size: 10.5px;
+    }
+    .pdf-timeline-item:last-child { border-bottom: none; }
+    .pdf-timeline-time {
+      font-family: var(--font-mono);
+      font-size: 9.5px;
+      color: #6E6E73;
+      letter-spacing: -0.01em;
+    }
+    .pdf-timeline-content {
+      color: #1D1D1F;
+    }
+    .pdf-timeline-content strong { font-weight: 700; }
+    .pdf-timeline-content .tiny {
+      font-family: var(--font-mono);
+      font-size: 9px;
+      color: #6E6E73;
+      letter-spacing: -0.01em;
+    }
+
+    /* ===== Equipment hero block ===== */
+    .pdf-eq-hero {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 14px;
+      padding: 14px 16px;
+      background: #F5F5F7;
+      border: 1px solid #E8E8EA;
+      border-left: 3px solid #1D1D1F;
+      border-radius: 4px;
+      margin-bottom: 18px;
+    }
+    .pdf-eq-id {
+      font-family: var(--font-mono);
+      font-size: 18px;
+      font-weight: 700;
+      color: #1D1D1F;
+      letter-spacing: -0.02em;
+    }
+    .pdf-eq-desc {
+      font-size: 12px;
+      color: #1D1D1F;
+      margin-top: 2px;
+    }
+    .pdf-eq-meta {
+      font-family: var(--font-mono);
+      font-size: 9.5px;
+      color: #6E6E73;
+      letter-spacing: -0.01em;
+      margin-top: 4px;
+    }
+    .pdf-eq-side {
+      text-align: right;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      gap: 4px;
+    }
+  </style>
+</head>
+<body>
+
+<!-- ============================================================
+     PAGE 1 — COVER + EXECUTIVE SUMMARY
+     ============================================================ -->
+<div class="pdf-page">
+  <div class="pdf-header">
+    <div class="pdf-logo">
+      <svg viewBox="0 0 32 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M17 5 C 21 11, 24 17, 24 24 C 24 30, 21 35, 16 35 C 11 35, 7 31, 7 25 C 7 19, 11 14, 14 9 C 16 7, 17 5, 17 5 Z" fill="#1D1D1F"/>
+        <path d="M21 14 C 23.5 18, 25 22, 24.5 26.5 C 24 31, 21 34, 17 33 C 14 32, 12.5 29, 13 26 C 14 22, 17.5 17.5, 21 14 Z" fill="#3B5BDB"/>
+      </svg>
+    </div>
+    <span class="pdf-brand">MAVIS<span class="dot">·</span>2.0<span class="dot">·</span>Inspection Report</span>
+    <div class="pdf-doc-meta">
+      <strong>RF9028</strong>
+      Generated 13 Apr 2026, 09:48
+    </div>
+  </div>
+
+  <!-- COVER -->
+  <div class="pdf-cover-eyebrow">Visual Inspection Report</div>
+  <h1 class="pdf-cover-title">Heat Exchanger — Annual Inspection</h1>
+  <div class="pdf-cover-sub">E-4642-ACI1 · Lube Oil Cooler · MLNG · System 4600 · Annual Inspection Cycle 2026</div>
+
+  <!-- Status banner -->
+  <div class="pdf-status-row">
+    <div class="pdf-status-icon">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+    </div>
+    <div class="pdf-status-text">
+      <strong>Approved</strong> — equipment cleared for continued service. 2 findings filed; 1 short-term action recommended.
+    </div>
+    <div class="pdf-status-meta">Approved by Mohd. Hairi · 13 Apr 2026 · 09:42</div>
+  </div>
+
+  <!-- KEY METADATA — replaces the wide sparse tables -->
+  <div class="pdf-section-title">Report Information</div>
+  <div class="pdf-data-grid">
+    <div>
+      <div class="pdf-data-row"><span class="pdf-data-label">System Report No.</span><span class="pdf-data-value"><span class="report-id">RF9028</span></span></div>
+      <div class="pdf-data-row"><span class="pdf-data-label">User Report No.</span><span class="pdf-data-value"><span class="tag-id">E-4642-ANN-2026</span></span></div>
+      <div class="pdf-data-row"><span class="pdf-data-label">Inspection Method</span><span class="pdf-data-value">Visual Inspection</span></div>
+      <div class="pdf-data-row"><span class="pdf-data-label">Inspection Date</span><span class="pdf-data-value">12 April 2026</span></div>
+      <div class="pdf-data-row"><span class="pdf-data-label">Report Submitted</span><span class="pdf-data-value">12 April 2026 · 16:18</span></div>
+    </div>
+    <div>
+      <div class="pdf-data-row"><span class="pdf-data-label">Company / OPU</span><span class="pdf-data-value">Malaysia LNG Complex</span></div>
+      <div class="pdf-data-row"><span class="pdf-data-label">Plant</span><span class="pdf-data-value">MLNG</span></div>
+      <div class="pdf-data-row"><span class="pdf-data-label">System</span><span class="pdf-data-value"><span class="tag-id">4600</span></span></div>
+      <div class="pdf-data-row"><span class="pdf-data-label">Inspection Company</span><span class="pdf-data-value">MLNG Inspection Team</span></div>
+      <div class="pdf-data-row"><span class="pdf-data-label">Generated</span><span class="pdf-data-value">13 April 2026 · 09:48</span></div>
+    </div>
+  </div>
+
+  <!-- Equipment hero -->
+  <div class="pdf-section-title">Equipment Under Inspection</div>
+  <div class="pdf-eq-hero">
+    <div>
+      <div class="pdf-eq-id">E-4642-ACI1</div>
+      <div class="pdf-eq-desc">Heat Exchanger — Lube Oil Cooler</div>
+      <div class="pdf-eq-meta">MLNG · System 4600 · 3 components inspected · Material spec SA-516 / SA-179</div>
+    </div>
+    <div class="pdf-eq-side">
+      <span class="pdf-cat-badge cat3" style="background:rgba(13,148,136,0.12);color:#0D9488;"><span class="dot"></span>Service Continued</span>
+      <span style="font-family:var(--font-mono);font-size:10px;color:#6E6E73;">Annual Cycle</span>
+    </div>
+  </div>
+
+  <!-- Summary stats -->
+  <div class="pdf-section-title">Findings Summary</div>
+  <div class="pdf-summary-bar">
+    <div class="pdf-summary-cell">
+      <div class="pdf-summary-value">2</div>
+      <div class="pdf-summary-label">Total Findings</div>
+    </div>
+    <div class="pdf-summary-cell">
+      <div class="pdf-summary-value warn">1</div>
+      <div class="pdf-summary-label">Cat 2 · Moderate</div>
+    </div>
+    <div class="pdf-summary-cell">
+      <div class="pdf-summary-value" style="color:#0D9488;">1</div>
+      <div class="pdf-summary-label">Cat 3 · Low</div>
+    </div>
+    <div class="pdf-summary-cell">
+      <div class="pdf-summary-value">0</div>
+      <div class="pdf-summary-label">Cat 1 · High</div>
+    </div>
+  </div>
+
+  <!-- Approvals -->
+  <div class="pdf-section-title">Review &amp; Approval Trail</div>
+  <div class="pdf-approvals">
+    <div class="pdf-approval">
+      <div class="pdf-approval-role">Preparer</div>
+      <div class="pdf-approval-row">
+        <span class="pdf-avatar">AH</span>
+        <div>
+          <div class="pdf-approval-name">Afnan Hasbullah</div>
+          <div class="pdf-approval-meta">Inspector · MLNG</div>
+        </div>
+      </div>
+      <div class="pdf-approval-meta">Submitted 12 Apr 2026 · 16:18</div>
+    </div>
+    <div class="pdf-approval">
+      <div class="pdf-approval-role">Reviewer</div>
+      <div class="pdf-approval-row">
+        <span class="pdf-avatar">JL</span>
+        <div>
+          <div class="pdf-approval-name">Jasmine Loh</div>
+          <div class="pdf-approval-meta">Reviewer · MLNG</div>
+        </div>
+      </div>
+      <div class="pdf-approval-meta">Reviewed 13 Apr 2026 · 08:24</div>
+    </div>
+    <div class="pdf-approval">
+      <div class="pdf-approval-role">Approver</div>
+      <div class="pdf-approval-row">
+        <span class="pdf-avatar solid">MH</span>
+        <div>
+          <div class="pdf-approval-name">Mohd. Hairi</div>
+          <div class="pdf-approval-meta">Approver · MLNG TIGA</div>
+        </div>
+      </div>
+      <div class="pdf-approval-meta">Approved 13 Apr 2026 · 09:42</div>
+      <div class="pdf-approval-quote">"Findings reviewed and verified. Approved for action."</div>
+    </div>
+  </div>
+
+  <div class="pdf-footer">
+    <span>MAVIS 2.0 · <strong>RF9028</strong> · Generated 13 Apr 2026, 09:48</span>
+    <span class="center">Confidential — for internal MLNG TES/3 use</span>
+    <span class="right">Page <strong>1</strong> of 4</span>
+  </div>
+</div>
+
+<!-- ============================================================
+     PAGE 2 — EQUIPMENT & COMPONENT DETAIL
+     ============================================================ -->
+<div class="pdf-page">
+  <div class="pdf-header">
+    <div class="pdf-logo">
+      <svg viewBox="0 0 32 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M17 5 C 21 11, 24 17, 24 24 C 24 30, 21 35, 16 35 C 11 35, 7 31, 7 25 C 7 19, 11 14, 14 9 C 16 7, 17 5, 17 5 Z" fill="#1D1D1F"/>
+        <path d="M21 14 C 23.5 18, 25 22, 24.5 26.5 C 24 31, 21 34, 17 33 C 14 32, 12.5 29, 13 26 C 14 22, 17.5 17.5, 21 14 Z" fill="#3B5BDB"/>
+      </svg>
+    </div>
+    <span class="pdf-brand">MAVIS<span class="dot">·</span>2.0<span class="dot">·</span>Equipment &amp; Components</span>
+    <div class="pdf-doc-meta">
+      <strong>RF9028</strong>
+      E-4642-ACI1
+    </div>
+  </div>
+
+  <div class="pdf-section-label">Section 02</div>
+  <h2 class="pdf-section-title" style="font-size:16px;border-bottom-width:1.5px;">Equipment &amp; Components</h2>
+
+  <div class="pdf-data-grid" style="grid-template-columns: 1fr;">
+    <div>
+      <div class="pdf-data-row"><span class="pdf-data-label">Equipment ID</span><span class="pdf-data-value"><span class="tag-id">E-4642-ACI1</span></span></div>
+      <div class="pdf-data-row"><span class="pdf-data-label">Equipment Type</span><span class="pdf-data-value">Heat Exchanger</span></div>
+      <div class="pdf-data-row"><span class="pdf-data-label">Description</span><span class="pdf-data-value">Lube Oil Cooler — process service heat exchanger</span></div>
+      <div class="pdf-data-row"><span class="pdf-data-label">Asset Location</span><span class="pdf-data-value">MLNG · System 4600 · Process Module 5</span></div>
+      <div class="pdf-data-row"><span class="pdf-data-label">PMT Number</span><span class="pdf-data-value"><span class="tag-id">SW.PMT.214091</span></span></div>
+      <div class="pdf-data-row"><span class="pdf-data-label">Inspection Circuit</span><span class="pdf-data-value">C-A1</span></div>
+      <div class="pdf-data-row"><span class="pdf-data-label">Last Inspection</span><span class="pdf-data-value">12 Apr 2025 · Annual cycle (RF8642)</span></div>
+    </div>
+  </div>
+
+  <div class="pdf-section-title">Component Inventory</div>
+  <table class="pdf-table">
+    <thead>
+      <tr>
+        <th>Component</th>
+        <th>Type</th>
+        <th>Material Spec</th>
+        <th>Grade</th>
+        <th>Process Service</th>
+        <th class="num">Design Temp</th>
+        <th class="num">Design Pressure</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td class="bold">Shell</td>
+        <td>Shell</td>
+        <td><span class="tag-id">SA-516</span></td>
+        <td class="num">70</td>
+        <td>Lube Oil</td>
+        <td class="num">120 °C</td>
+        <td class="num">8.5 BarG</td>
+      </tr>
+      <tr>
+        <td class="bold">Channel Box</td>
+        <td>Head</td>
+        <td><span class="tag-id">SA-516</span></td>
+        <td class="num">70</td>
+        <td>Cooling Water</td>
+        <td class="num">60 °C</td>
+        <td class="num">4.0 BarG</td>
+      </tr>
+      <tr>
+        <td class="bold">Tube Bundle</td>
+        <td>Tubes</td>
+        <td><span class="tag-id">SA-179</span></td>
+        <td class="num">—</td>
+        <td>Cooling Water</td>
+        <td class="num">60 °C</td>
+        <td class="num">4.0 BarG</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="pdf-section-title">Overall Equipment Condition</div>
+  <table class="pdf-table">
+    <thead>
+      <tr>
+        <th>Component</th>
+        <th>Inspection Coverage</th>
+        <th>Insulation</th>
+        <th>Coating</th>
+        <th>Finding</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr><td class="bold">Shell</td><td>External · 100%</td><td>Not insulated</td><td>Re 2 — moderate</td><td><span class="pdf-cat-badge cat2"><span class="dot"></span>Cat 2</span></td></tr>
+      <tr><td class="bold">Channel Box</td><td>External · 100%</td><td>N/A</td><td>Re 1 — light</td><td><span class="pdf-cat-badge cat3"><span class="dot"></span>Cat 3</span></td></tr>
+      <tr><td class="bold">Tube Bundle</td><td>Internal eddy-current</td><td>—</td><td>—</td><td><span style="font-family:var(--font-mono);font-size:9px;color:#1B9E3E;font-weight:700;">No anomaly</span></td></tr>
+    </tbody>
+  </table>
+
+  <div class="pdf-section-title">Inspection Summary</div>
+  <p class="pdf-finding-text">
+    Annual visual inspection completed on all three external/accessible components plus internal eddy-current of the tube bundle.
+    Two findings were raised. <strong>Finding #1 (Shell)</strong> identified moderate atmospheric corrosion at the shell mid-section near support saddles, classified Cat 2 with a recommended short-term touch-up coating action and a long-term re-coating during the 2027 turnaround. <strong>Finding #2 (Channel Box)</strong> noted faded PMT stencil markings (Cat 3, low priority) — re-stencil during routine maintenance.
+    Tube bundle integrity confirmed via eddy-current testing — no anomaly. Equipment is cleared for continued service in line with current operational parameters.
+  </p>
+
+  <div class="pdf-footer">
+    <span>MAVIS 2.0 · <strong>RF9028</strong> · Generated 13 Apr 2026, 09:48</span>
+    <span class="center">Confidential — for internal MLNG TES/3 use</span>
+    <span class="right">Page <strong>2</strong> of 4</span>
+  </div>
+</div>
+
+<!-- ============================================================
+     PAGE 3 — FINDING #1 — Shell
+     ============================================================ -->
+<div class="pdf-page">
+  <div class="pdf-header">
+    <div class="pdf-logo">
+      <svg viewBox="0 0 32 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M17 5 C 21 11, 24 17, 24 24 C 24 30, 21 35, 16 35 C 11 35, 7 31, 7 25 C 7 19, 11 14, 14 9 C 16 7, 17 5, 17 5 Z" fill="#1D1D1F"/>
+        <path d="M21 14 C 23.5 18, 25 22, 24.5 26.5 C 24 31, 21 34, 17 33 C 14 32, 12.5 29, 13 26 C 14 22, 17.5 17.5, 21 14 Z" fill="#3B5BDB"/>
+      </svg>
+    </div>
+    <span class="pdf-brand">MAVIS<span class="dot">·</span>2.0<span class="dot">·</span>Findings &amp; Recommendations</span>
+    <div class="pdf-doc-meta">
+      <strong>RF9028</strong>
+      Finding 1 of 2
+    </div>
+  </div>
+
+  <div class="pdf-section-label">Finding 01 of 02</div>
+
+  <div class="pdf-finding">
+    <div class="pdf-finding-head">
+      <div class="pdf-finding-head-left">
+        <span class="pdf-finding-num">1</span>
+        <div>
+          <div class="pdf-finding-title">Shell — External Atmospheric Corrosion</div>
+          <div class="pdf-finding-sub">Component: Shell · Mid-section near support saddles · SA-516 Grade 70</div>
+        </div>
+      </div>
+      <span class="pdf-cat-badge cat2"><span class="dot"></span>Cat 2 · Medium</span>
+    </div>
+    <div class="pdf-finding-body">
+
+      <div class="pdf-photo-grid">
+        <div class="pdf-photo" style="background-image:url('photos/inspection-thumb1.jpg');">
+          <span class="pdf-photo-badge">IMG 1.1</span>
+          <div class="ann-rect" style="top:25%;left:15%;width:45%;height:32%;"></div>
+          <div class="ann-label" style="top:18%;left:15%;">External corrosion</div>
+        </div>
+        <div class="pdf-photo" style="background-image:url('photos/inspection-thumb2.jpg');">
+          <span class="pdf-photo-badge">IMG 1.2</span>
+          <div class="ann-circle" style="top:35%;right:20%;width:38%;height:50%;"></div>
+        </div>
+        <div class="pdf-photo" style="background-image:url('photos/inspection-thumb3.jpg');">
+          <span class="pdf-photo-badge">IMG 1.3</span>
+        </div>
+      </div>
+
+      <div class="pdf-finding-2col">
+        <div>
+          <div class="pdf-section-label">Findings</div>
+          <p class="pdf-finding-text">
+            External corrosion observed on shell mid-section near support saddles. Paint coating shows visible blistering and minor flaking with surface rust uniformly distributed across the affected zone.
+          </p>
+          <p class="pdf-finding-text">
+            No localized pitting or wall-loss anomalies were detected during visual inspection. Coating thickness measurements suggest the original protection system has degraded but the underlying base metal remains within acceptable structural margins.
+          </p>
+        </div>
+        <div>
+          <div class="pdf-rec-label">Short-term Recommendation</div>
+          <p class="pdf-finding-text">
+            Surface preparation (SP-2 hand-tool cleaning) and touch-up coating at corroded zones within <strong>30 days</strong> to halt further metal loss.
+          </p>
+          <div class="pdf-rec-label">Long-term Recommendation</div>
+          <p class="pdf-finding-text">
+            Full blast and re-coating of external surface during <strong>2027 turnaround</strong>. Update paint cycle interval from 7 years to 5 years for this equipment class given environmental exposure.
+          </p>
+        </div>
+      </div>
+
+      <div class="pdf-finding-meta">
+        <div class="cell"><div class="l">Rust Grade</div><div class="v">Re 2 — Moderate</div></div>
+        <div class="cell"><div class="l">Damage Mechanism</div><div class="v">Atmospheric Corrosion</div></div>
+        <div class="cell"><div class="l">Findings Priority</div><div class="v warn">Medium</div></div>
+        <div class="cell"><div class="l">SAP Priority</div><div class="v">P3 — Normal</div></div>
+      </div>
+
+      <div class="pdf-finding-meta" style="border-top:none;padding-top:0;">
+        <div class="cell"><div class="l">Recommendation Cat.</div><div class="v">Cat 2 — Moderate</div></div>
+        <div class="cell"><div class="l">Further Inspection</div><div class="v">No</div></div>
+        <div class="cell"><div class="l">Open Insulation</div><div class="v">N/A</div></div>
+        <div class="cell"><div class="l">Scaffolding</div><div class="v">No</div></div>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="pdf-footer">
+    <span>MAVIS 2.0 · <strong>RF9028</strong> · Generated 13 Apr 2026, 09:48</span>
+    <span class="center">Confidential — for internal MLNG TES/3 use</span>
+    <span class="right">Page <strong>3</strong> of 4</span>
+  </div>
+</div>
+
+<!-- ============================================================
+     PAGE 4 — FINDING #2 — Channel Box + Activity Trail
+     ============================================================ -->
+<div class="pdf-page">
+  <div class="pdf-header">
+    <div class="pdf-logo">
+      <svg viewBox="0 0 32 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M17 5 C 21 11, 24 17, 24 24 C 24 30, 21 35, 16 35 C 11 35, 7 31, 7 25 C 7 19, 11 14, 14 9 C 16 7, 17 5, 17 5 Z" fill="#1D1D1F"/>
+        <path d="M21 14 C 23.5 18, 25 22, 24.5 26.5 C 24 31, 21 34, 17 33 C 14 32, 12.5 29, 13 26 C 14 22, 17.5 17.5, 21 14 Z" fill="#3B5BDB"/>
+      </svg>
+    </div>
+    <span class="pdf-brand">MAVIS<span class="dot">·</span>2.0<span class="dot">·</span>Findings &amp; Activity</span>
+    <div class="pdf-doc-meta">
+      <strong>RF9028</strong>
+      Finding 2 of 2
+    </div>
+  </div>
+
+  <div class="pdf-section-label">Finding 02 of 02</div>
+
+  <div class="pdf-finding">
+    <div class="pdf-finding-head">
+      <div class="pdf-finding-head-left">
+        <span class="pdf-finding-num">2</span>
+        <div>
+          <div class="pdf-finding-title">Channel Box — PMT Stencil Faded</div>
+          <div class="pdf-finding-sub">Component: Channel Box · ID-plate face · SA-516 Grade 70</div>
+        </div>
+      </div>
+      <span class="pdf-cat-badge cat3"><span class="dot"></span>Cat 3 · Low</span>
+    </div>
+    <div class="pdf-finding-body">
+
+      <div class="pdf-photo-grid" style="grid-template-columns: 1fr 1fr;">
+        <div class="pdf-photo" style="background-image:url('photos/inspection-thumb4.jpg');aspect-ratio: 16/9;">
+          <span class="pdf-photo-badge">IMG 2.1</span>
+          <div class="ann-circle" style="top:30%;left:30%;width:25%;height:40%;border-color:#FF9500;"></div>
+          <div class="ann-label warn" style="top:22%;left:30%;">Faded stencil</div>
+        </div>
+        <div class="pdf-photo" style="background-image:url('photos/inspection-thumb1.jpg');aspect-ratio: 16/9;">
+          <span class="pdf-photo-badge">IMG 2.2</span>
+        </div>
+      </div>
+
+      <div class="pdf-finding-2col">
+        <div>
+          <div class="pdf-section-label">Findings</div>
+          <p class="pdf-finding-text">
+            PMT stencil marking faded on channel box face. Equipment ID still legible but secondary fields (next inspection date, PWHT) require re-stenciling.
+          </p>
+          <p class="pdf-finding-text">
+            No structural concerns. The faded marking creates an audit-trail risk if the equipment is moved or referenced by photo without the system context.
+          </p>
+        </div>
+        <div>
+          <div class="pdf-rec-label">Short-term Recommendation</div>
+          <p class="pdf-finding-text">
+            Re-stencil PMT No. <strong>SW.PMT.214091</strong> with full marking set during routine maintenance window.
+          </p>
+          <div class="pdf-rec-label">Long-term Recommendation</div>
+          <p class="pdf-finding-text">
+            Switch to <strong>laser-etched ID plate</strong> to eliminate stencil-fade recurrence. Coordinate with new-build standard for this equipment class.
+          </p>
+        </div>
+      </div>
+
+      <div class="pdf-finding-meta">
+        <div class="cell"><div class="l">Rust Grade</div><div class="v">Re 1 — Light</div></div>
+        <div class="cell"><div class="l">Damage Mechanism</div><div class="v">N/A</div></div>
+        <div class="cell"><div class="l">Findings Priority</div><div class="v">Low</div></div>
+        <div class="cell"><div class="l">SAP Priority</div><div class="v">P3 — Normal</div></div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Activity trail -->
+  <div class="pdf-section-title" style="margin-top:18px;">Activity &amp; Audit Trail</div>
+  <ul class="pdf-timeline">
+    <li class="pdf-timeline-item">
+      <span class="pdf-timeline-time">13 Apr · 09:42</span>
+      <span class="pdf-timeline-content"><strong>Approved</strong> by Mohd. Hairi <span class="tiny">(Approver)</span> · "Findings reviewed and verified."</span>
+    </li>
+    <li class="pdf-timeline-item">
+      <span class="pdf-timeline-time">13 Apr · 08:24</span>
+      <span class="pdf-timeline-content"><strong>Reviewed</strong> by Jasmine Loh <span class="tiny">(Reviewer)</span> · forwarded to approver</span>
+    </li>
+    <li class="pdf-timeline-item">
+      <span class="pdf-timeline-time">12 Apr · 16:18</span>
+      <span class="pdf-timeline-content"><strong>Submitted</strong> for approval by Afnan Hasbullah</span>
+    </li>
+    <li class="pdf-timeline-item">
+      <span class="pdf-timeline-time">12 Apr · 15:47</span>
+      <span class="pdf-timeline-content"><strong>Finding #2 added</strong> · Channel Box · Cat 3 · Low</span>
+    </li>
+    <li class="pdf-timeline-item">
+      <span class="pdf-timeline-time">12 Apr · 15:12</span>
+      <span class="pdf-timeline-content"><strong>Finding #1 added</strong> · Shell · Cat 2 · Atmospheric corrosion</span>
+    </li>
+    <li class="pdf-timeline-item">
+      <span class="pdf-timeline-time">12 Apr · 14:05</span>
+      <span class="pdf-timeline-content"><strong>Report created</strong> · 8 photos uploaded · sync queued</span>
+    </li>
+  </ul>
+
+  <div class="pdf-footer">
+    <span>MAVIS 2.0 · <strong>RF9028</strong> · Generated 13 Apr 2026, 09:48</span>
+    <span class="center">Confidential — for internal MLNG TES/3 use</span>
+    <span class="right">Page <strong>4</strong> of 4</span>
+  </div>
+</div>
+
+</body>
+</html>

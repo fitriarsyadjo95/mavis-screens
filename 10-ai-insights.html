@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>MAVIS 2.0 — Insights</title>
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="icon" type="image/svg+xml" href="favicon.svg">
+  <script>(function(){var qp=new URLSearchParams(location.search).get("theme");var t=qp||localStorage.getItem("mavis-theme")||(window.matchMedia&&window.matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light");document.documentElement.setAttribute("data-theme",t);})();</script>
+</head>
+<body>
+
+<!-- NAVBAR -->
+<nav class="navbar">
+  <div class="navbar-brand">
+    <div class="logo-icon">
+      <svg viewBox="0 0 32 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M17 5 C 21 11, 24 17, 24 24 C 24 30, 21 35, 16 35 C 11 35, 7 31, 7 25 C 7 19, 11 14, 14 9 C 16 7, 17 5, 17 5 Z" fill="#1D1D1F"/>
+        <path d="M21 14 C 23.5 18, 25 22, 24.5 26.5 C 24 31, 21 34, 17 33 C 14 32, 12.5 29, 13 26 C 14 22, 17.5 17.5, 21 14 Z" fill="#3B5BDB"/>
+      </svg>
+    </div>
+    <h1>MAVIS <span>2.0</span></h1>
+  </div>
+  <div class="navbar-search">
+    <svg class="search-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+    <input type="text" placeholder="Search reports, equipment, inspectors...">
+  </div>
+  <div class="navbar-right">
+    <button class="icon-btn" data-toast="No new notifications">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
+      <span class="notification-badge"></span>
+    </button>
+    <div class="user-avatar" data-toast="Profile menu coming soon">HA</div>
+  </div>
+</nav>
+
+<!-- SIDEBAR -->
+<aside class="sidebar">
+  <div class="sidebar-section">
+    <div class="sidebar-section-title">Main Menu</div>
+    <ul class="sidebar-nav">
+      <li><a href="01-dashboard.html"><span class="nav-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg></span>Dashboard</a></li>
+      <li><a href="02-report-list.html"><span class="nav-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14,2 14,8 20,8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg></span>Reports</a></li>
+      <li><a href="10-ai-insights.html" class="active"><span class="nav-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z"/></svg></span>Insights<span class="ai-tag">AI</span></a></li>
+      <li><a href="08-equipment.html"><span class="nav-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 20h20"/><path d="M5 20V8l7-5 7 5v12"/><path d="M9 20v-6h6v6"/></svg></span>Equipment</a></li>
+      <li><a href="13-ut-tablet.html"><span class="nav-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="14" rx="2"/><line x1="2" y1="20" x2="22" y2="20"/><line x1="9" y1="20" x2="15" y2="20"/></svg></span>UT Tablet<span class="ai-tag" style="font-size:8px;background:rgba(0,0,0,0.04);color:var(--text-tertiary);border-color:transparent;">OPT</span></a></li>
+      <li><a href="09-users.html"><span class="nav-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></span>Users</a></li>
+    </ul>
+  </div>
+  <div class="sidebar-section">
+    <div class="sidebar-section-title">System</div>
+    <ul class="sidebar-nav">
+      <li><a href="11-audit-log.html"><span class="nav-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg></span>Audit Log</a></li>
+      <li><a href="14-integrations.html"><span class="nav-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/><line x1="13" y1="4" x2="11" y2="20"/></svg></span>Integrations</a></li>
+      <li><a href="12-support.html"><span class="nav-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg></span>Support</a></li>
+      <li><a href="#" class="disabled"><span class="nav-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg></span>Settings<span class="nav-badge">soon</span></a></li>
+    </ul>
+  </div>
+</aside>
+
+<!-- MAIN CONTENT -->
+<main class="main-content">
+  <div class="page-header">
+    <div>
+      <h2>Insights<span class="ai-tag">AI</span></h2>
+      <p>Patterns and predictions detected across <span class="tag-id">1,247</span> inspection reports.</p>
+    </div>
+    <div class="action-row-right">
+      <button class="btn btn-ghost btn-sm" data-toast="Re-analyzing inspection data — this can take a few minutes">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="23 4 23 10 17 10"/><polyline points="1 20 1 14 7 14"/><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"/></svg>
+        Refresh
+      </button>
+      <button class="btn btn-primary btn-sm" data-toast="Insights exported (CSV)">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+        Export
+      </button>
+    </div>
+  </div>
+
+  <!-- AI CHAT PANEL -->
+  <section class="ai-chat-panel" aria-label="Ask MAVIS AI">
+    <header class="ai-chat-header">
+      <div class="ai-chat-header-mark">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z"/></svg>
+      </div>
+      <div class="ai-chat-header-text">
+        <div class="ai-chat-header-title">Ask MAVIS AI</div>
+        <div class="ai-chat-header-sub">Chat across <span class="tag-id">1,247</span> reports, <span class="tag-id">1,847</span> equipment records, and live UT data.</div>
+      </div>
+      <span class="ai-chat-header-badge">Beta</span>
+    </header>
+
+    <div class="ai-chat-messages" role="log" aria-live="polite">
+      <div class="ai-chat-empty">
+        <div class="ai-chat-empty-greeting">
+          <span class="ai-chat-empty-eyebrow">Latest scan · <span class="tag-id">14 Apr 2026, 09:17</span></span>
+          <h3>3 high-priority patterns detected this month.</h3>
+          <p>Corrosion rates at <strong>MLNG TIGA Module 7</strong> are trending <strong>2.3× above baseline</strong>. 8 vessels are projected to reach Re 3 within 6 months. 4 reports contain near-duplicate findings.</p>
+        </div>
+        <div class="ai-chat-empty-suggestions-label">Try asking</div>
+        <div class="ai-chat-empty-suggestions">
+          <button class="ai-chat-suggestion" type="button" data-suggest="What's the most critical equipment right now?">
+            <span class="ai-chat-suggestion-tag">Risk</span>
+            <span>What's the most critical equipment right now?</span>
+          </button>
+          <button class="ai-chat-suggestion" type="button" data-suggest="Show me corrosion rate trends across all plants">
+            <span class="ai-chat-suggestion-tag">Trend</span>
+            <span>Show me corrosion rate trends across all plants</span>
+          </button>
+          <button class="ai-chat-suggestion" type="button" data-suggest="Which vessels are due for re-coating in the next 6 months?">
+            <span class="ai-chat-suggestion-tag">Predict</span>
+            <span>Which vessels are due for re-coating in the next 6 months?</span>
+          </button>
+          <button class="ai-chat-suggestion" type="button" data-suggest="Where are duplicate findings I should consolidate?">
+            <span class="ai-chat-suggestion-tag">Cleanup</span>
+            <span>Where are duplicate findings I should consolidate?</span>
+          </button>
+          <button class="ai-chat-suggestion" type="button" data-suggest="Compare MLNG TIGA Module 7 to baseline">
+            <span class="ai-chat-suggestion-tag">Compare</span>
+            <span>Compare MLNG TIGA Module 7 to baseline</span>
+          </button>
+          <button class="ai-chat-suggestion" type="button" data-suggest="Which inspector has the highest backlog?">
+            <span class="ai-chat-suggestion-tag">People</span>
+            <span>Which inspector has the highest backlog?</span>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <form class="ai-chat-form" autocomplete="off">
+      <textarea class="ai-chat-textarea" rows="1" placeholder="Ask about a report, equipment, pattern, person…" aria-label="Ask MAVIS AI"></textarea>
+      <button type="submit" class="ai-chat-send" aria-label="Send">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+      </button>
+      <div class="ai-chat-form-hint">Enter to send · Shift+Enter for newline · MAVIS AI can be wrong — always verify against source reports.</div>
+    </form>
+  </section>
+
+  <!-- STAT ROW -->
+  <div class="stat-grid">
+    <div class="stat-card">
+      <div class="stat-icon danger">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+      </div>
+      <div>
+        <div class="stat-value">3</div>
+        <div class="stat-label">High-Priority Patterns</div>
+        <div class="stat-change down">+1 this week</div>
+      </div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-icon warning">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+      </div>
+      <div>
+        <div class="stat-value">12</div>
+        <div class="stat-label">Predictive Alerts</div>
+        <div class="stat-change">Next 6 months</div>
+      </div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-icon primary">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+      </div>
+      <div>
+        <div class="stat-value">7</div>
+        <div class="stat-label">Efficiency Wins</div>
+        <div class="stat-change up">Saved ~14 hr</div>
+      </div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-icon success">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+      </div>
+      <div>
+        <div class="stat-value">5</div>
+        <div class="stat-label">Positive Trends</div>
+        <div class="stat-change up">All plants improving</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <!-- FILTERS -->
+    <div class="filter-bar">
+      <select class="form-control">
+        <option>All Types</option>
+        <option>Hotspot</option>
+        <option>Predictive</option>
+        <option>Efficiency</option>
+        <option>Trend</option>
+        <option>Anomaly</option>
+      </select>
+      <select class="form-control">
+        <option>All Plants</option>
+        <option>MLNG</option>
+        <option>MLNG TIGA</option>
+        <option>MLNG DUA</option>
+        <option>RI5</option>
+      </select>
+      <select class="form-control">
+        <option>All Severities</option>
+        <option>High</option>
+        <option>Medium</option>
+        <option>Low</option>
+        <option>Informational</option>
+      </select>
+      <select class="form-control">
+        <option>Last 90 days</option>
+        <option>Last 30 days</option>
+        <option>This quarter</option>
+        <option>This year</option>
+      </select>
+      <div style="flex:1;min-width:220px;position:relative;">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="position:absolute;left:12px;top:50%;transform:translateY(-50%);color:var(--text-tertiary);"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+        <input type="text" class="form-control" placeholder="Search insights, equipment, mechanism..." style="padding-left:36px;">
+      </div>
+    </div>
+
+    <!-- TAG PILLS -->
+    <div class="tag-pills">
+      <span class="tag-pill active" data-tag="all">All</span>
+      <span class="tag-pill" data-tag="corrosion">Corrosion</span>
+      <span class="tag-pill" data-tag="coating">Coating</span>
+      <span class="tag-pill" data-tag="predictive">Predictive</span>
+      <span class="tag-pill" data-tag="efficiency">Efficiency</span>
+      <span class="tag-pill" data-tag="anomaly">Anomaly</span>
+    </div>
+
+    <!-- INSIGHTS GRID -->
+    <div class="insights-grid">
+
+      <article class="insight-card severity-high">
+        <header class="insight-card-head">
+          <div class="insight-icon-tile red">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/></svg>
+          </div>
+          <div class="insight-meta">
+            <span class="insight-type">Corrosion Hotspot</span>
+            <span class="insight-severity"><span class="badge badge-danger"><span class="badge-dot"></span>High</span></span>
+          </div>
+          <button class="btn-icon" title="Dismiss" data-toast="Insight dismissed"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>
+        </header>
+        <h3 class="insight-title">Module 7 — recurring external corrosion on pressure vessels</h3>
+        <p class="insight-detail"><strong>12 reports</strong> in the last 90 days flag atmospheric corrosion in the same area. Equipment <span class="tag-id">7V-95543</span>, <span class="tag-id">7V-95540</span>, and <span class="tag-id">7V-95538</span> share identical damage patterns near bottom-head junctions.</p>
+        <footer class="insight-footer">
+          <div class="insight-stats">
+            <span><span class="stat-dot red"></span>12 reports</span>
+            <span>3 vessels</span>
+            <span>MLNG TIGA</span>
+          </div>
+          <div class="insight-actions">
+            <a href="02-report-list.html" class="btn btn-ghost btn-sm">View reports</a>
+            <button class="btn btn-primary btn-sm" data-toast="Work order WO-2148 created · assigned to Mohd. Hairi">Create WO</button>
+          </div>
+        </footer>
+      </article>
+
+      <article class="insight-card severity-medium">
+        <header class="insight-card-head">
+          <div class="insight-icon-tile orange">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+          </div>
+          <div class="insight-meta">
+            <span class="insight-type">Predictive Alert</span>
+            <span class="insight-severity"><span class="badge badge-warning"><span class="badge-dot"></span>Medium</span></span>
+          </div>
+          <button class="btn-icon" title="Dismiss" data-toast="Insight dismissed"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>
+        </header>
+        <h3 class="insight-title">8 vessels due for re-coating within 6 months</h3>
+        <p class="insight-detail">Based on rust grade progression (Re 1 → Re 2) across <strong>23 inspection cycles</strong>, these vessels will likely reach Re 3 before the next turnaround if untreated. Recommend scheduling SP-6 blast and full re-coating during the Q3 maintenance window.</p>
+        <footer class="insight-footer">
+          <div class="insight-stats">
+            <span><span class="stat-dot orange"></span>8 vessels</span>
+            <span>~6 months runway</span>
+            <span>MLNG · MLNG TIGA</span>
+          </div>
+          <div class="insight-actions">
+            <button class="btn btn-ghost btn-sm" data-toast="View predicted vessels list">View list</button>
+            <button class="btn btn-primary btn-sm" data-toast="Maintenance plan drafted (PDF)">Plan maintenance</button>
+          </div>
+        </footer>
+      </article>
+
+      <article class="insight-card severity-info">
+        <header class="insight-card-head">
+          <div class="insight-icon-tile blue">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+          </div>
+          <div class="insight-meta">
+            <span class="insight-type">Efficiency</span>
+            <span class="insight-severity"><span class="badge badge-info"><span class="badge-dot"></span>Info</span></span>
+          </div>
+          <button class="btn-icon" title="Dismiss" data-toast="Insight dismissed"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>
+        </header>
+        <h3 class="insight-title">Duplicate findings detected in 4 recent reports</h3>
+        <p class="insight-detail">Reports <span class="report-id">RF9028</span>, <span class="report-id">RF9026</span>, <span class="report-id">RF9019</span>, <span class="report-id">RF9015</span> contain <strong>near-identical findings</strong> for <span class="tag-id">E-4642-ACI1</span>. Consolidating into a single follow-up report would save approximately <strong>3 inspector-hours</strong> per cycle.</p>
+        <footer class="insight-footer">
+          <div class="insight-stats">
+            <span><span class="stat-dot blue"></span>4 reports</span>
+            <span>~3 hr savings</span>
+            <span>MLNG</span>
+          </div>
+          <div class="insight-actions">
+            <button class="btn btn-ghost btn-sm" data-toast="Side-by-side comparison opening">Compare</button>
+            <button class="btn btn-primary btn-sm" data-toast="Reports merged into RF9028">Consolidate</button>
+          </div>
+        </footer>
+      </article>
+
+      <article class="insight-card severity-positive">
+        <header class="insight-card-head">
+          <div class="insight-icon-tile green">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+          </div>
+          <div class="insight-meta">
+            <span class="insight-type">Positive Trend</span>
+            <span class="insight-severity"><span class="badge badge-success"><span class="badge-dot"></span>Positive</span></span>
+          </div>
+          <button class="btn-icon" title="Dismiss" data-toast="Insight dismissed"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>
+        </header>
+        <h3 class="insight-title">MLNG DUA — 40% fewer Cat 1 findings vs last quarter</h3>
+        <p class="insight-detail">Coating maintenance program completed in Jan 2026 is showing measurable results. Category 1 findings dropped from <strong>15 to 9</strong> across all MLNG DUA equipment. Trend correlates with the Q4 coating-cycle reduction initiative led by Wong Mei Ling.</p>
+        <footer class="insight-footer">
+          <div class="insight-stats">
+            <span><span class="stat-dot green"></span>−40% Cat 1</span>
+            <span>Quarter over quarter</span>
+            <span>MLNG DUA</span>
+          </div>
+          <div class="insight-actions">
+            <button class="btn btn-ghost btn-sm" data-toast="Trend chart opening">View chart</button>
+            <button class="btn btn-ghost btn-sm" data-toast="Pattern shared with Operations team">Share</button>
+          </div>
+        </footer>
+      </article>
+
+      <article class="insight-card severity-medium">
+        <header class="insight-card-head">
+          <div class="insight-icon-tile orange">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+          </div>
+          <div class="insight-meta">
+            <span class="insight-type">Anomaly</span>
+            <span class="insight-severity"><span class="badge badge-warning"><span class="badge-dot"></span>Medium</span></span>
+          </div>
+          <button class="btn-icon" title="Dismiss" data-toast="Insight dismissed"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>
+        </header>
+        <h3 class="insight-title">Unusual UT thickness drop on <span class="tag-id">10"-B12420-CAB2</span></h3>
+        <p class="insight-detail">Latest UT reading shows <strong>2.4 mm wall thickness</strong>, down from 3.1 mm at last inspection (Sep 2025). Rate of metal loss exceeds historical baseline by <strong>3.8×</strong>. Recommend immediate follow-up scan and process review for upstream contamination.</p>
+        <footer class="insight-footer">
+          <div class="insight-stats">
+            <span><span class="stat-dot orange"></span>−0.7 mm in 7 mo</span>
+            <span>3.8× baseline</span>
+            <span>MLNG TIGA</span>
+          </div>
+          <div class="insight-actions">
+            <a href="07-report-detail.html" class="btn btn-ghost btn-sm">Last report</a>
+            <button class="btn btn-primary btn-sm" data-toast="UT follow-up scheduled · 16 Apr">Schedule UT</button>
+          </div>
+        </footer>
+      </article>
+
+      <article class="insight-card severity-info">
+        <header class="insight-card-head">
+          <div class="insight-icon-tile blue">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M9 12l2 2 4-4"/><circle cx="12" cy="12" r="10"/></svg>
+          </div>
+          <div class="insight-meta">
+            <span class="insight-type">Coverage</span>
+            <span class="insight-severity"><span class="badge badge-info"><span class="badge-dot"></span>Info</span></span>
+          </div>
+          <button class="btn-icon" title="Dismiss" data-toast="Insight dismissed"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>
+        </header>
+        <h3 class="insight-title">RI5 inspection coverage gap — 14 equipment overdue</h3>
+        <p class="insight-detail">14 RI5 assets haven't been inspected in <strong>over 14 months</strong>, exceeding the standard 12-month interval. Most are low-criticality piping but 2 are pressure vessels (<span class="tag-id">5V-44012</span>, <span class="tag-id">5V-44018</span>) that should be prioritized.</p>
+        <footer class="insight-footer">
+          <div class="insight-stats">
+            <span><span class="stat-dot blue"></span>14 overdue</span>
+            <span>2 pressure vessels</span>
+            <span>RI5</span>
+          </div>
+          <div class="insight-actions">
+            <a href="08-equipment.html" class="btn btn-ghost btn-sm">View equipment</a>
+            <button class="btn btn-primary btn-sm" data-toast="Inspection batch scheduled · week of 22 Apr">Schedule batch</button>
+          </div>
+        </footer>
+      </article>
+
+    </div>
+  </div>
+</main>
+
+<script defer src="js/app.js"></script>
+</body>
+</html>

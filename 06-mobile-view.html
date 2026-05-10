@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=375">
+  <title>MAVIS 2.0 — Mobile Report</title>
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="icon" type="image/svg+xml" href="favicon.svg">
+  <style>
+    body {
+      background: #F5F5F7;
+      display: flex;
+      align-items: flex-start;
+      justify-content: center;
+      padding: 40px 0;
+      min-height: 100vh;
+    }
+
+    .device-frame {
+      width: 375px;
+      min-height: 812px;
+      background: var(--surface);
+      border-radius: 44px;
+      overflow: hidden;
+      box-shadow: 0 50px 100px rgba(0,0,0,0.12), 0 0 0 1px rgba(0,0,0,0.06), 0 0 0 11px #1D1D1F, 0 0 0 13px #3A3A3C;
+      position: relative;
+    }
+
+    .device-notch {
+      position: absolute;
+      top: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 126px;
+      height: 34px;
+      background: #1D1D1F;
+      border-radius: 0 0 24px 24px;
+      z-index: 200;
+    }
+
+    .device-status-bar {
+      height: 52px;
+      background: var(--surface);
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+      padding: 0 28px 8px;
+      font-size: 14px;
+      color: var(--text-primary);
+      font-weight: 700;
+    }
+
+    .mobile-frame { min-height: auto; }
+    .mobile-navbar { position: relative; }
+    .mobile-content { padding-bottom: 90px; }
+
+    .mobile-bottom-bar {
+      position: absolute;
+      width: 100%;
+      left: 0;
+      transform: none;
+      bottom: 0;
+    }
+
+    .mobile-step-indicator {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      padding: 12px 16px;
+      background: var(--surface-secondary);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .mobile-step-dot {
+      width: 8px; height: 8px;
+      border-radius: 9999px;
+      background: rgba(0,0,0,0.08);
+    }
+
+    .mobile-step-dot.completed { background: var(--accent); }
+
+    .mobile-step-dot.active {
+      background: var(--accent);
+      width: 24px;
+      border-radius: 4px;
+    }
+
+    .mobile-step-text {
+      font-size: 12px;
+      color: var(--text-secondary);
+      margin-left: 8px;
+      font-weight: 500;
+    }
+
+    .mobile-form-group { margin-bottom: 14px; }
+
+    .mobile-form-group label {
+      display: block;
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--text-secondary);
+      margin-bottom: 4px;
+    }
+
+    .mobile-form-group .form-control { font-size: 15px; padding: 12px; }
+
+    .home-indicator {
+      width: 134px;
+      height: 5px;
+      background: var(--text-primary);
+      border-radius: 3px;
+      margin: 8px auto;
+      opacity: 0.2;
+    }
+  </style>
+  <script>(function(){var qp=new URLSearchParams(location.search).get("theme");var t=qp||localStorage.getItem("mavis-theme")||(window.matchMedia&&window.matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light");document.documentElement.setAttribute("data-theme",t);})();</script>
+</head>
+<body>
+
+<div class="device-frame">
+  <div class="device-notch"></div>
+
+  <!-- Status Bar -->
+  <div class="device-status-bar">
+    <span>9:41</span>
+    <span style="display:flex;gap:5px;align-items:center;">
+      <svg width="15" height="12" viewBox="0 0 15 12" fill="var(--text-primary)"><path d="M7.5 3.6C9.9 3.6 12.1 4.5 13.8 6l1.2-1.2C13 2.8 10.4 1.6 7.5 1.6S2 2.8 0 4.8L1.2 6C2.9 4.5 5.1 3.6 7.5 3.6zm0 4c1.4 0 2.6.5 3.6 1.4l-3.6 3.6-3.6-3.6c1-.9 2.2-1.4 3.6-1.4z"/></svg>
+      <svg width="16" height="12" viewBox="0 0 16 12" fill="var(--text-primary)"><rect x="11" y="0" width="3" height="12" rx="0.5"/><rect x="7" y="3" width="3" height="9" rx="0.5"/><rect x="3" y="6" width="3" height="6" rx="0.5"/></svg>
+      <svg width="25" height="12" viewBox="0 0 25 12"><rect x="0" y="0.5" width="21" height="11" rx="2.5" stroke="var(--text-primary)" stroke-width="1" fill="none" opacity="0.35"/><rect x="22" y="3.5" width="2" height="5" rx="1" fill="var(--text-primary)" opacity="0.35"/><rect x="1.5" y="2" width="14" height="8" rx="1.5" fill="var(--accent)"/></svg>
+    </span>
+  </div>
+
+  <!-- Mobile Navbar -->
+  <div class="mobile-navbar">
+    <button class="back-btn" data-href="02-report-list.html">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="15 18 9 12 15 6"/></svg>
+    </button>
+    <h1>New Report</h1>
+    <div style="display:flex;align-items:center;gap:8px;">
+      <div class="mobile-offline-badge">
+        <span class="pulse"></span>
+        Offline
+      </div>
+    </div>
+  </div>
+
+  <!-- Step Indicator -->
+  <div class="mobile-step-indicator">
+    <div class="mobile-step-dot completed"></div>
+    <div class="mobile-step-dot active"></div>
+    <div class="mobile-step-dot"></div>
+    <span class="mobile-step-text">Step 2 of 3 — Findings</span>
+  </div>
+
+  <!-- Content -->
+  <div class="mobile-content" style="padding:16px;">
+
+    <!-- Equipment Info Bar -->
+    <div style="background:var(--accent-subtle);border:1px solid var(--accent-light);border-radius:var(--radius);padding:10px 12px;margin-bottom:16px;display:flex;align-items:center;gap:10px;">
+      <div style="width:32px;height:32px;border-radius:var(--radius-sm);background:var(--accent-light);display:flex;align-items:center;justify-content:center;">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="2"><path d="M2 20h20"/><path d="M5 20V8l7-5 7 5v12"/></svg>
+      </div>
+      <div>
+        <div style="font-size:14px;"><span class="tag-id" style="font-size:14px;font-weight:700;">7V-95543</span></div>
+        <div style="font-size:12px;color:var(--text-secondary);font-weight:500;">Secured Air Supply Vessel — MLNG TIGA</div>
+      </div>
+    </div>
+
+    <!-- Component Selection -->
+    <div class="mobile-form-group">
+      <label>Component <span style="color:var(--red)">*</span></label>
+      <select class="form-control" style="font-size:15px;padding:12px;">
+        <option>Shell</option>
+      </select>
+    </div>
+
+    <!-- Camera Capture -->
+    <div class="camera-btn" data-modal="upload-image">
+      <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+        <path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/>
+        <circle cx="12" cy="13" r="4"/>
+      </svg>
+      <span>Take Photo</span>
+      <span style="font-size:12px;font-weight:400;color:var(--text-tertiary);">or tap to upload from gallery</span>
+    </div>
+
+    <!-- Photo Carousel -->
+    <div class="photo-carousel">
+      <div class="carousel-item" style="background:url('photos/inspection-thumb1.jpg') center/cover;position:relative;">
+        <div style="position:absolute;top:6px;right:6px;width:20px;height:20px;background:var(--accent);color:white;border-radius:9999px;display:flex;align-items:center;justify-content:center;font-size:9px;font-weight:700;">2</div>
+      </div>
+      <div class="carousel-item" style="background:url('photos/inspection-thumb2.jpg') center/cover;position:relative;">
+        <div style="position:absolute;top:6px;right:6px;width:20px;height:20px;background:var(--accent);color:white;border-radius:9999px;display:flex;align-items:center;justify-content:center;font-size:9px;font-weight:700;">1</div>
+      </div>
+      <div class="carousel-item" style="background:url('photos/inspection-thumb3.jpg') center/cover;"></div>
+      <div class="carousel-item" style="background:url('photos/inspection-thumb4.jpg') center/cover;position:relative;">
+        <div style="position:absolute;top:6px;right:6px;width:20px;height:20px;background:var(--accent);color:white;border-radius:9999px;display:flex;align-items:center;justify-content:center;font-size:9px;font-weight:700;">1</div>
+      </div>
+    </div>
+
+    <!-- Findings Accordion -->
+    <div class="accordion">
+      <div class="accordion-header">
+        <span>Findings</span>
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--text-tertiary)" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+      </div>
+      <div class="accordion-body">
+        <div class="mobile-form-group">
+          <label>Preset Finding</label>
+          <select class="form-control" style="font-size:14px;padding:10px;">
+            <option>External corrosion observed on equipment shell</option>
+          </select>
+        </div>
+        <div class="mobile-form-group">
+          <label>Additional Details</label>
+          <textarea class="form-control" style="font-size:14px;min-height:60px;">External corrosion observed near bottom head junction.</textarea>
+        </div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;">
+          <div class="mobile-form-group">
+            <label>Rust Grade</label>
+            <select class="form-control" style="font-size:14px;padding:10px;">
+              <option>Re 2 — Moderate</option>
+            </select>
+          </div>
+          <div class="mobile-form-group">
+            <label>Priority</label>
+            <select class="form-control" style="font-size:14px;padding:10px;">
+              <option>Low</option>
+            </select>
+          </div>
+        </div>
+        <div class="mobile-form-group" style="margin-bottom:0;">
+          <label>Damage Mechanism</label>
+          <select class="form-control" style="font-size:14px;padding:10px;">
+            <option>Atmospheric Corrosion</option>
+          </select>
+        </div>
+      </div>
+    </div>
+
+    <!-- Recommendations Accordion -->
+    <div class="accordion">
+      <div class="accordion-header">
+        <span>Recommendations</span>
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--text-tertiary)" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+      </div>
+      <div class="accordion-body">
+        <div class="mobile-form-group">
+          <label>Short-term</label>
+          <textarea class="form-control" style="font-size:14px;min-height:50px;">To re-stencil PMT No. by adding 'SW'</textarea>
+        </div>
+        <div class="mobile-form-group" style="margin-bottom:8px;">
+          <label>Long-term</label>
+          <textarea class="form-control" style="font-size:14px;min-height:50px;">Full blast and re-coating during next turnaround</textarea>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:12px;">
+          <div style="display:flex;align-items:center;justify-content:space-between;padding:4px 0;">
+            <span style="font-size:14px;color:var(--text-primary);">Further Inspection</span>
+            <div class="toggle-switch" style="width:40px;height:22px;">
+              <div class="toggle-knob" style="width:18px;height:18px;"></div>
+            </div>
+          </div>
+          <div style="display:flex;align-items:center;justify-content:space-between;padding:4px 0;">
+            <span style="font-size:14px;color:var(--text-primary);">Open Insulation</span>
+            <div class="toggle-switch" style="width:40px;height:22px;">
+              <div class="toggle-knob" style="width:18px;height:18px;"></div>
+            </div>
+          </div>
+          <div style="display:flex;align-items:center;justify-content:space-between;padding:4px 0;">
+            <span style="font-size:14px;color:var(--text-primary);">Scaffolding</span>
+            <div class="toggle-switch" style="width:40px;height:22px;">
+              <div class="toggle-knob" style="width:18px;height:18px;"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Add Another Finding -->
+    <button style="width:100%;padding:12px;border:1.5px dashed var(--border-strong);border-radius:var(--radius);background:transparent;color:var(--accent);font-size:14px;font-weight:600;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:6px;margin-bottom:16px;font-family:inherit;">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+      Add Another Finding
+    </button>
+  </div>
+
+  <!-- Bottom Action Bar -->
+  <div class="mobile-bottom-bar">
+    <button class="btn btn-ghost" style="flex:0.8;" data-action="save-draft" data-href="02-report-list.html">Save Draft</button>
+    <button class="btn btn-primary" style="flex:1.2;" data-href="05-create-report-review.html">
+      Next
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"/></svg>
+    </button>
+  </div>
+
+  <!-- Home Indicator -->
+  <div style="padding:6px 0 4px;background:var(--surface);">
+    <div class="home-indicator"></div>
+  </div>
+</div>
+
+<script defer src="js/app.js"></script>
+</body>
+</html>
