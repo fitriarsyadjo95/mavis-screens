@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>MAVIS 2.0 — Create Report: Details</title>
+  <title>MAVIS 2.0 — Create TR Report: Details</title>
   <link rel="stylesheet" href="css/style.css">
   <link rel="icon" type="image/svg+xml" href="favicon.svg">
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" crossorigin="">
@@ -63,8 +63,8 @@
 <main class="main-content">
   <div class="page-header">
     <div>
-      <h2>Create New Report</h2>
-      <p>Fill in the report details, add findings, and submit for approval.</p>
+      <h2>Create New Report — Temporary Repair (TR)</h2>
+      <p>Record a temporary repair inspection. Capture the TR component, repair method, and follow-up plan.</p>
     </div>
   </div>
 
@@ -77,7 +77,7 @@
     <div class="step-divider"></div>
     <div class="step">
       <div class="step-number">2</div>
-      <div class="step-label">Findings & Recommendations</div>
+      <div class="step-label">TR Inspection Findings</div>
     </div>
     <div class="step-divider"></div>
     <div class="step">
@@ -90,7 +90,7 @@
   <div class="card mb-24">
     <h3 class="section-divider" style="margin-top:0;">Report Type</h3>
     <div class="report-type-grid">
-      <div class="report-type-card selected" data-href="03-create-report-details.html">
+      <div class="report-type-card" data-href="03-create-report-details.html">
         <div class="rt-icon" style="background:var(--accent-light);color:var(--accent);">
           <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
         </div>
@@ -108,7 +108,7 @@
         </div>
         <div class="rt-name">SSI Inspection</div>
       </div>
-      <div class="report-type-card" data-href="03b-create-tr-details.html">
+      <div class="report-type-card selected" data-href="03b-create-tr-details.html">
         <div class="rt-icon" style="background:var(--orange-bg);color:var(--orange);">
           <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg>
         </div>
@@ -123,15 +123,56 @@
     </div>
   </div>
 
-  <!-- EQUIPMENT SELECTION -->
+  <!-- TR REFERENCE -->
   <div class="card mb-24">
-    <h3 class="section-divider" style="margin-top:0;">Equipment Selection</h3>
+    <h3 class="section-divider" style="margin-top:0;">TR Reference</h3>
+    <div class="form-row form-row-3 mb-16">
+      <div class="form-group">
+        <label class="form-label">TR Repair No. <span class="required">*</span></label>
+        <input type="text" class="form-control" value="MOC/MLNG/MLNG TIGA/2022/638">
+      </div>
+      <div class="form-group">
+        <label class="form-label">MOC Reference</label>
+        <input type="text" class="form-control" value="MOC/MLNG/2022/638">
+      </div>
+      <div class="form-group">
+        <label class="form-label">TR Status</label>
+        <select class="form-control">
+          <option selected>Active — Under Monitoring</option>
+          <option>Pending Permanent Repair</option>
+          <option>Closed</option>
+        </select>
+      </div>
+    </div>
+    <div class="form-row form-row-3 mb-16">
+      <div class="form-group">
+        <label class="form-label">TR Installation Date</label>
+        <input type="text" class="form-control" value="15 January 2025">
+      </div>
+      <div class="form-group">
+        <label class="form-label">TR Expiry Date <span class="required">*</span></label>
+        <input type="text" class="form-control" value="15 January 2026">
+      </div>
+      <div class="form-group">
+        <label class="form-label">Estimated Duration</label>
+        <select class="form-control">
+          <option>Up to 3 months</option>
+          <option>3 to 6 months</option>
+          <option selected>6 to 12 months</option>
+          <option>Over 12 months</option>
+        </select>
+      </div>
+    </div>
+  </div>
 
-    <!-- Search bar -->
+  <!-- EQUIPMENT / LINE SELECTION -->
+  <div class="card mb-24">
+    <h3 class="section-divider" style="margin-top:0;">Piping Line / Equipment</h3>
+
     <div style="display:flex;gap:12px;margin-bottom:20px;">
       <div style="flex:1;position:relative;">
         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="position:absolute;left:12px;top:50%;transform:translateY(-50%);color:var(--text-tertiary);"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
-        <input type="text" class="form-control" value="7V-95543" style="padding-left:36px;">
+        <input type="text" class="form-control" value="911-PDRA-036L" style="padding-left:36px;">
       </div>
       <button class="btn btn-primary" data-modal="asset-search">
         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
@@ -139,90 +180,73 @@
       </button>
     </div>
 
-    <!-- Auto-populated Asset Data -->
     <div style="background:var(--accent-subtle);border:1px solid var(--accent-light);border-radius:var(--radius);padding:12px 16px;margin-bottom:20px;display:flex;align-items:center;gap:8px;">
       <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
-      <span style="font-size:13px;color:var(--accent-hover);font-weight:500;">Equipment found. Asset data auto-populated from template.</span>
+      <span style="font-size:13px;color:var(--accent-hover);font-weight:500;">Line found. Asset data auto-populated from template.</span>
     </div>
 
     <div class="form-row form-row-3 mb-16">
       <div class="form-group">
-        <label class="form-label">Equipment ID</label>
-        <input type="text" class="form-control form-control-readonly" value="7V-95543" readonly>
+        <label class="form-label">Piping Line / Equipment Number</label>
+        <input type="text" class="form-control form-control-readonly" value="911-PDRA-036L (8C-91103)" readonly>
       </div>
       <div class="form-group">
-        <label class="form-label">System Name</label>
-        <input type="text" class="form-control form-control-readonly" value="95500" readonly>
+        <label class="form-label">Area Location</label>
+        <input type="text" class="form-control form-control-readonly" value="UNIT 91100 (8C-91103)" readonly>
       </div>
       <div class="form-group">
-        <label class="form-label">Component Name</label>
-        <div style="display:flex;gap:6px;flex-wrap:wrap;padding:8px 0;">
-          <span class="component-tag">Bottom Head <span class="tag-remove">&times;</span></span>
-          <span class="component-tag">Shell <span class="tag-remove">&times;</span></span>
-          <span class="component-tag">Top Head <span class="tag-remove">&times;</span></span>
-        </div>
+        <label class="form-label">Module / Plant</label>
+        <input type="text" class="form-control form-control-readonly" value="MLNG MODULE 8" readonly>
       </div>
     </div>
     <div class="form-row form-row-2 mb-16">
       <div class="form-group">
-        <label class="form-label">Equipment Description</label>
-        <input type="text" class="form-control form-control-readonly" value="Secured Air Supply Vessel" readonly>
+        <label class="form-label">Service / Process Fluid</label>
+        <input type="text" class="form-control form-control-readonly" value="Hydrocarbon Liquid" readonly>
       </div>
       <div class="form-group">
-        <label class="form-label">Equipment Type</label>
-        <input type="text" class="form-control form-control-readonly" value="Unfired Pressure Vessel" readonly>
+        <label class="form-label">Operating Pressure</label>
+        <input type="text" class="form-control form-control-readonly" value="9.5 BarG @ 38°C" readonly>
       </div>
     </div>
+  </div>
 
-    <!-- Component List Table -->
-    <h4 style="font-size:14px;font-weight:600;margin-bottom:12px;color:var(--text-secondary);">Component List</h4>
-    <div class="table-wrapper">
-      <table>
-        <thead>
-          <tr>
-            <th>Component Name</th>
-            <th>Component Type</th>
-            <th>Material Spec</th>
-            <th>Material Grade</th>
-            <th>Process Service</th>
-            <th>Design Temp (&deg;C)</th>
-            <th>Op. Temp (&deg;C)</th>
-            <th>Design Pressure (BarG)</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td style="font-weight:600">Bottom Head</td>
-            <td>Head</td>
-            <td>SA-234</td>
-            <td>WPB</td>
-            <td>Instrument Air</td>
-            <td>65</td>
-            <td>40</td>
-            <td>10.7</td>
-          </tr>
-          <tr>
-            <td style="font-weight:600">Shell</td>
-            <td>Shell</td>
-            <td>SA-333</td>
-            <td>6</td>
-            <td>Instrument Air</td>
-            <td>65</td>
-            <td>40</td>
-            <td>10.7</td>
-          </tr>
-          <tr>
-            <td style="font-weight:600">Top Head</td>
-            <td>Head</td>
-            <td>SA-234</td>
-            <td>WPB</td>
-            <td>Instrument Air</td>
-            <td>65</td>
-            <td>40</td>
-            <td>10.7</td>
-          </tr>
-        </tbody>
-      </table>
+  <!-- TR TYPE / METHOD -->
+  <div class="card mb-24">
+    <h3 class="section-divider" style="margin-top:0;">TR Type &amp; Repair Method</h3>
+    <div class="form-row form-row-2 mb-16">
+      <div class="form-group">
+        <label class="form-label">TR Type <span class="required">*</span></label>
+        <select class="form-control">
+          <option selected>Nonmetallic Composite Repair System</option>
+          <option>Mechanical Clamp Repair (incl. Engineered Box / Clamp)</option>
+          <option>Fillet Welded Patches</option>
+          <option>Welded Leak Box Repair</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Component Type</label>
+        <select class="form-control">
+          <option selected>Wrapping or sleeve type</option>
+          <option>Sealant &amp; Sealant joint</option>
+          <option>Patch Plate &amp; Weld Joint</option>
+          <option>Coating</option>
+        </select>
+      </div>
+    </div>
+    <div class="form-row form-row-2 mb-16">
+      <div class="form-group">
+        <label class="form-label">Repair Materials Used</label>
+        <input type="text" class="form-control" value="Composite wrap (fibreglass + epoxy resin)">
+      </div>
+      <div class="form-group">
+        <label class="form-label">Vendor / Contractor</label>
+        <input type="text" class="form-control" value="ClockSpring | NRI">
+      </div>
+    </div>
+    <div class="form-group">
+      <label class="form-label">Description of Defect Being Repaired</label>
+      <textarea class="form-control" style="min-height:80px;">Internal corrosion findings on 8" hydrocarbon line elbow — wall loss exceeded T-min. Composite wrap installed as TR while permanent replacement spool is fabricated.</textarea>
     </div>
   </div>
 
@@ -236,11 +260,11 @@
         <p style="font-size:12px;color:var(--text-tertiary);margin-top:8px;">Click anywhere on the map to drop a pin · drag the pin to fine-tune</p>
       </div>
       <div>
-        <label class="form-label">Equipment photo reference</label>
+        <label class="form-label">TR component photo reference</label>
         <div class="equipment-photo-preview" style="background-image:url('photos/inspection-thumb1.jpg')">
           <div class="photo-overlay">
-            <div><span class="tag-id">7V-95543</span></div>
-            <div class="photo-desc">Secured Air Supply Vessel · Module 7</div>
+            <div><span class="tag-id">911-PDRA-036L</span></div>
+            <div class="photo-desc">Composite wrap · Module 8</div>
           </div>
         </div>
       </div>
@@ -248,15 +272,15 @@
     <div class="form-row form-row-3 mb-16">
       <div class="form-group">
         <label class="form-label">Latitude</label>
-        <input type="text" class="form-control form-control-readonly" id="pin-lat" value="3.17645" readonly>
+        <input type="text" class="form-control form-control-readonly" id="pin-lat" value="3.17820" readonly>
       </div>
       <div class="form-group">
         <label class="form-label">Longitude</label>
-        <input type="text" class="form-control form-control-readonly" id="pin-lng" value="113.04985" readonly>
+        <input type="text" class="form-control form-control-readonly" id="pin-lng" value="113.05110" readonly>
       </div>
       <div class="form-group">
         <label class="form-label">Plant Area</label>
-        <input type="text" class="form-control form-control-readonly" value="Module 7 — MLNG TIGA" readonly>
+        <input type="text" class="form-control form-control-readonly" value="Module 8 — MLNG TIGA" readonly>
       </div>
     </div>
   </div>
@@ -267,34 +291,49 @@
     <div class="form-row form-row-3 mb-16">
       <div class="form-group">
         <label class="form-label">System Report Number</label>
-        <input type="text" class="form-control form-control-readonly" value="RF9030" readonly>
+        <input type="text" class="form-control form-control-readonly" value="RF9031" readonly>
       </div>
       <div class="form-group">
         <label class="form-label">User Report Number</label>
-        <input type="text" class="form-control" placeholder="e.g. 7V-95543-EXT-SSI">
+        <input type="text" class="form-control" placeholder="e.g. TR-911-PDRA-036L-Q1">
       </div>
       <div class="form-group">
         <label class="form-label">Inspection Date <span class="required">*</span></label>
-        <input type="text" class="form-control" value="14 April 2026">
+        <input type="text" class="form-control" value="19 March 2025">
       </div>
     </div>
     <div class="form-row form-row-3 mb-16">
       <div class="form-group">
+        <label class="form-label">Inspector Name <span class="required">*</span></label>
+        <input type="text" class="form-control" value="YAZID SAZALI">
+      </div>
+      <div class="form-group">
         <label class="form-label">Inspection Method <span class="required">*</span></label>
         <select class="form-control">
+          <option selected>Visual + Snoopy Leak Test</option>
           <option>Visual Inspection</option>
+          <option>Radiography</option>
           <option>Ultrasonic Testing</option>
-          <option>Magnetic Particle Testing</option>
+          <option>VI + supplementary NDT</option>
         </select>
       </div>
       <div class="form-group">
-        <label class="form-label">Inspection Company</label>
-        <input type="text" class="form-control" value="MLNG Inspection Team">
+        <label class="form-label">Inspection Frequency</label>
+        <select class="form-control">
+          <option>Weekly</option>
+          <option selected>Monthly</option>
+          <option>Quarterly</option>
+          <option>Half-yearly</option>
+        </select>
       </div>
-      <div class="form-group">
-        <label class="form-label">Report Description <span class="required">*</span></label>
-        <input type="text" class="form-control" placeholder="Brief description of inspection scope">
-      </div>
+    </div>
+    <div class="form-group">
+      <label class="form-label">TR Risk Assessment</label>
+      <select class="form-control">
+        <option>Low — TR contained, no leak path</option>
+        <option selected>Medium — Active monitoring required</option>
+        <option>High — Operational restrictions in place</option>
+      </select>
     </div>
   </div>
 
@@ -303,8 +342,8 @@
     <a href="02-report-list.html" class="btn btn-ghost">Cancel</a>
     <div class="action-row-right">
       <button class="btn btn-ghost" data-action="save-draft" data-href="02-report-list.html">Save as Draft</button>
-      <a href="04-create-report-findings.html" class="btn btn-primary btn-lg">
-        Next: Findings
+      <a href="04b-create-tr-findings.html" class="btn btn-primary btn-lg">
+        Next: TR Findings
         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"/></svg>
       </a>
     </div>

@@ -726,6 +726,10 @@
       const grid = card.parentElement;
       grid.querySelectorAll('.report-type-card').forEach(c => c.classList.remove('selected'));
       card.classList.add('selected');
+      const href = card.getAttribute('data-href');
+      if (!href) return;
+      const here = location.pathname.split('/').pop() || 'index.html';
+      if (href !== here) location.href = href;
     });
   }
 

@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>MAVIS 2.0 — Create TR Report: Review</title>
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="icon" type="image/svg+xml" href="favicon.svg">
+  <script>(function(){var qp=new URLSearchParams(location.search).get("theme");var t=qp||localStorage.getItem("mavis-theme")||(window.matchMedia&&window.matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light");document.documentElement.setAttribute("data-theme",t);})();</script>
+</head>
+<body>
+
+<!-- NAVBAR -->
+<nav class="navbar">
+  <div class="navbar-brand">
+    <div class="logo-icon">
+      <svg viewBox="0 0 32 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M17 5 C 21 11, 24 17, 24 24 C 24 30, 21 35, 16 35 C 11 35, 7 31, 7 25 C 7 19, 11 14, 14 9 C 16 7, 17 5, 17 5 Z" fill="#1D1D1F"/>
+        <path d="M21 14 C 23.5 18, 25 22, 24.5 26.5 C 24 31, 21 34, 17 33 C 14 32, 12.5 29, 13 26 C 14 22, 17.5 17.5, 21 14 Z" fill="#3B5BDB"/>
+      </svg>
+    </div>
+    <h1>MAVIS <span>2.0</span></h1>
+  </div>
+  <div class="navbar-search">
+    <svg class="search-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+    <input type="text" placeholder="Search reports, equipment, inspectors...">
+  </div>
+  <div class="navbar-right">
+    <button class="icon-btn" data-toast="No new notifications">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
+      <span class="notification-badge"></span>
+    </button>
+    <div class="user-avatar" data-toast="Profile menu coming soon">HA</div>
+  </div>
+</nav>
+
+<!-- SIDEBAR -->
+<aside class="sidebar">
+  <div class="sidebar-section">
+    <div class="sidebar-section-title">Main Menu</div>
+    <ul class="sidebar-nav">
+      <li><a href="01-dashboard.html"><span class="nav-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg></span>Dashboard</a></li>
+      <li><a href="02-report-list.html" class="active"><span class="nav-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14,2 14,8 20,8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg></span>Reports</a></li>
+      <li><a href="10-ai-insights.html"><span class="nav-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z"/></svg></span>Insights<span class="ai-tag">AI</span></a></li>
+      <li><a href="08-equipment.html"><span class="nav-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 20h20"/><path d="M5 20V8l7-5 7 5v12"/><path d="M9 20v-6h6v6"/></svg></span>Equipment</a></li>
+      <li><a href="13-ut-tablet.html"><span class="nav-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="14" rx="2"/><line x1="2" y1="20" x2="22" y2="20"/><line x1="9" y1="20" x2="15" y2="20"/></svg></span>UT Tablet<span class="ai-tag" style="font-size:8px;background:rgba(0,0,0,0.04);color:var(--text-tertiary);border-color:transparent;">OPT</span></a></li>
+      <li><a href="09-users.html"><span class="nav-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></span>Users</a></li>
+    </ul>
+  </div>
+  <div class="sidebar-section">
+    <div class="sidebar-section-title">System</div>
+    <ul class="sidebar-nav">
+      <li><a href="11-audit-log.html"><span class="nav-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg></span>Audit Log</a></li>
+      <li><a href="14-integrations.html"><span class="nav-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/><line x1="13" y1="4" x2="11" y2="20"/></svg></span>Integrations</a></li>
+      <li><a href="12-support.html"><span class="nav-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg></span>Support</a></li>
+      <li><a href="#" class="disabled"><span class="nav-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg></span>Settings<span class="nav-badge">soon</span></a></li>
+    </ul>
+  </div>
+</aside>
+
+<!-- MAIN CONTENT -->
+<main class="main-content">
+  <div class="page-header">
+    <div>
+      <h2>Review &amp; Submit — TR Inspection</h2>
+      <p>Please review all details before submitting for approval.</p>
+    </div>
+  </div>
+
+  <!-- STEPS -->
+  <div class="steps">
+    <div class="step completed">
+      <div class="step-number"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></div>
+      <div class="step-label">Report Details</div>
+    </div>
+    <div class="step-divider completed"></div>
+    <div class="step completed">
+      <div class="step-number"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></div>
+      <div class="step-label">TR Inspection Findings</div>
+    </div>
+    <div class="step-divider completed"></div>
+    <div class="step active">
+      <div class="step-number">3</div>
+      <div class="step-label">Review &amp; Submit</div>
+    </div>
+  </div>
+
+  <!-- OFFLINE BANNER -->
+  <div class="offline-banner">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 1l22 22"/><path d="M16.72 11.06A10.94 10.94 0 0 1 19 12.55"/><path d="M5 12.55a10.94 10.94 0 0 1 5.17-2.39"/><path d="M10.71 5.05A16 16 0 0 1 22.56 9"/><path d="M1.42 9a15.91 15.91 0 0 1 4.7-2.88"/><path d="M8.53 16.11a6 6 0 0 1 6.95 0"/><line x1="12" y1="20" x2="12.01" y2="20"/></svg>
+    <div>
+      <strong>Offline Mode</strong> — This TR report will be saved locally and automatically synced when you're back online. Report number RF9031 has been reserved.
+    </div>
+  </div>
+
+  <!-- REPORT DETAILS SECTION -->
+  <div class="review-section">
+    <div class="review-section-header">
+      <div style="display:flex;align-items:center;justify-content:space-between;">
+        Report Details
+        <a href="03b-create-tr-details.html" style="color:rgba(255,255,255,0.7);font-size:13px;text-decoration:none;font-weight:400;">Edit</a>
+      </div>
+    </div>
+    <div class="review-section-body">
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:0;">
+        <div class="review-row">
+          <div class="review-label">Report Type</div>
+          <div class="review-value">Temporary Repair (TR) Inspection</div>
+        </div>
+        <div class="review-row">
+          <div class="review-label">System Report No.</div>
+          <div class="review-value"><span class="report-id">RF9031</span></div>
+        </div>
+        <div class="review-row">
+          <div class="review-label">TR Repair No.</div>
+          <div class="review-value"><span class="tag-id">MOC/MLNG/MLNG TIGA/2022/638</span></div>
+        </div>
+        <div class="review-row">
+          <div class="review-label">TR Status</div>
+          <div class="review-value"><span class="badge badge-warning">Active — Under Monitoring</span></div>
+        </div>
+        <div class="review-row">
+          <div class="review-label">Piping Line / Equipment</div>
+          <div class="review-value"><span class="tag-id">911-PDRA-036L (8C-91103)</span></div>
+        </div>
+        <div class="review-row">
+          <div class="review-label">Area Location</div>
+          <div class="review-value">UNIT 91100 (8C-91103)</div>
+        </div>
+        <div class="review-row">
+          <div class="review-label">Plant / Module</div>
+          <div class="review-value">MLNG MODULE 8 — MLNG TIGA</div>
+        </div>
+        <div class="review-row">
+          <div class="review-label">TR Installation Date</div>
+          <div class="review-value">15 January 2025</div>
+        </div>
+        <div class="review-row">
+          <div class="review-label">TR Expiry Date</div>
+          <div class="review-value">15 January 2026</div>
+        </div>
+        <div class="review-row">
+          <div class="review-label">Inspection Date</div>
+          <div class="review-value">19 March 2025</div>
+        </div>
+        <div class="review-row">
+          <div class="review-label">Inspector</div>
+          <div class="review-value">YAZID SAZALI</div>
+        </div>
+        <div class="review-row">
+          <div class="review-label">Inspection Method</div>
+          <div class="review-value">Visual + Snoopy Leak Test</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- TR TYPE SECTION -->
+  <div class="review-section">
+    <div class="review-section-header">TR Type &amp; Repair Method</div>
+    <div class="review-section-body">
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:0;">
+        <div class="review-row">
+          <div class="review-label">TR Type</div>
+          <div class="review-value">Nonmetallic Composite Repair System</div>
+        </div>
+        <div class="review-row">
+          <div class="review-label">Component Type</div>
+          <div class="review-value">Wrapping or sleeve type</div>
+        </div>
+        <div class="review-row">
+          <div class="review-label">Repair Materials</div>
+          <div class="review-value">Composite wrap (fibreglass + epoxy resin)</div>
+        </div>
+        <div class="review-row">
+          <div class="review-label">Vendor / Contractor</div>
+          <div class="review-value">ClockSpring | NRI</div>
+        </div>
+      </div>
+      <div style="padding:16px;border-top:1px solid var(--border);">
+        <div style="font-size:12px;color:var(--text-secondary);font-weight:600;margin-bottom:6px;">Defect Being Repaired</div>
+        <p style="font-size:14px;line-height:1.6;margin:0;">Internal corrosion findings on 8" hydrocarbon line elbow — wall loss exceeded T-min. Composite wrap installed as TR while permanent replacement spool is fabricated.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- TR INSPECTION CHECKLIST RESULT -->
+  <div class="review-section">
+    <div class="review-section-header">
+      <div style="display:flex;align-items:center;justify-content:space-between;">
+        TR Inspection Check List Results
+        <a href="04b-create-tr-findings.html" style="color:rgba(255,255,255,0.7);font-size:13px;text-decoration:none;font-weight:400;">Edit</a>
+      </div>
+    </div>
+    <div class="review-section-body" style="padding:0;">
+      <table>
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>Type of NSR / TR</th>
+            <th>Component</th>
+            <th>Inspection Method</th>
+            <th>Acceptance Criteria</th>
+            <th>Inspection Findings</th>
+            <th>Rectify?</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td rowspan="2" style="font-weight:600;vertical-align:top;">1</td>
+            <td rowspan="2" style="vertical-align:top;">Nonmetallic Composite Repair System</td>
+            <td rowspan="2" style="vertical-align:top;">Wrapping or sleeve type</td>
+            <td>Visual</td>
+            <td>Physical Satisfactory Condition <sup>2</sup></td>
+            <td>Wrapping was found intact and in satisfactory condition. No leak was found during inspection.</td>
+            <td><span class="badge badge-success">NA</span></td>
+          </tr>
+          <tr>
+            <td>Radiography <sup>1</sup></td>
+            <td>No increasing wall loss as per previous findings</td>
+            <td>NA</td>
+            <td><span class="badge badge-success">NA</span></td>
+          </tr>
+          <tr>
+            <td style="font-weight:600;">2</td>
+            <td>Mechanical Clamp Repair</td>
+            <td>Sealant &amp; Sealant joint</td>
+            <td>Visual</td>
+            <td>Zero Leak</td>
+            <td>NA</td>
+            <td><span class="badge badge-success">NA</span></td>
+          </tr>
+          <tr>
+            <td style="font-weight:600;">3</td>
+            <td>Fillet Welded Patches</td>
+            <td>Patch Plate &amp; Weld Joint</td>
+            <td>VI *with NDT if needed</td>
+            <td>Zero leak and Zero indication</td>
+            <td>NA</td>
+            <td><span class="badge badge-success">NA</span></td>
+          </tr>
+          <tr>
+            <td rowspan="2" style="font-weight:600;vertical-align:top;">4</td>
+            <td rowspan="2" style="vertical-align:top;">Welded Leak Box Repair</td>
+            <td>Sealant &amp; Sealant joint</td>
+            <td>Visual</td>
+            <td>Zero Leak</td>
+            <td>NA</td>
+            <td><span class="badge badge-success">NA</span></td>
+          </tr>
+          <tr>
+            <td>Coating</td>
+            <td>Visual</td>
+            <td>Coating Failure</td>
+            <td>NA</td>
+            <td><span class="badge badge-success">NA</span></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- PHOTOS SECTION -->
+  <div class="review-section">
+    <div class="review-section-header">Photos of Visual Inspection</div>
+    <div class="review-section-body">
+      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:12px;">
+        <div>
+          <div style="height:160px;border-radius:var(--radius);background:url('photos/inspection-thumb1.jpg') center/cover;border:2px solid var(--border);position:relative;">
+            <span class="annotation-badge" style="background:var(--accent);color:#fff;">1.0</span>
+          </div>
+          <div style="font-size:12px;font-weight:600;margin-top:6px;">GENERAL VIEW TO NORTH</div>
+          <div style="font-size:12px;color:var(--text-secondary);">Composite wrap location at 8" elbow.</div>
+        </div>
+        <div>
+          <div style="height:160px;border-radius:var(--radius);background:url('photos/inspection-thumb2.jpg') center/cover;border:2px solid var(--border);position:relative;">
+            <span class="annotation-badge" style="background:var(--accent);color:#fff;">2.0</span>
+          </div>
+          <div style="font-size:12px;font-weight:600;margin-top:6px;">CLOSED UP VIEW</div>
+          <div style="font-size:12px;color:var(--text-secondary);">Wrapping found intact and in satisfactory condition.</div>
+        </div>
+        <div>
+          <div style="height:160px;border-radius:var(--radius);background:url('photos/inspection-thumb3.jpg') center/cover;border:2px solid var(--border);position:relative;">
+            <span class="annotation-badge" style="background:var(--accent);color:#fff;">3.0</span>
+          </div>
+          <div style="font-size:12px;font-weight:600;margin-top:6px;">CLOSED UP VIEW — SNOOPY TEST</div>
+          <div style="font-size:12px;color:var(--text-secondary);">No leak was found during inspection.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- OVERALL RESULT SECTION -->
+  <div class="review-section">
+    <div class="review-section-header">
+      <div style="display:flex;align-items:center;justify-content:space-between;">
+        Overall Result Finding
+        <span class="badge badge-success" style="font-size:11px;">Acceptable — No rectification required</span>
+      </div>
+    </div>
+    <div class="review-section-body">
+      <p style="font-size:14px;line-height:1.6;margin:0 0 16px 0;">Wrapping was found intact and in satisfactory condition. Leak test using snoopy was done and no leak was found during inspection.</p>
+
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:24px;">
+        <div>
+          <div style="font-size:12px;color:var(--accent);font-weight:600;margin-bottom:4px;">Short-term Recommendation</div>
+          <p style="font-size:14px;line-height:1.6;margin:0 0 16px 0;">Continue monthly visual inspection and snoopy leak test. Verify no disbandment, no chalking, no discoloration.</p>
+        </div>
+        <div>
+          <div style="font-size:12px;color:var(--accent);font-weight:600;margin-bottom:4px;">Long-term / Permanent Repair Plan</div>
+          <p style="font-size:14px;line-height:1.6;margin:0 0 16px 0;">Schedule permanent repair (replacement spool) before TR expiry on 15 January 2026. Materials already on order, awaiting shutdown window.</p>
+        </div>
+      </div>
+
+      <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-top:8px;padding-top:16px;border-top:1px solid var(--border);">
+        <div>
+          <div style="font-size:12px;color:var(--text-secondary);font-weight:600;">Risk Level</div>
+          <div style="font-size:14px;margin-top:2px;"><span class="badge badge-warning">Medium</span></div>
+        </div>
+        <div>
+          <div style="font-size:12px;color:var(--text-secondary);font-weight:600;">SAP Priority</div>
+          <div style="font-size:14px;margin-top:2px;">P3 — Normal</div>
+        </div>
+        <div>
+          <div style="font-size:12px;color:var(--text-secondary);font-weight:600;">Next Inspection</div>
+          <div style="font-size:14px;margin-top:2px;">19 April 2025</div>
+        </div>
+        <div>
+          <div style="font-size:12px;color:var(--text-secondary);font-weight:600;">Inspection Frequency</div>
+          <div style="font-size:14px;margin-top:2px;">Monthly</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SIGNATURES -->
+  <div class="review-section">
+    <div class="review-section-header">Signatures</div>
+    <div class="review-section-body">
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:24px;">
+        <div>
+          <div style="font-size:12px;color:var(--text-secondary);font-weight:600;margin-bottom:6px;">Prepared by</div>
+          <div style="font-size:14px;font-weight:600;">YAZID SAZALI</div>
+          <div style="font-size:13px;color:var(--text-secondary);">Inspector — Plant Inspection</div>
+          <div style="font-size:12px;color:var(--text-tertiary);margin-top:4px;">Signed: 19 March 2025</div>
+        </div>
+        <div>
+          <div style="font-size:12px;color:var(--text-secondary);font-weight:600;margin-bottom:6px;">Reviewed by</div>
+          <div style="font-size:14px;font-weight:600;">HARRIHARAN A/L REMASH</div>
+          <div style="font-size:13px;color:var(--text-secondary);">Executive — Plant Inspection, Malaysia LNG Sdn Bhd</div>
+          <div style="font-size:12px;color:var(--text-tertiary);margin-top:4px;">Pending signature</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ACTION BUTTONS -->
+  <div class="action-row" style="margin-top:32px;">
+    <a href="04b-create-tr-findings.html" class="btn btn-ghost">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 18 9 12 15 6"/></svg>
+      Back
+    </a>
+    <div class="action-row-right">
+      <button class="btn btn-ghost" data-action="save-draft" data-href="02-report-list.html">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"/><polyline points="17 21 17 13 7 13 7 21"/><polyline points="7 3 7 8 15 8"/></svg>
+        Save as Draft
+      </button>
+      <button class="btn btn-primary btn-lg" data-action="submit-approval" data-href="02-report-list.html?status=pending">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 2L11 13"/><path d="M22 2l-7 20-4-9-9-4 20-7z"/></svg>
+        Submit for Approval
+      </button>
+    </div>
+  </div>
+</main>
+
+<script defer src="js/app.js"></script>
+</body>
+</html>
